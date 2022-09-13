@@ -7,7 +7,7 @@ An online E-store system built in Java 8=>11 and ___ _replace with other platfor
 
 - Ming Creekmore
 - Niccolls Evsseef
-- MEMBER3
+- Domenic Lo Iacono
 - MEMBER4
 
 
