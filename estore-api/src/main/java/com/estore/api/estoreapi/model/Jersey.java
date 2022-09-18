@@ -26,4 +26,28 @@ public class Jersey {
         this.isHome = isHome;
         this.number = number;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public float getCost(){
+        return cost;
+    }
+
+    public Size getSize(){
+        return size;
+    }
+
+    public boolean getIsHome(){
+        return isHome;
+    }
+
+    public int getNumber(){
+        return number;
+    }
 }
