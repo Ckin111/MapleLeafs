@@ -5,12 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 public class Jersey {
-    
+    private static final Logger LOG = Logger.getLogger(Jersey.class.getName());
     public enum Size {
         SMALL, MEDIUM, LARGE, XL;
     }
 
-    //TODO Make Size enum
     @JsonProperty("id") private int id;
     @JsonProperty("name") private String name;
     @JsonProperty("cost") private float cost;
