@@ -8,10 +8,12 @@ import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import com.estore.api.estoreapi.model.Jersey;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Component
 public class JerseyFileDAO implements JerseyDAO {
     private static final Logger LOG = Logger.getLogger(JerseyFileDAO.class.getName());
     Map<Integer, Jersey> jerseys;
