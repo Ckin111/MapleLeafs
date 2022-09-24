@@ -1,1 +1,1 @@
-[{"id":1,"name":"Austin Mathews","cost":59.99,"size":null,"home":true,"number":34},{"id":2,"name":"John Tavares","cost":59.99,"size":null,"home":true,"number":91}]
+[{"id":1,"name":"Austin Mathews","cost":59.99,"size":null,"home":true,"number":34},{"id":2,"name":"John Tavares","cost":59.99,"size":null,"home":false,"number":91}]

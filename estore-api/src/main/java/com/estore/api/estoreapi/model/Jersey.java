@@ -51,4 +51,18 @@ public class Jersey {
     public int getNumber(){
         return number;
     }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Jersey){
+            Jersey object = (Jersey)(o);
+            if(object.getId() == this.getId()){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
+    
 }
