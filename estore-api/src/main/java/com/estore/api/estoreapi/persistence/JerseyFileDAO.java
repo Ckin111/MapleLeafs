@@ -21,7 +21,7 @@ public class JerseyFileDAO implements JerseyDAO {
     private static int nextId;
     private String filename;
 
-    public JerseyFileDAO(@Value("$(jerseys.file)") String filename, ObjectMapper objectMapper) throws IOException {
+    public JerseyFileDAO(@Value("${jerseys.file}") String filename, ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
         load();
