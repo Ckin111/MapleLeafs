@@ -75,6 +75,7 @@ public class JerseyFileDAO implements JerseyDAO {
         return true;
     }
 
+    @Override
     public Jersey getJersey(int id) throws IOException {
         synchronized(jerseys){
             if(jerseys.containsKey(id)){
@@ -94,18 +95,24 @@ public class JerseyFileDAO implements JerseyDAO {
         }
     }
 
+    @Override
     public Jersey[] getJerseys() throws IOException {
-        return null;
+        synchronized(jerseys) {
+            return getJerseysArray();
+        }
     }
 
+    @Override
     public Jersey[] findJersey(String text) throws IOException {
         return null;
     }
 
+    @Override
     public Jersey updateJersey(Jersey jersey) throws IOException {
         return null;
     }
 
+    @Override
     public boolean deleteJersey(int id) throws IOException {
         return false;
     } 
