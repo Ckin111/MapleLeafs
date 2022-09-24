@@ -29,7 +29,7 @@ public class JerseyController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Jersey> getJersey(@PathVariable int id) {
-        LOG.info("GET /Jerseyes/" + id);
+        LOG.info("GET /jerseys/" + id);
         try {
             Jersey jersey = jerseyDAO.getJersey(id);
             if (jersey != null)
