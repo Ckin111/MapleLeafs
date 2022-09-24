@@ -17,6 +17,7 @@ public class Jersey {
     @JsonProperty("home") private boolean isHome;
     @JsonProperty("number") private int number;
 
+    //The constructor for the Jersey
     public Jersey(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("cost") float cost, @JsonProperty("size") Size size,
     @JsonProperty("home") boolean isHome, @JsonProperty("number") int number) {
         this.id = id;
