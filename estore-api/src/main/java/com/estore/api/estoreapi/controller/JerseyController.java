@@ -68,7 +68,7 @@ public class JerseyController {
 
     @GetMapping("/")
     public ResponseEntity<Jersey[]> searchJerseys(@RequestParam String name) {
-        LOG.info("GET /heroes/?name="+name);
+        LOG.info("GET /jerseys/?name="+name);
         try {
             Jersey[] jerseys = jerseyDAO.findJersey(name);
             if (jerseys != null)
