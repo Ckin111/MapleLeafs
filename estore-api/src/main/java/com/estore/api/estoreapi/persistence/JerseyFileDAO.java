@@ -121,7 +121,6 @@ public class JerseyFileDAO implements JerseyDAO {
         }
     }
 
-
     // will update the Jersey object given the new Jersey, put it in the map, and will return that Jersey
     @Override
     public Jersey updateJersey(Jersey jersey) throws IOException {
