@@ -141,12 +141,9 @@ public class JerseyController {
     public ResponseEntity<Jersey> updateJersey(@RequestBody Jersey jersey) {
         LOG.info("PUT /jerseys " + jersey);
         try {
-            Jersey[] jerseys = jerseyDAO.getJerseys();
-            for(int i =0;i<jerseys.length;i++){
-                if(jerseys[i].equals(jersey)){
-                    jerseyDAO.updateJersey(jersey);
-                    return new ResponseEntity<>(HttpStatus.OK);
-                }
+            jersey = jerseyDAO.updateJersey(jersey);
+            if(jersey != null){
+                return new ResponseEntity<>(HttpStatus.OK);
             }
             return new ResponseEntity<Jersey>(jersey,HttpStatus.NOT_FOUND);
         }
