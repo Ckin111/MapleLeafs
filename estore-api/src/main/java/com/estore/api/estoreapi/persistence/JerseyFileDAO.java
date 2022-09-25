@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import com.estore.api.estoreapi.model.Jersey;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
+// Implements the functionality for JSON file-based peristance for Jerseys
 @Component
 public class JerseyFileDAO implements JerseyDAO {
     private static final Logger LOG = Logger.getLogger(JerseyFileDAO.class.getName());
@@ -27,16 +29,20 @@ public class JerseyFileDAO implements JerseyDAO {
         load();
     }
 
+    // this method will generate a new id for the new jersey in the store
+
     private synchronized static int nextId() {
         int id = nextId;
         ++nextId;
         return id;
     }
 
+    // This will return the jerseys array 
     private Jersey[] getJerseysArray() {
         return getJerseysArray(null);
     }
-
+    
+    // given a string (filter), the function will return an array matching the filter
     private Jersey[] getJerseysArray(String containsText) { // if containsText == null, no filter
         ArrayList<Jersey> jerseyArrayList = new ArrayList<>();
 
@@ -51,6 +57,7 @@ public class JerseyFileDAO implements JerseyDAO {
         return jerseyArray;
     }
 
+    // load Jersey from the JSON into a map, will return true if read successfully 
     private boolean load() throws IOException {
         jerseys = new TreeMap<>();
         nextId = 0;
@@ -68,6 +75,7 @@ public class JerseyFileDAO implements JerseyDAO {
         return true;
     }
 
+    // Saves the Jerseys from the map into the file as an array of JSON objects, return true if the Jerseys were written successfully
     private boolean save() throws IOException {
         Jersey[] jerseyArray = getJerseysArray();
         
@@ -75,6 +83,7 @@ public class JerseyFileDAO implements JerseyDAO {
         return true;
     }
 
+    // given an id, this function will return the Jersey associated with the given id
     @Override
     public Jersey getJersey(int id) throws IOException {
         synchronized(jerseys){
@@ -86,6 +95,7 @@ public class JerseyFileDAO implements JerseyDAO {
         }
     }
 
+    // Given a Jersey object, this function will return a jersey object while adding it into the array
     public Jersey createJersey(Jersey jersey) throws IOException {
         synchronized(jerseys){
             Jersey newJersey = new Jersey(nextId(),jersey.getName(),jersey.getCost(),jersey.getSize(),jersey.getIsHome(),jersey.getNumber());
@@ -95,6 +105,7 @@ public class JerseyFileDAO implements JerseyDAO {
         }
     }
 
+    // Will return all of the Jerseys in an array 
     @Override
     public Jersey[] getJerseys() throws IOException {
         synchronized(jerseys) {
@@ -102,6 +113,7 @@ public class JerseyFileDAO implements JerseyDAO {
         }
     }
 
+    // will find the Jersey whose name matches the given text
     @Override
     public Jersey[] findJersey(String text) throws IOException {
         synchronized(jerseys) {
@@ -109,6 +121,8 @@ public class JerseyFileDAO implements JerseyDAO {
         }
     }
 
+
+    // will update the Jersey object given the new Jersey, put it in the map, and will return that Jersey
     @Override
     public Jersey updateJersey(Jersey jersey) throws IOException {
         synchronized(jerseys) {
@@ -121,6 +135,7 @@ public class JerseyFileDAO implements JerseyDAO {
         }
     }
 
+    // will delete the Jersey object given the new Jerseys, remove it from the map, and will return that Jersey
     @Override
     public boolean deleteJersey(int id) throws IOException {
         synchronized(jerseys) {
