@@ -95,9 +95,16 @@ public class JerseyFileDAO implements JerseyDAO {
         }
     }
 
-    // Given a Jersey object, this function will return a jersey object while adding it into the array
+    // Given a Jersey object, if a jersey with the same content hasn't been created
+    // this function will return a jersey object while adding it into the array
+    // otherwise return null
     public Jersey createJersey(Jersey jersey) throws IOException {
         synchronized(jerseys){
+            for (Jersey jer : jerseys.values()) {
+                if(jersey.isSameContent(jer)) {
+                    return null;
+                }
+            }
             Jersey newJersey = new Jersey(nextId(),jersey.getName(),jersey.getCost(),jersey.getSize(),jersey.getIsHome(),jersey.getNumber());
             jerseys.put(newJersey.getId(), newJersey);
             save();
@@ -120,6 +127,7 @@ public class JerseyFileDAO implements JerseyDAO {
             return getJerseysArray(text);
         }
     }
+
 
     // will update the Jersey object given the new Jersey, put it in the map, and will return that Jersey
     @Override

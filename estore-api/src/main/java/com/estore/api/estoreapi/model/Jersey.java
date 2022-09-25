@@ -116,4 +116,21 @@ public class Jersey {
         return false;
     }
 
+    /**
+     * Determines whether a jersey has the same content as another jersey
+     * They have the same content if every private variable is the same except id
+     * @param o A jersey to compare to
+     * @return true if same, false
+     */
+    public boolean isSameContent(Object o) {
+        if(o instanceof Jersey) {
+            Jersey jer = (Jersey)(o);
+            if (jer.getName().equals(this.getName()) && (jer.getSize() == (this.getSize())) && (jer.getIsHome() == (this.getIsHome()))
+                && (jer.getCost() == (this.getCost())) && (jer.getNumber() == (this.getNumber()))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
