@@ -143,7 +143,7 @@ public class JerseyController {
         try {
             jersey = jerseyDAO.updateJersey(jersey);
             if(jersey != null){
-                return new ResponseEntity<>(HttpStatus.OK);
+                return new ResponseEntity<Jersey>(jersey, HttpStatus.OK);
             }
             return new ResponseEntity<Jersey>(jersey,HttpStatus.NOT_FOUND);
         }
