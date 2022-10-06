@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ViewJerseyComponent } from './view-jersey/view-jersey.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ViewJerseyComponent
   ],
   imports: [
     BrowserModule,
