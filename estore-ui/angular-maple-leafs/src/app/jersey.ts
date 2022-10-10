@@ -8,5 +8,5 @@ export interface Jersey {
     cost: number,
     size: Size,
     isHome: boolean,
-    number: number,
+    num: number,
 }
