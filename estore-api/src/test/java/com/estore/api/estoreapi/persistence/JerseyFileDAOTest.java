@@ -3,6 +3,7 @@ package com.estore.api.estoreapi.persistence;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -56,7 +57,7 @@ public class JerseyFileDAOTest {
      */
     @Test
     public void testCreateJersey() {
-        //Jersey to create
+        //Setup Jersey to create
         Jersey jersey = new Jersey(5, "Terry", (float) 24.32, Size.MEDIUM, false, 32);
         
         //Invoke
@@ -65,6 +66,7 @@ public class JerseyFileDAOTest {
     
         //Analyze response
         assertNotNull(result);
+        assertEquals(jerseyFileDAO.jerseys.size(), testJerseys.length+1);
 
         //Analyze whether created jersey is same as what we gave
         Jersey actual = assertDoesNotThrow(() -> jerseyFileDAO.getJersey(jersey.getId()),
@@ -76,5 +78,25 @@ public class JerseyFileDAOTest {
         assertEquals(actual.getNumber(), jersey.getNumber());
         assertEquals(actual.getSize(), jersey.getSize());
     }
+
+    /**
+     * Test to determine whether JerseyFileDAO will return null if
+     * the new jersey is the same as an existing jersey
+     */
+    @Test
+    public void testCreateJerseyConflict() {
+        //Setup Jersey to create
+        Jersey jersey = new Jersey(0, "Matt", (float)(39.99), Size.SMALL, false, 16);
+        
+        //Invoke
+        Jersey result = assertDoesNotThrow(() -> jerseyFileDAO.createJersey(jersey),
+        "Unexpected exception thrown");
+
+        //Analyze
+        assertNull(result);
+        assertEquals(jerseyFileDAO.jerseys.size(), testJerseys.length);
+    }
+
+    
 
 }
