@@ -1,6 +1,7 @@
 package com.estore.api.estoreapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import java.io.IOError;
@@ -53,5 +54,23 @@ public class JerseyControllerTest {
 
         //Analyze
         assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+    }
+
+    /**
+     * Test Create Hero
+     * when IOException occurs an HttpStatus internal service is returned
+     * @throws IOException
+     */
+    @Test
+    public void testCreateHeroHandleException() throws IOException {
+        //Setup
+        Jersey jersey = new Jersey(7, "Ming", (float) 32.58, Size.LARGE, false, 23);
+        doThrow(new IOException()).when(mockJerseyDAO).createJersey(jersey);
+
+        //Invoke
+        ResponseEntity<Jersey> response = jerseyController.createJersey(jersey);
+        
+        //Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }
