@@ -13,6 +13,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.TestPropertySource;
 
 import com.estore.api.estoreapi.model.Jersey;
 import com.estore.api.estoreapi.model.Jersey.Size;
@@ -54,9 +55,10 @@ public class JerseyFileDAOTest {
     /**
      * Test to determine whether jerseyFileDAO will return a new jersey 
      * given a jersey that doesn't already exist
+     * @throws IOException
      */
     @Test
-    public void testCreateJersey() {
+    public void testCreateJersey() throws IOException {
         //Setup Jersey to create
         Jersey jersey = new Jersey(5, "Terry", (float) 24.32, Size.MEDIUM, false, 32);
         
@@ -69,8 +71,7 @@ public class JerseyFileDAOTest {
         assertEquals(jerseyFileDAO.jerseys.size(), testJerseys.length+1);
 
         //Analyze whether created jersey is same as what we gave
-        Jersey actual = assertDoesNotThrow(() -> jerseyFileDAO.getJersey(jersey.getId()),
-        "Unexpected exception thrown");
+        Jersey actual = jerseyFileDAO.getJersey(jersey.getId());
         assertEquals(actual.getName(), jersey.getName());
         assertEquals(actual.getCost(), jersey.getCost());
         assertEquals(actual.getId(), jersey.getId());
@@ -82,21 +83,35 @@ public class JerseyFileDAOTest {
     /**
      * Test to determine whether JerseyFileDAO will return null if
      * the new jersey is the same as an existing jersey
+     * @throws IOException
      */
     @Test
-    public void testCreateJerseyConflict() {
+    public void testCreateJerseyConflict() throws IOException {
         //Setup Jersey to create
         Jersey jersey = new Jersey(0, "Matt", (float)(39.99), Size.SMALL, false, 16);
         
         //Invoke
-        Jersey result = assertDoesNotThrow(() -> jerseyFileDAO.createJersey(jersey),
-        "Unexpected exception thrown");
+        Jersey result = jerseyFileDAO.createJersey(jersey);
 
         //Analyze
         assertNull(result);
         assertEquals(jerseyFileDAO.jerseys.size(), testJerseys.length);
     }
 
-    
+    /**
+     * Test if JerseyFileDAO will find the jerseys with names that match
+     * the given substring
+     * @throws IOException
+     */
+    @Test
+    public void testFindJerseys() throws IOException {
+        //Invoke
+        Jersey[] jerseys = jerseyFileDAO.findJersey("D");
+
+        //Analyze
+        assertEquals(jerseys.length, 2);
+        assertEquals(jerseys[0], testJerseys[1]);
+        assertEquals(jerseys[1], testJerseys[4]);
+    }
 
 }
