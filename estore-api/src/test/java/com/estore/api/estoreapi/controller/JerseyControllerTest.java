@@ -25,7 +25,7 @@ public class JerseyControllerTest {
      * @throws IOException
      */
     @Test
-    public void testCreateHero() throws IOException {
+    public void testCreateJersey() throws IOException {
         //setup
         Jersey jersey = new Jersey(7, "Ming", (float) 32.58, Size.LARGE, false, 23);
         when(mockJerseyDAO.createJersey(jersey)).thenReturn(jersey);
@@ -44,7 +44,7 @@ public class JerseyControllerTest {
      * @throws IOException
      */
     @Test
-    public void testCreateHeroFailed() throws IOException {
+    public void testCreateJerseyFailed() throws IOException {
         //Setup
         Jersey jersey = new Jersey(7, "Ming", (float) 32.58, Size.LARGE, false, 23);
         when(mockJerseyDAO.createJersey(jersey)).thenReturn(null);
@@ -62,7 +62,7 @@ public class JerseyControllerTest {
      * @throws IOException
      */
     @Test
-    public void testCreateHeroHandleException() throws IOException {
+    public void testCreateJerseyHandleException() throws IOException {
         //Setup
         Jersey jersey = new Jersey(7, "Ming", (float) 32.58, Size.LARGE, false, 23);
         doThrow(new IOException()).when(mockJerseyDAO).createJersey(jersey);
@@ -72,5 +72,27 @@ public class JerseyControllerTest {
         
         //Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    /**
+     * Test Search Jerseys
+     * Should give status of OK when an array of jerseys is returned
+     * @throws IOException
+     */
+    @Test
+    public void testSearchJerseys() throws IOException {
+        //Setup
+        String searchString = "D";
+        Jersey[] jerseys = new Jersey[2];
+        jerseys[0] = new Jersey(0, "Dave", (float)(39.99), Size.MEDIUM, true, 3);
+        jerseys[1] = new Jersey(1, "Derek", (float)(39.99), Size.SMALL, true, 6);
+        when(mockJerseyDAO.findJersey(searchString)).thenReturn(jerseys);
+
+        //Invoke
+        ResponseEntity<Jersey[]> response = jerseyController.searchJerseys(searchString);
+
+        //Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(jerseys, response.getBody());
     }
 }
