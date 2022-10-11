@@ -34,6 +34,7 @@ public class JerseyFileDAOTest {
     /**
      * Before each test, create a new jersey File DAO with an injection
      * of a Mock object Mapper so that we separate tests from actual file
+     * @throws IOException
      */
     @BeforeEach
     public void setupJerseyFileDAO() throws IOException {
