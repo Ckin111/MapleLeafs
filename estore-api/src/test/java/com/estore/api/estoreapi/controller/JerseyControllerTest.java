@@ -95,4 +95,22 @@ public class JerseyControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(jerseys, response.getBody());
     }
+
+    /**
+     * Test search jersey
+     * When given an exception, should return status code of internal service error
+     * @throws IOException
+     */
+    @Test
+    public void testSearchJerseysHandleException() throws IOException {
+        //Setup
+        String searchString = "D";
+        doThrow(new IOException()).when(mockJerseyDAO).findJersey(searchString);
+
+        //Invoke
+        ResponseEntity<Jersey[]> response = jerseyController.searchJerseys(searchString);
+
+        //Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
 }
