@@ -4,9 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
-import java.io.IOError;
 import java.io.IOException;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +15,7 @@ import com.estore.api.estoreapi.model.Jersey;
 import com.estore.api.estoreapi.model.Jersey.Size;
 import com.estore.api.estoreapi.persistence.JerseyDAO;
 
+@Tag("Controller-tier")
 public class JerseyControllerTest {
     private JerseyController jerseyController;
     private JerseyDAO mockJerseyDAO;

@@ -13,7 +13,6 @@ import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import org.springframework.test.context.TestPropertySource;
 
 import com.estore.api.estoreapi.model.Jersey;
 import com.estore.api.estoreapi.model.Jersey.Size;
