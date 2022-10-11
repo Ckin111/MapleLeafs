@@ -36,4 +36,22 @@ public class JerseyControllerTest {
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(jersey, response.getBody());
     }
+
+    /**
+     * Test CreateHero in controller
+     * when given a null it should return conflict status
+     * @throws IOException
+     */
+    @Test
+    public void testCreateHeroFailed() throws IOException {
+        //Setup
+        Jersey jersey = new Jersey(7, "Ming", (float) 32.58, Size.LARGE, false, 23);
+        when(mockJerseyDAO.createJersey(jersey)).thenReturn(null);
+
+        //Invoke
+        ResponseEntity<Jersey> response = jerseyController.createJersey(jersey);
+
+        //Analyze
+        assertEquals(HttpStatus.CONFLICT, response.getStatusCode());
+    }
 }
