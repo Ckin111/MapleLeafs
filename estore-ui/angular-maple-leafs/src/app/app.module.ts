@@ -3,12 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ViewJerseyComponent } from './view-jersey/view-jersey.component';
+//import { ViewJerseyComponent } from './view-jersey/view-jersey.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ViewJerseyComponent
+    //ViewJerseyComponent, //TODO: Fix above view-jersey import
+    LoginComponent
   ],
   imports: [
     BrowserModule,
