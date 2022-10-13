@@ -114,4 +114,39 @@ public class JerseyFileDAOTest {
         assertEquals(jerseys[1], testJerseys[4]);
     }
 
+    @Test
+    public void testGetJersey() throws IOException {
+        // Invoke
+        Jersey jersey = jerseyFileDAO.getJersey(99);
+
+        // Analzye
+        assertEquals(jersey,testJerseys[0]);
+    }
+
+    @Test
+    public void testDeleteJersey() {
+        // Invoke
+        boolean result = assertDoesNotThrow(() -> jerseyFileDAO.deleteJersey(99),
+                            "Unexpected exception thrown");
+
+        // Analzye
+        assertEquals(result,true);
+        // We check the internal tree map size against the length
+        // of the test Jerseys array - 1 (because of the delete)
+        // Because Jerseys attribute of JerseyFileDAO is package private
+        // we can access it directly
+        assertEquals(jerseyFileDAO.jerseys.size(),testJerseys.length-1);
+    }
+
+    @Test
+    public void testDeleteJerseyNotFound() {
+        // Invoke
+        boolean result = assertDoesNotThrow(() -> jerseyFileDAO.deleteJersey(98),
+                                                "Unexpected exception thrown");
+
+        // Analyze
+        assertEquals(result,false);
+        assertEquals(jerseyFileDAO.jerseys.size(),testJerseys.length);
+    }
+
 }

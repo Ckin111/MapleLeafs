@@ -2,10 +2,12 @@ package com.estore.api.estoreapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,16 @@ import com.estore.api.estoreapi.persistence.JerseyDAO;
 public class JerseyControllerTest {
     private JerseyController jerseyController;
     private JerseyDAO mockJerseyDAO;
+
+    /**
+     * Before each test, create a new JerseyController object and inject
+     * a mock Jersey DAO
+     */
+    @BeforeEach
+    public void setupJerseyController() {
+        mockJerseyDAO = mock(JerseyDAO.class);
+        jerseyController = new JerseyController(mockJerseyDAO);
+    }
 
     /**
      * Test whether when controller creates a new jersey it will return the jersey
@@ -40,7 +52,7 @@ public class JerseyControllerTest {
     }
 
     /**
-     * Test CreateHero in controller
+     * Test CreateJersey in controller
      * when given a null it should return conflict status
      * @throws IOException
      */
@@ -58,7 +70,7 @@ public class JerseyControllerTest {
     }
 
     /**
-     * Test Create Hero
+     * Test Create Jersey
      * when IOException occurs an HttpStatus internal service is returned
      * @throws IOException
      */
@@ -114,4 +126,48 @@ public class JerseyControllerTest {
         //Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
+ 
+    @Test
+    public void testDeleteJersey() throws IOException { // deleteJersey may throw IOException
+        // Setup
+        int JerseyId = 99;
+        // when deleteJersey is called return true, simulating successful deletion
+        when(mockJerseyDAO.deleteJersey(JerseyId)).thenReturn(true);
+  
+        // Invoke
+        ResponseEntity<Jersey> response = jerseyController.deleteJersey(JerseyId);
+  
+        // Analyze
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+    }
+  
+    @Test
+    public void testDeleteJerseyNotFound() throws IOException { // deleteJersey may throw IOException
+        // Setup
+        int JerseyId = 99;
+        // when deleteJersey is called return false, simulating failed deletion
+        when(mockJerseyDAO.deleteJersey(JerseyId)).thenReturn(false);
+  
+        // Invoke
+        ResponseEntity<Jersey> response = jerseyController.deleteJersey(JerseyId);
+  
+        // Analyze
+        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+    }
+  
+    @Test
+    public void testDeleteJerseyHandleException() throws IOException { // deleteJersey may throw IOException
+        // Setup
+        int JerseyId = 99;
+        // When deleteJersey is called on the Mock Jersey DAO, throw an IOException
+        doThrow(new IOException()).when(mockJerseyDAO).deleteJersey(JerseyId);
+  
+        // Invoke
+        ResponseEntity<Jersey> response = jerseyController.deleteJersey(JerseyId);
+  
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
+ 
+ 
 }
