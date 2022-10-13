@@ -28,7 +28,7 @@ public class JerseyControllerTest {
     @Test
     public void testCreateJersey() throws IOException {
         //setup
-        Jersey jersey = new Jersey(7, "Ming", (float) 32.58, Size.LARGE, false, 23);
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
         when(mockJerseyDAO.createJersey(jersey)).thenReturn(jersey);
         
         //Invoke
@@ -47,7 +47,7 @@ public class JerseyControllerTest {
     @Test
     public void testCreateJerseyFailed() throws IOException {
         //Setup
-        Jersey jersey = new Jersey(7, "Ming", (float) 32.58, Size.LARGE, false, 23);
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
         when(mockJerseyDAO.createJersey(jersey)).thenReturn(null);
 
         //Invoke
@@ -65,7 +65,7 @@ public class JerseyControllerTest {
     @Test
     public void testCreateJerseyHandleException() throws IOException {
         //Setup
-        Jersey jersey = new Jersey(7, "Ming", (float) 32.58, Size.LARGE, false, 23);
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
         doThrow(new IOException()).when(mockJerseyDAO).createJersey(jersey);
 
         //Invoke
@@ -85,8 +85,8 @@ public class JerseyControllerTest {
         //Setup
         String searchString = "D";
         Jersey[] jerseys = new Jersey[2];
-        jerseys[0] = new Jersey(0, "Dave", (float)(39.99), Size.MEDIUM, true, 3);
-        jerseys[1] = new Jersey(1, "Derek", (float)(39.99), Size.SMALL, true, 6);
+        jerseys[0] = new Jersey(0, "Dave", 39.99f, Size.MEDIUM, true, 3);
+        jerseys[1] = new Jersey(1, "Derek", 39.99f, Size.SMALL, true, 6);
         when(mockJerseyDAO.findJersey(searchString)).thenReturn(jerseys);
 
         //Invoke

@@ -39,11 +39,11 @@ public class JerseyFileDAOTest {
     public void setupJerseyFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
         testJerseys = new Jersey[5];
-        testJerseys[0] = new Jersey(0, "Matt", (float)(39.99), Size.SMALL, false, 16);
-        testJerseys[1] = new Jersey(1, "Dave", (float)(39.99), Size.MEDIUM, true, 3);
-        testJerseys[2] = new Jersey(2, "Sidney", (float)(50), Size.LARGE, false, 29);
-        testJerseys[3] = new Jersey(3, "Aaron", (float)(50), Size.XL, false, 5);
-        testJerseys[4] = new Jersey(4, "Derek", (float)(39.99), Size.SMALL, true, 6);
+        testJerseys[0] = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
+        testJerseys[1] = new Jersey(1, "Dave", 39.99f, Size.MEDIUM, true, 3);
+        testJerseys[2] = new Jersey(2, "Sidney", 50f, Size.LARGE, false, 29);
+        testJerseys[3] = new Jersey(3, "Aaron", 50f, Size.XL, false, 5);
+        testJerseys[4] = new Jersey(4, "Derek", 39.99f, Size.SMALL, true, 6);
 
         //When the object mapper reads from a file, the mock object mapper will
         // return jersey array above
@@ -60,7 +60,7 @@ public class JerseyFileDAOTest {
     @Test
     public void testCreateJersey() throws IOException {
         //Setup Jersey to create
-        Jersey jersey = new Jersey(5, "Terry", (float) 24.32, Size.MEDIUM, false, 32);
+        Jersey jersey = new Jersey(5, "Terry", 24.32f, Size.MEDIUM, false, 32);
         
         //Invoke
         Jersey result = assertDoesNotThrow(() -> jerseyFileDAO.createJersey(jersey),
@@ -88,7 +88,7 @@ public class JerseyFileDAOTest {
     @Test
     public void testCreateJerseyConflict() throws IOException {
         //Setup Jersey to create
-        Jersey jersey = new Jersey(0, "Matt", (float)(39.99), Size.SMALL, false, 16);
+        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
         
         //Invoke
         Jersey result = jerseyFileDAO.createJersey(jersey);
