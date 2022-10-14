@@ -124,10 +124,9 @@ public class JerseyFileDAOTest {
     }
 
     @Test
-    public void testDeleteJersey() {
+    public void testDeleteJersey() throws IOException{
         // Invoke
-        boolean result = assertDoesNotThrow(() -> jerseyFileDAO.deleteJersey(99),
-                            "Unexpected exception thrown");
+        boolean result = jerseyFileDAO.deleteJersey(0);
 
         // Analzye
         assertEquals(result,true);

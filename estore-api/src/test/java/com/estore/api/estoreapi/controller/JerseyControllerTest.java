@@ -22,6 +22,52 @@ public class JerseyControllerTest {
     private JerseyController jerseyController;
     private JerseyDAO mockJerseyDAO;
 
+
+    @Test
+    public void testGetJersey() throws IOException {  // getJersey may throw IOException
+        // Setup
+        Jersey jersey = new Jersey(7, "Dom", 32.58f, Size.MEDIUM, true, 93);
+        // When the same id is passed in, our mock Jersey DAO will return the Jersey object
+        when(mockJerseyDAO.getJersey(jersey.getId())).thenReturn(jersey);
+
+        // Invoke
+        ResponseEntity<Jersey> response = jerseyController.getJersey(jersey.getId());
+
+        // Analyze
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(jersey,response.getBody());
+    }
+
+    @Test
+    public void testGetJerseyNotFound() throws Exception { // createJersey may throw IOException
+        // Setup
+        int jerseyId = 99;
+        // When the same id is passed in, our mock Jersey DAO will return null, simulating
+        // no hero found
+        when(mockJerseyDAO.getJersey(jerseyId)).thenReturn(null);
+
+        // Invoke
+        ResponseEntity<Jersey> response = jerseyController.getJersey(jerseyId);
+
+        // Analyze
+        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+    }
+
+    @Test
+    public void testGetJerseyHandleException() throws Exception { // createJersey may throw IOException
+        // Setup
+        int jerseyId = 99;
+        // When getJersey is called on the Mock Jersey DAO, throw an IOException
+        doThrow(new IOException()).when(mockJerseyDAO).getJersey(jerseyId);
+
+        // Invoke
+        ResponseEntity<Jersey> response = jerseyController.getJersey(jerseyId);
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
+
+
     /**
      * Before each test, create a new JerseyController object and inject
      * a mock Jersey DAO
