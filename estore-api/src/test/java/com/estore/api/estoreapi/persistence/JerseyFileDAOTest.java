@@ -4,8 +4,10 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.doThrow;
 
 import java.io.File;
 import java.io.IOException;
@@ -148,4 +150,18 @@ public class JerseyFileDAOTest {
         assertEquals(jerseyFileDAO.jerseys.size(),testJerseys.length);
     }
 
+    @Test
+    public void testConstructorException() throws IOException {
+        // Setup
+        ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
+        
+        doThrow(new IOException())
+            .when(mockObjectMapper)
+                .readValue(new File("doesnt_matter.txt"),Jersey[].class);
+
+        // Invoke & Analyze
+        assertThrows(IOException.class,
+                        () -> new JerseyFileDAO("doesnt_matter.txt",mockObjectMapper),
+                        "IOException not thrown");
+    }
 }
