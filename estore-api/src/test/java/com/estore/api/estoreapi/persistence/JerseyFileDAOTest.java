@@ -117,7 +117,7 @@ public class JerseyFileDAOTest {
     @Test
     public void testGetJersey() throws IOException {
         // Invoke
-        Jersey jersey = jerseyFileDAO.getJersey(99);
+        Jersey jersey = jerseyFileDAO.getJersey(0);
 
         // Analzye
         assertEquals(jersey,testJerseys[0]);
