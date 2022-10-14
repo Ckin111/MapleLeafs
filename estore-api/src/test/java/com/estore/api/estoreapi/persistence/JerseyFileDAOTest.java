@@ -127,6 +127,17 @@ public class JerseyFileDAOTest {
     }
 
     @Test
+    public void testGetJerseys() throws IOException{
+        // Invoke
+        Jersey[] jerseys = jerseyFileDAO.getJerseys();
+
+        // Analyze
+        assertEquals(jerseys.length,testJerseys.length);
+        for (int i = 0; i < testJerseys.length;++i)
+            assertEquals(jerseys[i],testJerseys[i]);
+    }
+
+    @Test
     public void testDeleteJersey() throws IOException{
         // Invoke
         boolean result = jerseyFileDAO.deleteJersey(0);
