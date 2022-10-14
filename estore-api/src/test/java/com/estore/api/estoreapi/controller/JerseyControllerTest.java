@@ -177,6 +177,38 @@ public class JerseyControllerTest {
         // Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
     }
+    @Test
+    public void testGetJerseys() throws IOException { // getJerseys may throw IOException
+        // Setup
+        Jersey[] jerseys = new Jersey[2];
+        jerseys[0] = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        jerseys[1] = new Jersey(5, "Dom", 32.58f, Size.MEDIUM, true, 23);
+        // When getHeroes is called return the heroes created above
+        when(mockJerseyDAO.getJerseys()).thenReturn(jerseys);
+
+        // Invoke
+        ResponseEntity<Jersey[]> response = jerseyController.getJerseys();
+
+        // Analyze
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(jerseys,response.getBody());
+    }
+
+    @Test
+    public void testGetJerseysHandleException() throws IOException { // getJerseys may throw IOException
+        // Setup
+        // When getHeroes is called on the Mock Hero DAO, throw an IOException
+        doThrow(new IOException()).when(mockJerseyDAO).getJerseys();
+
+        // Invoke
+        ResponseEntity<Jersey[]> response = jerseyController.getJerseys();
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
+
+
+
     /**
      * Test Search Jerseys
      * Should give status of OK when an array of jerseys is returned
