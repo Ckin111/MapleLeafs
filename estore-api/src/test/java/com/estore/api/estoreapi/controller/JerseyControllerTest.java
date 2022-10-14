@@ -86,7 +86,51 @@ public class JerseyControllerTest {
         //Analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
+    
+    @Test
+    public void testUpdateJersey() throws IOException { 
+        // Setup
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        
+        when(mockJerseyDAO.updateJersey(jersey)).thenReturn(jersey);
+        ResponseEntity<Jersey> response = jerseyController.updateJersey(jersey);
+        jersey = new Jersey(7, "Claire", 32.58f, Size.LARGE, false, 43);
+        // Invoke
+        response = jerseyController.updateJersey(jersey);
 
+        // Analyze
+        assertEquals(HttpStatus.OK,response.getStatusCode());
+        assertEquals(jersey,response.getBody());
+    }
+
+    @Test
+    public void testUpdateJerseyFailed() throws IOException { // updateJersey may throw IOException
+        // Setup
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        // when updateJersey is called, return true simulating successful
+        // update and save
+        when(mockJerseyDAO.updateJersey(jersey)).thenReturn(null);
+
+        // Invoke
+        ResponseEntity<Jersey> response = jerseyController.updateJersey(jersey);
+
+        // Analyze
+        assertEquals(HttpStatus.NOT_FOUND,response.getStatusCode());
+    }
+
+    @Test
+    public void testUpdateJerseyHandleException() throws IOException { // updateJersey may throw IOException
+        // Setup
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        // When updateJersey is called on the Mock Jersey DAO, throw an IOException
+        doThrow(new IOException()).when(mockJerseyDAO).updateJersey(jersey);
+
+        // Invoke
+        ResponseEntity<Jersey> response = jerseyController.updateJersey(jersey);
+
+        // Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR,response.getStatusCode());
+    }
     /**
      * Test Search Jerseys
      * Should give status of OK when an array of jerseys is returned
