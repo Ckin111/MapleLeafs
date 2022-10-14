@@ -1,4 +1,4 @@
-package com.estore.api.estoreapi.Model;
+package com.estore.api.estoreapi.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -33,4 +33,5 @@ public class JerseyTest {
         assertEquals(expectedNumber,jersey.getNumber());
     }
 
+    
 }
