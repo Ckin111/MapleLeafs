@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -146,6 +149,16 @@ public class JerseyFileDAOTest {
         // Analyze
         assertEquals(result,false);
         assertEquals(jerseyFileDAO.jerseys.size(),testJerseys.length);
+    }
+
+    @Test
+    public void testSaveException() throws IOException {
+        doThrow(new IOException())
+            .when(mockObjectMapper)
+                .writeValue(any(File.class), any(Jersey[].class));
+        Jersey jersey = new Jersey(0, null, 0, null, false, 0);
+        assertThrows(IOException.class, () -> jerseyFileDAO.createJersey(jersey), 
+                                            "IOException not thrown");
     }
 
 }
