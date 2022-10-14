@@ -119,10 +119,21 @@ public class JerseyFileDAOTest {
     @Test
     public void testGetJersey() throws IOException {
         // Invoke
-        Jersey jersey = jerseyFileDAO.getJersey(99);
+        Jersey jersey = jerseyFileDAO.getJersey(0);
 
         // Analzye
         assertEquals(jersey,testJerseys[0]);
+    }
+
+    @Test
+    public void testGetJerseys() throws IOException{
+        // Invoke
+        Jersey[] jerseys = jerseyFileDAO.getJerseys();
+
+        // Analyze
+        assertEquals(jerseys.length,testJerseys.length);
+        for (int i = 0; i < testJerseys.length;++i)
+            assertEquals(jerseys[i],testJerseys[i]);
     }
 
     @Test
