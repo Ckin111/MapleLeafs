@@ -1,1 +1,10 @@
 <p>login works!</p>
+
+<input type="text" id="username" value={{enteredUsername}}>
+<input type="password" id="password" value={{enteredPassword}>
+
+<button type="submit" (click)="checker(enteredUsername,enteredPassword)" >Login</button>
+
+<p class="message">{{message}}</p>
+<!-- <p class="not">FAIL!</p> -->
+
