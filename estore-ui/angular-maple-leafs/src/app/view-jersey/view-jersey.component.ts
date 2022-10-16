@@ -22,9 +22,9 @@ export class ViewJerseyComponent implements OnInit {
   }
 
   getJersey(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
+    const id = Number(this.route.snapshot.params['id']);
     console.log(id);
-    this.jerseyService.getJersey(1).subscribe(jersey => this.jersey = jersey);
+    this.jerseyService.getJersey(id).subscribe(jersey => this.jersey = jersey);
     this.owner = true;
     this.home = this.jersey?.home;
   }
