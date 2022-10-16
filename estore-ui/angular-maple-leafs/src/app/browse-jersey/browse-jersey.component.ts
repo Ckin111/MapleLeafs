@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Jersey } from '../jersey';
+import { JerseyService } from '../jersey.service';
 
 @Component({
   selector: 'app-browse-jersey',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./browse-jersey.component.css']
 })
 export class BrowseJerseyComponent implements OnInit {
-
-  constructor() { }
+  jerseys: Jersey[] = [];
+  constructor(private jerseyService: JerseyService) { }
 
   ngOnInit(): void {
+    this.getJerseys();
+  }
+
+  getJerseys(): void {
+    this.jerseyService.getJerseys().subscribe(jerseys => this.jerseys = jerseys);
   }
 
 }
