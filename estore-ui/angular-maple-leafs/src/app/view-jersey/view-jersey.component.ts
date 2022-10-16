@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Jersey } from '../jersey';
+import { Jersey, Size } from '../jersey';
 import { JerseyService } from '../jersey.service';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 })
 
 export class ViewJerseyComponent implements OnInit {
+  sizeList: String[] = [Size[0], Size[1], Size[2], Size[3]];
   jersey: Jersey | undefined;
   owner: boolean | undefined;
   home: boolean | undefined;

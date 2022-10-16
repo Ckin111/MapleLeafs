@@ -1,4 +1,4 @@
-enum Size {
+export enum Size {
     SMALL, MEDIUM, LARGE, XL,
 }
 
