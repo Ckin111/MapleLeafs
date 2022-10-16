@@ -5,12 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ViewJerseyComponent } from './view-jersey/view-jersey.component';
 import { LoginComponent } from './login/login.component';
+import { BrowseJerseyComponent } from './browse-jersey/browse-jersey.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ViewJerseyComponent, 
-    LoginComponent
+    LoginComponent, BrowseJerseyComponent
   ],
   imports: [
     BrowserModule,
