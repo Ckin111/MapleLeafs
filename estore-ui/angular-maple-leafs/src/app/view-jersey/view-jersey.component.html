@@ -1,1 +1,21 @@
-<p>view-jersey works!</p>
+<div *ngIf="jersey">
+    <h2>{{jersey.name}}</h2>
+    <h2>{{jersey.number}}</h2>
+    <div><span>id: </span>{{jersey.id}}</div>
+    <div><span>Size: </span>{{jersey.size}}</div>
+    <div *ngIf="home; else elseBlock">
+        <span>Home Color</span>
+    </div>
+
+    
+    <div *ngIf="owner">
+        <div>
+            <span><button>Update</button></span>
+            <span><button>Delete</button></span>
+        </div>
+    </div>
+</div>
+
+<ng-template #elseBlock>
+    <span>Away Color</span>
+</ng-template>
