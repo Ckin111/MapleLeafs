@@ -1,4 +1,8 @@
-<h2>Jerseys</h2>
+<div>
+    <button>Add Jersey</button>
+</div>
+
+<h2>Jerseys</h2>    
 <div class="jersey-menu">
     <a *ngFor="let jersey of jerseys" routerLink="/view/{{jersey.id}}">
         {{jersey.name}} {{jersey.number}} <br>

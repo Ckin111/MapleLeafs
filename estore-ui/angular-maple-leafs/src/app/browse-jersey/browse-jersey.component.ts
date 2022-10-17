@@ -15,6 +15,7 @@ import { JerseyService } from '../jersey.service';
 
 export class BrowseJerseyComponent implements OnInit {
 
+  owner: boolean = true; //TODO need to do login
   jerseys: Jersey[] = [];
 
   /**

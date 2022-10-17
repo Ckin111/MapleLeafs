@@ -20,7 +20,7 @@ export class ViewJerseyComponent implements OnInit {
 
   sizeList: String[] = [Size[0], Size[1], Size[2], Size[3]];
   jersey: Jersey | undefined;
-  owner: boolean = true; //Note: need to do login stuff
+  owner: boolean = true; //TODO need to do login stuff
   home: boolean | undefined;
 
   /**
