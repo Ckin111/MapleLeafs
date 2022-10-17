@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ViewJerseyComponent } from './view-jersey/view-jersey.component';
 import { LoginComponent } from './login/login.component';
 import { BrowseJerseyComponent } from './browse-jersey/browse-jersey.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { BrowseJerseyComponent } from './browse-jersey/browse-jersey.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

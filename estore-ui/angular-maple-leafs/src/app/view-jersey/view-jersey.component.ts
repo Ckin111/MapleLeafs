@@ -15,7 +15,9 @@ export class ViewJerseyComponent implements OnInit {
   jersey: Jersey | undefined;
   owner: boolean | undefined;
   home: boolean | undefined;
-  constructor(private route: ActivatedRoute, private jerseyService: JerseyService, private location: Location) { }
+  constructor(private route: ActivatedRoute, 
+    private jerseyService: JerseyService, 
+    private location: Location) { }
 
   ngOnInit(): void {
     this.getJersey();
@@ -23,15 +25,15 @@ export class ViewJerseyComponent implements OnInit {
   }
 
   getJersey(): void {
-    const id = Number(this.route.snapshot.params['id']);
+    const id = Number(this.route.snapshot.paramMap.get('id'));
     console.log(id);
     this.jerseyService.getJersey(id).subscribe(jersey => this.jersey = jersey);
     this.owner = true;
     this.home = this.jersey?.home;
   }
 
-  goBack(): void {
-    this.location.back;
+  back(): void {
+    this.location.back();
   }
 
   
