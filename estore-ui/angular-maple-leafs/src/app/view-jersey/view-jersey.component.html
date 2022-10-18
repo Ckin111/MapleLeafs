@@ -1,0 +1,37 @@
+<!--Only shows if a jersey was found-->
+<div *ngIf="jersey">
+    
+    <h2>{{jersey.name}}</h2>
+    <h2>{{jersey.number}}</h2>
+    <div><span>ID: </span>{{jersey.id}}</div>
+    <div><span>Cost: </span>{{jersey.cost}}</div>
+
+    <!--The size dropdown menu-->
+    <div>
+        <label for="sizes">Size: </label>
+        <select name="sizes" id="sizes">
+            <option *ngFor="let size of sizeList" [value]
+            ="size">{{size}}</option>
+        </select>
+    </div>
+
+    <div *ngIf="home; else elseBlock">
+        <span>Home Color</span>
+    </div>
+
+    
+    <div>
+        <button type="button" (click)="back()">Go Back</button>
+        <button>Buy</button>
+        <span *ngIf="owner">
+            <button>Update</button>
+            <button>Delete</button>
+        </span>
+    </div>
+
+</div>
+
+<!--Alternative to color of jersey-->
+<ng-template #elseBlock>
+    <span>Away Color</span>
+</ng-template>
