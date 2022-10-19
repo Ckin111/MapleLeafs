@@ -67,6 +67,8 @@ export class ViewJerseyComponent implements OnInit {
         console.log(id);
         this.jerseyService.deleteJersey(id).subscribe();
         this.jerseyService.getJerseys();
+        this.router.navigate(['/browse']);
+        window.location.reload();
        }
     }
     
