@@ -7,12 +7,13 @@ import { ViewJerseyComponent } from './view-jersey/view-jersey.component';
 import { LoginComponent } from './login/login.component';
 import { BrowseJerseyComponent } from './browse-jersey/browse-jersey.component';
 import { FormsModule } from '@angular/forms';
+import { SearchJerseysComponent } from './search-jerseys/search-jerseys.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ViewJerseyComponent, 
-    LoginComponent, BrowseJerseyComponent
+    LoginComponent, BrowseJerseyComponent, SearchJerseysComponent
   ],
   imports: [
     BrowserModule,
