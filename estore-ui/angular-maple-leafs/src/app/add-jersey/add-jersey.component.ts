@@ -9,7 +9,7 @@ import { JerseyService } from '../jersey.service';
 })
 export class AddJerseyComponent implements OnInit {
   owner: boolean = true; //TODO need to do login
-  
+  jerseys: Jersey[] = [];
   name: string = "";
   number: number = NaN;
   cost: number = NaN;
@@ -43,7 +43,7 @@ export class AddJerseyComponent implements OnInit {
     this.jersey.size = this.size;
     this.jersey.home = this.isHome;
 
-    this.jerseyService.addJersey(this.jersey);
+    this.jerseyService.addJersey(this.jersey).subscribe(jersey => {this.jerseys.push(jersey);});
   }
 
 }
