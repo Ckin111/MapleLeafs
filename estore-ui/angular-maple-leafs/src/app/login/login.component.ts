@@ -18,8 +18,6 @@ export class LoginComponent implements OnInit {
   userPassword: String = "user";
   message: String = "Please Enter Username and Password";
 
-
-
   checker (htmlUsername: String, htmlPassword: String ): boolean {
  
     if ( htmlUsername==this.adminUsername && htmlPassword==this.adminPassword){
