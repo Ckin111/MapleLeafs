@@ -11,18 +11,39 @@ export class AddJerseyComponent implements OnInit {
   owner: boolean = true; //TODO need to do login
   
   name: string = "";
-  number: number = 0;
-  cost: number = 0;
+  number: number = NaN;
+  cost: number = NaN;
   size: number = 0;
   isHome: boolean = false;
 
-  constructor() { }
+  sizes = [
+    {siz: "Small", val: 0},
+    {siz: "Medium", val: 1},
+    {siz: "Large", val: 2},
+    {siz: "XL", val: 3}
+  ];
+
+  jersey: Jersey = {
+    id: 0,
+    name: "",
+    number: 0,
+    cost: 0,
+    size: 0,
+    home: false
+  }
+  constructor(private jerseyService: JerseyService) { }
 
   ngOnInit(): void {
   }
 
-  createJersey(): void {
-    this.jerseyService.createJerseys()
+  addJersey(): void {
+    this.jersey.name = this.name;
+    this.jersey.number = this.number;
+    this.jersey.cost = this.cost;
+    this.jersey.size = this.size;
+    this.jersey.home = this.isHome;
+
+    this.jerseyService.addJersey(this.jersey);
   }
 
 }
