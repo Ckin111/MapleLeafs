@@ -3,9 +3,10 @@
  */
 
 import { ComponentFactoryResolver, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Jersey } from './jersey';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Console } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -41,11 +42,12 @@ export class JerseyService {
     console.log("Fetched jersey ID: " + id);
     return this.http.get<Jersey>(url);
   }
+
+  
   addJersey(jersey: Jersey): Observable<Jersey> {
       return this.http.post<Jersey>(this.jerseysUrl, jersey, this.httpOptions).pipe(
-        tap((newJersey: Jersey) => this.log(`added jersey w/id=${newJersey.id}`)),
-        catchError(this.handleError<Jersey>('addJersey'))
-      );
+        tap((newJersey: Jersey) => console.log(`added jersey w/id=${newJersey.id}`))
+        );
   }
 
 }
