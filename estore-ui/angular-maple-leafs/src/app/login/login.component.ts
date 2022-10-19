@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class LoginComponent implements OnInit {
   
   isuser: boolean = false;
-  isguest: boolean = false;
   isadmin: boolean = false;
   loggedIn: boolean = false;
   adminUsername: String = "admin";
