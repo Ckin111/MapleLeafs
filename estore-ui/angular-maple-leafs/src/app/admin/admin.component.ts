@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class AdminComponent implements OnInit {
 
   constructor() { }
-
+  
   ngOnInit(): void {
   }
 
