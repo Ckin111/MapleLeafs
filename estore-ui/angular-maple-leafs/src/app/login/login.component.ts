@@ -43,12 +43,12 @@ export class LoginComponent implements OnInit {
 
   user(username: String):void {
     // this function would redirect to browse and search
-    this.router.navigate(["/user", {user: username}])
+    this.router.navigate(["user", {user: username}])
   }
 
   admin():void{
     // this function would redirect to browse, search, add, remove
-    this.router.navigate(["/admin"])
+    this.router.navigate(["admin"])
 
   }
 
