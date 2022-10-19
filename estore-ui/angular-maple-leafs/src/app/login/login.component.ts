@@ -1,16 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
-import { AdminComponent } from '../admin/admin.component';
-import { UserComponent } from '../user/user.component';
-
-imports: [
-  BrowserModule,
-  RouterModule.forRoot([
-    {path: 'admin', component: AdminComponent},
-    {path: 'user', component: UserComponent},
-  ]),
-];
 
 @Component({
   selector: 'app-login',
