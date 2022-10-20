@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -117,17 +120,27 @@ public class JerseyFileDAOTest {
     @Test
     public void testGetJersey() throws IOException {
         // Invoke
-        Jersey jersey = jerseyFileDAO.getJersey(99);
+        Jersey jersey = jerseyFileDAO.getJersey(0);
 
         // Analzye
         assertEquals(jersey,testJerseys[0]);
     }
 
     @Test
-    public void testDeleteJersey() {
+    public void testGetJerseys() throws IOException{
         // Invoke
-        boolean result = assertDoesNotThrow(() -> jerseyFileDAO.deleteJersey(99),
-                            "Unexpected exception thrown");
+        Jersey[] jerseys = jerseyFileDAO.getJerseys();
+
+        // Analyze
+        assertEquals(jerseys.length,testJerseys.length);
+        for (int i = 0; i < testJerseys.length;++i)
+            assertEquals(jerseys[i],testJerseys[i]);
+    }
+
+    @Test
+    public void testDeleteJersey() throws IOException{
+        // Invoke
+        boolean result = jerseyFileDAO.deleteJersey(0);
 
         // Analzye
         assertEquals(result,true);
@@ -149,4 +162,28 @@ public class JerseyFileDAOTest {
         assertEquals(jerseyFileDAO.jerseys.size(),testJerseys.length);
     }
 
+    @Test
+    public void testSaveException() throws IOException {
+        doThrow(new IOException())
+            .when(mockObjectMapper)
+                .writeValue(any(File.class), any(Jersey[].class));
+        Jersey jersey = new Jersey(0, null, 0, null, false, 0);
+        assertThrows(IOException.class, () -> jerseyFileDAO.createJersey(jersey), 
+                                            "IOException not thrown");
+    }
+
+    @Test
+    public void testConstructorException() throws IOException {
+        // Setup
+        ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
+        
+        doThrow(new IOException())
+            .when(mockObjectMapper)
+                .readValue(new File("doesnt_matter.txt"),Jersey[].class);
+
+        // Invoke & Analyze
+        assertThrows(IOException.class,
+                        () -> new JerseyFileDAO("doesnt_matter.txt",mockObjectMapper),
+                        "IOException not thrown");
+    }
 }
