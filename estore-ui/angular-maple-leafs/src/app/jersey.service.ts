@@ -43,6 +43,11 @@ export class JerseyService {
     return this.http.get<Jersey>(url);
   }
 
+
+  deleteJersey(id: number): Observable<Jersey> {
+    const url = `${this.jerseysUrl}/${id}`;
+    return this.http.delete<Jersey>(url, this.httpOptions);
+  }
   
   addJersey(jersey: Jersey): Observable<Jersey> {
       return this.http.post<Jersey>(this.jerseysUrl, jersey, this.httpOptions).pipe(
