@@ -55,7 +55,7 @@ export class JerseyService {
         );
   }
 
-}
+
   searchJerseys(term: string): Observable<Jersey[]> {
     if (!term.trim()) {
       // if not search term, return empty hero array.
