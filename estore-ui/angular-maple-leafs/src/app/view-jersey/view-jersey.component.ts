@@ -46,7 +46,6 @@ export class ViewJerseyComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     console.log(id);
     this.jerseyService.getJersey(id).subscribe(jersey => this.jersey = jersey);
-    this.home = this.jersey?.home;
   }
 
   /**
