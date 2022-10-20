@@ -7,19 +7,24 @@ import { ViewJerseyComponent } from './view-jersey/view-jersey.component';
 import { LoginComponent } from './login/login.component';
 import { BrowseJerseyComponent } from './browse-jersey/browse-jersey.component';
 import { FormsModule } from '@angular/forms';
+import { AddJerseyComponent } from './add-jersey/add-jersey.component';
 import { SearchJerseysComponent } from './search-jerseys/search-jerseys.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ViewJerseyComponent, 
-    LoginComponent, BrowseJerseyComponent, SearchJerseysComponent
+    ViewJerseyComponent,
+    LoginComponent, 
+    BrowseJerseyComponent,
+    AddJerseyComponent,
+    SearchJerseysComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

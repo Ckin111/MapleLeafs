@@ -6,6 +6,7 @@ import { ComponentFactoryResolver, Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { Jersey } from './jersey';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Console } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -42,11 +43,19 @@ export class JerseyService {
     return this.http.get<Jersey>(url);
   }
 
+
   deleteJersey(id: number): Observable<Jersey> {
     const url = `${this.jerseysUrl}/${id}`;
     return this.http.delete<Jersey>(url, this.httpOptions);
   }
   
+  addJersey(jersey: Jersey): Observable<Jersey> {
+      return this.http.post<Jersey>(this.jerseysUrl, jersey, this.httpOptions).pipe(
+        tap((newJersey: Jersey) => console.log(`added jersey w/id=${newJersey.id}`))
+        );
+  }
+
+}
   searchJerseys(term: string): Observable<Jersey[]> {
     if (!term.trim()) {
       // if not search term, return empty hero array.
