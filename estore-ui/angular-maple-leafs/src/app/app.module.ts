@@ -17,7 +17,7 @@ import { SearchJerseysComponent } from './search-jerseys/search-jerseys.componen
     AppComponent,
     LoginComponent,
     UserComponent,
-    AdminComponent
+    AdminComponent,
     ViewJerseyComponent,
     LoginComponent, 
     BrowseJerseyComponent,
