@@ -41,6 +41,11 @@ export class JerseyService {
     console.log("Fetched jersey ID: " + id);
     return this.http.get<Jersey>(url);
   }
+
+  deleteJersey(id: number): Observable<Jersey> {
+    const url = `${this.jerseysUrl}/${id}`;
+    return this.http.delete<Jersey>(url, this.httpOptions);
+  }
   
   searchJerseys(term: string): Observable<Jersey[]> {
     if (!term.trim()) {
