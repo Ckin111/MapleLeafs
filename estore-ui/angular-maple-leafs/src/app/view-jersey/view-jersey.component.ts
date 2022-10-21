@@ -7,8 +7,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Jersey, Size } from '../jersey';
 import { JerseyService } from '../jersey.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-view-jersey',
@@ -31,7 +32,8 @@ export class ViewJerseyComponent implements OnInit {
    */
   constructor(private route: ActivatedRoute, 
     private jerseyService: JerseyService, 
-    private location: Location) { }
+    private location: Location,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getJersey();
@@ -44,7 +46,6 @@ export class ViewJerseyComponent implements OnInit {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     console.log(id);
     this.jerseyService.getJersey(id).subscribe(jersey => this.jersey = jersey);
-    this.home = this.jersey?.home;
   }
 
   /**
@@ -54,6 +55,22 @@ export class ViewJerseyComponent implements OnInit {
     this.location.back();
   }
 
-  
+  /**
+   * To delete the specified jersey
+   */
+  delete(): void {
+    const id = this.jersey?.id;
+    if(id != undefined) {
+      if(confirm("Are you sure you want to delete " + this.jersey?.name +
+       " " + this.jersey?.number + "?")) {
+        console.log(id);
+        this.jerseyService.deleteJersey(id).subscribe();
+        this.jerseyService.getJerseys();
+        this.router.navigate(['/browse']);
+        window.location.reload();
+       }
+    }
+    
+  }
 
 }
