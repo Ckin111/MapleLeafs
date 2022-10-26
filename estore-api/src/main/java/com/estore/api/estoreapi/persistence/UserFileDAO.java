@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import com.estore.api.estoreapi.model.Jersey;
 import com.estore.api.estoreapi.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -88,7 +89,8 @@ public class UserFileDAO implements UserDAO{
                     return null;
                 }
             }
-            User newUser = new User(nextId(),user.getName());
+            Jersey[] emptyCart = null;
+            User newUser = new User(nextId(),user.getName(),emptyCart);
             users.put(newUser.getId(), newUser);
             save();
             return newUser;

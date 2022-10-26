@@ -9,10 +9,12 @@ public class User {
 
     @JsonProperty("id") private int id;
     @JsonProperty("username") private String username;
+    @JsonProperty("cart") private Jersey[] cart;
 
-    public User(@JsonProperty("id") int id, @JsonProperty("username") String username){
+    public User(@JsonProperty("id") int id, @JsonProperty("username") String username, @JsonProperty("cart") Jersey[] cart){
         this.id = id;
         this.username = username;
+        this.cart = cart;
     }
 
     /**
@@ -29,6 +31,10 @@ public class User {
      */
     public String getName() {
         return username;
+    }
+
+    public Jersey[] getCart(){
+        return cart;
     }
 
     @Override
