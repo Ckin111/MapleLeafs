@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
 
@@ -12,6 +13,7 @@ import com.estore.api.estoreapi.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class UserFileDAO implements UserDAO{
+    private static final Logger LOG = Logger.getLogger(JerseyFileDAO.class.getName());
 
     Map<Integer, User> users;
     private ObjectMapper objectMapper;

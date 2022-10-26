@@ -1,8 +1,11 @@
 package com.estore.api.estoreapi.model;
 
+import java.util.logging.Logger;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User {
+    private static final Logger LOG = Logger.getLogger(Jersey.class.getName());
 
     @JsonProperty("id") private int id;
     @JsonProperty("username") private String username;
