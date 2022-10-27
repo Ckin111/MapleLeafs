@@ -9,16 +9,20 @@ geometry: margin=1in
 > and appear in the generated PDF in italics._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: Toronto Maple Leafs
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Domenic Lo Iacono
+  * Niccolls Evsseef
+  * Claire Kreisel
+  * Ming Creekmore
 
 ## Executive Summary
 
-This is a summary of the project.
+This project is a full stack application including a persistent storage, backend, and user interface. 
+The goal of this application is to host a jersey store for the Toronto Maple Leafs. 
+As an online store, the admin is able to manage the site by adding and removing jerseys, editing existing jerseys, and other site features. 
+Furthermore, users that visit the site are able to browse through the jerseys available for sale, view specific jersey's attributes like cost, search 
+for jerseys, and lastly add items to their shopping cart and buy the items in that cart. 
 
 ### Purpose
 > _Provide a very brief statement about the project and the most
@@ -54,11 +58,45 @@ This section describes the features of the application.
 
 This section describes the application domain.
 
-![Domain Model](domain-model-placeholder.png)
+![Domain Model](Domain_Analysis.png)
 
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
+
+This is a Noun/Verb analysis relating to our domain model which is now represented in code through various classes. 
+
+Nouns: 
+  Jerseys
+    Number
+    Name
+    Home/away
+    Cost
+    Size
+      XS
+      Small 
+      Medium
+      Large
+      XL
+
+  Store
+
+  User
+    Admin
+    Customer
+
+  Shopping Carts
+    Number of items
+    Total cost
+
+  Sales/discounts
+
+Verbs:
+  Adding (Jerseys to store inventory and shopping cart)
+  Editing (Jerseys to store inventory and shopping cart)
+  Deleting (Jerseys to store inventory and shopping cart)
+  Searching for jerseys
+  Browsing the site/jerseys
+  Checkout the shopping cart
+
+
 
 
 ## Architecture and Design
