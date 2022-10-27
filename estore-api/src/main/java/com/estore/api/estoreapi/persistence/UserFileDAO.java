@@ -73,7 +73,7 @@ public class UserFileDAO implements UserDAO{
         return true;
     }
 
-    // Saves the Jerseys from the map into the file as an array of JSON objects, return true if the Jerseys were written successfully
+    // Saves the Jerseys from the map into the file as an array of JSON objects, return true if the Users were written successfully
     private boolean save() throws IOException {
         User[] userArray = getUsersArray();
         
@@ -89,7 +89,7 @@ public class UserFileDAO implements UserDAO{
                     return null;
                 }
             }
-            Jersey[] emptyCart = null;
+            Jersey[] emptyCart = new Jersey[10];
             User newUser = new User(nextId(),user.getName(),emptyCart);
             users.put(newUser.getId(), newUser);
             save();
