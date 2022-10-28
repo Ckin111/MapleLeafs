@@ -85,11 +85,11 @@ public class UserFileDAO implements UserDAO{
     public User createUser(User user) throws IOException {
         synchronized(users){
             for (User use : users.values()) {
-                if(user.equals(use)) {
+                if(user.sameName(use.getName())) {
                     return null;
                 }
             }
-            Jersey[] emptyCart = new Jersey[10];
+            Jersey[] emptyCart = null;
             User newUser = new User(nextId(),user.getName(),emptyCart);
             users.put(newUser.getId(), newUser);
             save();

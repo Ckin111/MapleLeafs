@@ -55,4 +55,11 @@ public class User {
         return false;
     }
 
+    public boolean sameName(String name) {
+        if(this.getName().equals(name)) {
+            return true;
+        }
+        return false;
+    }
+
 }
