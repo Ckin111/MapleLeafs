@@ -82,7 +82,19 @@ public class JerseyFileDAOTest {
         assertEquals(actual.getNumber(), jersey.getNumber());
         assertEquals(actual.getSize(), jersey.getSize());
     }
+    
+    @Test
+    public void testUpdateHero() {
+        //Setup
+        Jersey jersey = new Jersey(5, "Terry", 24.32f, Size.MEDIUM, false, 32);
+        //Invoke
+        Jersey result = assertDoesNotThrow(() -> jerseyFileDAO.updateJersey(jersey), "Unexpected exception thrown");
 
+        //Analyze
+        assertNotNull(result);
+        Jersey actual = jerseyFileDAO.getJersey(jersey.getID());
+        assertEquals(actual,hero);
+    }
     /**
      * Test to determine whether JerseyFileDAO will return null if
      * the new jersey is the same as an existing jersey
@@ -161,7 +173,20 @@ public class JerseyFileDAOTest {
         assertEquals(result,false);
         assertEquals(jerseyFileDAO.jerseys.size(),testJerseys.length);
     }
+    
+    @Test
+    public void testUpdateJerseyNotFound() {
+        //Setup
+        Jersey jersey = (995, "Terry", 24.32f, Size.MEDIUM, false, 32);
 
+        //Invoke
+        Jersey result = assertDoesNotThrow(() -> jerseyFileDAO.updateJersey(jersey), "Unexpected exception thrown");
+
+        //Analyze
+        assertNull(result);
+    }
+
+ 
     @Test
     public void testSaveException() throws IOException {
         doThrow(new IOException())
