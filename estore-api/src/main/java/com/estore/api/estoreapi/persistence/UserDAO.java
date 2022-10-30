@@ -9,4 +9,6 @@ public interface UserDAO {
     User createUser(User user) throws IOException;
 
     boolean deleteUser(int id) throws IOException;
+
+    User getUser(String username) throws IOException;
 }

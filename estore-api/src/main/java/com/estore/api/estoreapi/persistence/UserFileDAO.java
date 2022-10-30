@@ -35,7 +35,22 @@ public class UserFileDAO implements UserDAO{
         return id;
     }
 
-    // This will return the jerseys array 
+    // given a string, this function will return the user associated with the given string
+    // return null if not found
+    @Override
+    public User getUser(String username) throws IOException {
+        synchronized(users){
+            for (User user : users.values()) {
+                if (user.getName().equals(username)) {
+                    return user;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    // This will return the users array 
     private User[] getUsersArray() {
         return getUsersArray(null);
     }

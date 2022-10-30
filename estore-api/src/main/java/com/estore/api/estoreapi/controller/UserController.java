@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,26 @@ public class UserController {
         this.userDAO = userDAO;
     }
 
+    /**
+     * Returns user whose username matches the given string name
+     * @param name the username to find
+     * @return Response Entity with a user
+     */
+    @GetMapping("/{name}")
+    public ResponseEntity<User> getUser(@PathVariable String name) {
+        LOG.info("GET /jerseys/" + name);
+        try {
+            User user = userDAO.getUser(name);
+            if (user != null)
+                return new ResponseEntity<User>(user,HttpStatus.OK);
+            else
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     /**
     * Creates a user with the same data as input
