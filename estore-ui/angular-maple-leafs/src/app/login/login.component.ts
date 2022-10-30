@@ -14,20 +14,18 @@ export class LoginComponent implements OnInit {
   isadmin: boolean = false;
   loggedIn: boolean = false;
   adminUsername: String = "admin";
-  adminPassword: String = "admin";
   userUsername: String = "user";
-  userPassword: String = "user";
-  message: String = "Please Enter Username and Password";
+  message: String = "Please Enter Username";
 
-  checker (htmlUsername: String, htmlPassword: String ): boolean {
+  checker (htmlUsername: String): boolean {
  
-    if ( htmlUsername==this.adminUsername && htmlPassword==this.adminPassword){
+    if ( htmlUsername==this.adminUsername ){
       this.isadmin = true;
       this.loggedIn = true;
       this.message = "Logged In";
       this.admin()
       return true;
-    } else if (htmlUsername==this.userUsername && htmlPassword==this.userPassword){
+    } else if (htmlUsername==this.userUsername){
       this.isuser=true;
       this.loggedIn = true;
       this.message = "Logged In";
@@ -35,7 +33,7 @@ export class LoginComponent implements OnInit {
       return true;
     } else {
 
-      this.message = "Incorrect Username or Password"
+      this.message = "Incorrect Username"
       return false;
     }
 
