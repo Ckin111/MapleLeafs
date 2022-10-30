@@ -71,7 +71,7 @@ public class JerseyController {
                 return new ResponseEntity<Jersey[]>(jerseys, HttpStatus.OK);
             }
             else{
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         }
         catch(IOException e) {
