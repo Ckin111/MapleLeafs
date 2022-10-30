@@ -34,7 +34,8 @@ public class UserController {
     /**
      * Returns user whose username matches the given string name
      * @param name the username to find
-     * @return Response Entity with a user
+     * @return Response Entity with a user and status of OK if successful, if not
+     *  give status code NOT_FOUND, otherwise INTERNAL_SERVICE_ERROR
      */
     @GetMapping("/{name}")
     public ResponseEntity<User> getUser(@PathVariable String name) {
@@ -105,11 +106,12 @@ public class UserController {
     /**
      * Gets a users cart given a specific user
      * @param user the user that wants to see their cart
-     * @return response entity with an array of Jerseys
+     * @return response entity with an array of Jerseys if successful, if not
+     *  response entity of NOT_FOUND, otherwise INTERNAL_SERVICE_ERROR
      */
     @GetMapping("/{name}/cart")
     public ResponseEntity<Jersey[]> getCart(@PathVariable String name) {
-        LOG.info("GET /users/cart");
+        LOG.info("GET /users/" + name + "/cart");
         try{
             Jersey[] cart = userDAO.getCart(name);
             if(cart == null) {
@@ -120,8 +122,31 @@ public class UserController {
             }
         }
         catch(IOException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        
-}
+    }
+
+    /**
+     * Finds the user with the given name, then adds the given jersey to user's cart
+     * @param name the user to find
+     * @param jersey the jersey to add
+     * @return response entity with the jersey that was added if successful, if not,
+     *  status code of NOT_FOUND, otherwise, INTERNAL_SERVICE_ERROR
+     */
+    @PostMapping("/{name}/cart")
+    public ResponseEntity<Jersey> addToCart(@PathVariable String name, @RequestBody Jersey jersey) {
+        LOG.info(" POST /users/" + name + "/cart" + jersey);
+        try{
+            Jersey response = userDAO.addJersey(name, jersey);
+            if(response == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else {
+                return new ResponseEntity<Jersey>(response, HttpStatus.OK);
+            }
+        }
+        catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

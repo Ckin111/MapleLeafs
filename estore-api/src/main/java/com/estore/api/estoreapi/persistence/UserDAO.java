@@ -15,4 +15,5 @@ public interface UserDAO {
 
     Jersey[] getCart(String name) throws IOException;
 
+    Jersey addJersey(String name, Jersey jersey) throws IOException;
 }

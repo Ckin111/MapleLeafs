@@ -50,6 +50,21 @@ public class User {
         return cart;
     }
 
+    /**
+     * Adds a jersey to the user's cart
+     * @param jersey jersey to add
+     * @return the jersey that was added or null if there was an error
+     */
+    public Jersey addJersey(Jersey jersey) {
+        boolean wasAdded = variableCart.add(jersey);
+        if(wasAdded) {
+            cart = new Jersey[variableCart.size()];
+            variableCart.toArray(cart);
+            return jersey;
+        }
+        return null;
+    }
+
     @Override
     /**
      * Determines whether a User is equal to another User

@@ -1,1 +1,1 @@
-[{"id":1,"username":"admin","cart":[],"name":"admin"},{"id":2,"username":"test","cart":[],"name":"test"},{"id":3,"username":"test2","cart":[],"name":"test2"}]
+[{"id":1,"username":"admin","cart":[],"name":"admin"},{"id":2,"username":"test","cart":[],"name":"test"},{"id":3,"username":"test2","cart":[{"id":2,"name":"John Tavares","cost":59.99,"size":null,"home":false,"number":91}],"name":"test2"}]
