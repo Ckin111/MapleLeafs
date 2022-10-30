@@ -135,7 +135,7 @@ public class UserController {
      */
     @PostMapping("/{name}/cart")
     public ResponseEntity<Jersey> addToCart(@PathVariable String name, @RequestBody Jersey jersey) {
-        LOG.info(" POST /users/" + name + "/cart" + jersey);
+        LOG.info(" POST /users/" + name + "/cart " + jersey);
         try{
             Jersey response = userDAO.addJersey(name, jersey);
             if(response == null) {
@@ -146,6 +146,30 @@ public class UserController {
             }
         }
         catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Finds the user with the given name, then deletes the given jersey from the cart
+     * @param name the user to find
+     * @param jersey the jersey to remove
+     * @return response entity OK if successful, if not, status code NOT_FOUND,
+     *  otherwise INTERNAL_SERVICE_ERROR
+     */
+    @DeleteMapping("/{name}/cart")
+    public ResponseEntity<User> removeJerseyFromCart(@PathVariable String name, @RequestBody Jersey jersey) {
+        LOG.info("DELETE /users/" + name + "/cart " + jersey);
+        try{ 
+            if(userDAO.removeJersey(name, jersey)){
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

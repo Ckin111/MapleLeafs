@@ -12,13 +12,15 @@ public class User {
     @JsonProperty("username") private String username;
     @JsonProperty("cart") private Jersey[] cart;
     private ArrayList<Jersey> variableCart;
+    private int nextCartId;
 
     public User(@JsonProperty("id") int id, @JsonProperty("username") String username, @JsonProperty("cart") Jersey[] cart){
         this.id = id;
         this.username = username;
         this.cart = cart;
         variableCart = new ArrayList<>();
-        if(cart != null) {
+        if(cart != null && cart.length != 0) {
+            nextCartId = cart[cart.length-1].getId() + 1;
             for(Jersey jersey: cart) {
             variableCart.add(jersey);
             }
@@ -56,13 +58,30 @@ public class User {
      * @return the jersey that was added or null if there was an error
      */
     public Jersey addJersey(Jersey jersey) {
-        boolean wasAdded = variableCart.add(jersey);
+        Jersey addedJersey = new Jersey(nextCartId, jersey.getName(),
+            jersey.getCost(), jersey.getSize(), jersey.getIsHome(), jersey.getNumber());
+        boolean wasAdded = variableCart.add(addedJersey);
         if(wasAdded) {
             cart = new Jersey[variableCart.size()];
             variableCart.toArray(cart);
-            return jersey;
+            nextCartId++;
+            return addedJersey;
         }
         return null;
+    }
+
+    /**
+     * Removes a jersey from the user's cart
+     * @param jersey jersey to delete
+     * @return true if jersey was deleted, false otherwise
+     */
+    public boolean deleteJersey(Jersey jersey) {
+        boolean wasDeleted = variableCart.remove(jersey);
+        if(wasDeleted) {
+            cart = new Jersey[variableCart.size()];
+            variableCart.toArray(cart);
+        }
+        return wasDeleted;
     }
 
     @Override

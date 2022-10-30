@@ -145,4 +145,17 @@ public class UserFileDAO implements UserDAO{
         }
         return null;
     }
+
+    //deletes a jersey from the specified user's cart
+    @Override
+    public boolean removeJersey(String name, Jersey jersey) throws IOException {
+        User user = getUser(name);
+        if(user != null) {
+            boolean wasDeleted = user.deleteJersey(jersey);
+            save();
+            return wasDeleted;
+        }
+
+        return false;
+    }
 }
