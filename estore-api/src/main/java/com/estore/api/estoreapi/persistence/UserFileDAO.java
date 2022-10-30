@@ -104,7 +104,7 @@ public class UserFileDAO implements UserDAO{
                     return null;
                 }
             }
-            Jersey[] emptyCart = null;
+            Jersey[] emptyCart = new Jersey[0];
             User newUser = new User(nextId(),user.getName(),emptyCart);
             users.put(newUser.getId(), newUser);
             save();
@@ -123,5 +123,16 @@ public class UserFileDAO implements UserDAO{
                 return false;
         }
     }
+
+    //gets the user's cart
+    @Override
+    public Jersey[] getCart(String name) throws IOException {
+        User user = getUser(name);
+        if(user != null) {
+            return user.getCart();
+        }
+        return null;
+    }
+
     
 }

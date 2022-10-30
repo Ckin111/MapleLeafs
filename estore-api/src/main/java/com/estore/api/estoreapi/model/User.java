@@ -1,5 +1,6 @@
 package com.estore.api.estoreapi.model;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,11 +11,19 @@ public class User {
     @JsonProperty("id") private int id;
     @JsonProperty("username") private String username;
     @JsonProperty("cart") private Jersey[] cart;
+    private ArrayList<Jersey> variableCart;
 
     public User(@JsonProperty("id") int id, @JsonProperty("username") String username, @JsonProperty("cart") Jersey[] cart){
         this.id = id;
         this.username = username;
         this.cart = cart;
+        variableCart = new ArrayList<>();
+        if(cart != null) {
+            for(Jersey jersey: cart) {
+            variableCart.add(jersey);
+            }
+        }
+        
     }
 
     /**
@@ -33,7 +42,11 @@ public class User {
         return username;
     }
 
-    public Jersey[] getCart(){
+    /**
+     * Gets the user's shopping cart
+     * @return an array of Jerseys
+     */
+    public Jersey[] getCart() {
         return cart;
     }
 
@@ -55,6 +68,11 @@ public class User {
         return false;
     }
 
+    /**
+     * Determines if a given string if the same as the user's name
+     * @param name the string to check
+     * @return true if it is the same, false otherwise
+     */
     public boolean sameName(String name) {
         if(this.getName().equals(name)) {
             return true;

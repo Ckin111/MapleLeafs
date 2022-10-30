@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.estore.api.estoreapi.model.Jersey;
 import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.persistence.UserDAO;
 
@@ -37,7 +38,7 @@ public class UserController {
      */
     @GetMapping("/{name}")
     public ResponseEntity<User> getUser(@PathVariable String name) {
-        LOG.info("GET /jerseys/" + name);
+        LOG.info("GET /users/" + name);
         try {
             User user = userDAO.getUser(name);
             if (user != null)
@@ -100,4 +101,27 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * Gets a users cart given a specific user
+     * @param user the user that wants to see their cart
+     * @return response entity with an array of Jerseys
+     */
+    @GetMapping("/{name}/cart")
+    public ResponseEntity<Jersey[]> getCart(@PathVariable String name) {
+        LOG.info("GET /users/cart");
+        try{
+            Jersey[] cart = userDAO.getCart(name);
+            if(cart == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else {
+                return new ResponseEntity<Jersey[]>(cart, HttpStatus.OK);
+            }
+        }
+        catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        
+}
 }
