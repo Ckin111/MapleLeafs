@@ -139,6 +139,15 @@ public class JerseyFileDAOTest {
     }
 
     @Test
+    public void testGetJerseyFail() throws IOException {
+        //Invoke
+        Jersey jersey = jerseyFileDAO.getJersey(19);
+
+        //Analyze
+        assertEquals(null, jersey);
+    }
+
+    @Test
     public void testGetJerseys() throws IOException{
         // Invoke
         Jersey[] jerseys = jerseyFileDAO.getJerseys();
