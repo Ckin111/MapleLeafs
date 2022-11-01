@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import com.estore.api.estoreapi.model.Jersey;
 import com.estore.api.estoreapi.model.Jersey.Size;
 
 @Tag("Model-tier")
@@ -71,10 +70,16 @@ public class JerseyTest {
         // Invoke
         Jersey jersey = new Jersey(expected_id,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber);
         Jersey jersey2 = new Jersey(expected_id,expected_name,expectedCost+.75f,expectedSize,expectedIsHome,expectedNumber);
+        Jersey jersey3 = new Jersey(expected_id,expected_name+"m",expectedCost,expectedSize,expectedIsHome,expectedNumber);
+        Jersey jersey4 = new Jersey(expected_id,expected_name,expectedCost,expectedSize,!expectedIsHome,expectedNumber);
+        Jersey jersey5 = new Jersey(expected_id,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber+5);
         
         //Analyze
         assertTrue(jersey.isSameContent(jersey));
         assertFalse(jersey.isSameContent(null));
         assertFalse(jersey.isSameContent(jersey2));
+        assertFalse(jersey.isSameContent(jersey3));
+        assertFalse(jersey.isSameContent(jersey4));
+        assertFalse(jersey.isSameContent(jersey5));
     }
 }
