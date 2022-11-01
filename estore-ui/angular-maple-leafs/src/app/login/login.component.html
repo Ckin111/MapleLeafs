@@ -5,9 +5,9 @@
 
     <div class="container">
       <label for="uname"><b>Username</b></label>
-      <input type="text" placeholder="Enter Username" name="uname" required>
+      <input type="text" placeholder="Enter Username" #username required>
   
-      <button type="submit">Login</button>
+      <button type="submit" (click)="checker(username.value)">Login</button>
     </div>
   
     <div class="container" style="background-color:#f1f1f1">
