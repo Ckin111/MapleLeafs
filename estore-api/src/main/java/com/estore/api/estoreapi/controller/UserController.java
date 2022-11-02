@@ -77,18 +77,18 @@ public class UserController {
     }
 
     /**
-    * Deletes a user with the id id.
+    * Deletes a user with the given string name.
     *
-    * @param id id of the user
+    * @param name name of the user
     *
     * @return ResponseEntity with the status of OK if deleted, 
     * NOT_FOUND if not found, INTERNAL_SERVER_ERROR otherwise
     */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable int id) {
-        LOG.info("DELETE /users/" + id);
+    @DeleteMapping("/{name}")
+    public ResponseEntity<User> deleteUser(@PathVariable String name) {
+        LOG.info("DELETE /users/" + name);
         try{ 
-            if(userDAO.deleteUser(id)){
+            if(userDAO.deleteUser(name)){
                 return new ResponseEntity<>(HttpStatus.OK);
             }
             else{

@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class UserFileDAO implements UserDAO{
     private static final Logger LOG = Logger.getLogger(JerseyFileDAO.class.getName());
 
-    Map<Integer, User> users;
+    Map<String, User> users;
     private ObjectMapper objectMapper;
     private static int nextId;
     private String filename;
@@ -40,14 +40,8 @@ public class UserFileDAO implements UserDAO{
     @Override
     public User getUser(String username) throws IOException {
         synchronized(users){
-            for (User user : users.values()) {
-                if (user.getName().equals(username)) {
-                    return user;
-                }
-            }
+            return users.get(username);
         }
-
-        return null;
     }
 
     // This will return the users array 
@@ -78,7 +72,7 @@ public class UserFileDAO implements UserDAO{
         User[] userArray = objectMapper.readValue(new File(filename), User[].class);
 
         for(User user: userArray) {
-            users.put(user.getId(), user);
+            users.put(user.getName(), user);
             if (user.getId() > nextId) {
                 nextId = user.getId();
             }
@@ -96,6 +90,7 @@ public class UserFileDAO implements UserDAO{
         return true;
     }
 
+    //creates a user and adds it to the treemap given a user object
     @Override
     public User createUser(User user) throws IOException {
         synchronized(users){
@@ -106,17 +101,18 @@ public class UserFileDAO implements UserDAO{
             }
             Jersey[] emptyCart = null;
             User newUser = new User(nextId(),user.getName(),emptyCart);
-            users.put(newUser.getId(), newUser);
+            users.put(newUser.getName(), newUser);
             save();
             return newUser;
         }
     }
 
+    //deletes a user with the given name from the treemap
     @Override
-    public boolean deleteUser(int id) throws IOException {
+    public boolean deleteUser(String name) throws IOException {
         synchronized(users) {
-            if (users.containsKey(id)) {
-                users.remove(id);
+            if (users.containsKey(name)) {
+                users.remove(name);
                 return save();
             }
             else
