@@ -29,6 +29,7 @@ public class UserFileDAO implements UserDAO{
         load();
     }
 
+    //gets the next id, and increments
     private synchronized static int nextId() {
         int id = nextId;
         ++nextId;

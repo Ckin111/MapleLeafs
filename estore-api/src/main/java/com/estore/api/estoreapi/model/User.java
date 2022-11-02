@@ -19,7 +19,7 @@ public class User implements Comparable{
 
     /**
      * gets the user's id
-     * @return id
+     * @return int id
      */
     public int getId() {
         return id;
@@ -27,12 +27,16 @@ public class User implements Comparable{
 
     /**
      * gets the username
-     * @return username
+     * @return String username
      */
     public String getName() {
         return username;
     }
 
+    /**
+     * gets the cart
+     * @return list of jerseys
+     */
     public Jersey[] getCart(){
         return cart;
     }
@@ -53,6 +57,11 @@ public class User implements Comparable{
         return false;
     }
 
+    /**
+     * Determines if the given string name is the same as the user's name
+     * @param name the string to compare
+     * @return true if the same, false otherwise
+     */
     public boolean sameName(String name) {
         if(this.getName().equals(name)) {
             return true;
@@ -61,6 +70,9 @@ public class User implements Comparable{
     }
 
     @Override
+    /**
+     * Compares the given user object with itself based on the id
+     */
     public int compareTo(Object o) {
         User object = (User)o;
         return this.getId()-object.getId();
