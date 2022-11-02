@@ -48,8 +48,6 @@ public class User {
             User object = (User)(o);
             if(object.getId() == this.getId()){
                 return true;
-            }else{
-                return false;
             }
         }
         return false;
