@@ -48,7 +48,7 @@ public class UserTest {
         String expected_username = "Ming";
         Jersey[] expected_cart = null;
         User user1 = new User(expected_id, expected_username, expected_cart);
-        User user2 = new User(expected_id+1, expected_username, expected_cart);
+        User user2 = new User(expected_id, expected_username + " ", expected_cart);
 
         //Inovke
         boolean same_result = user1.equals(user1);

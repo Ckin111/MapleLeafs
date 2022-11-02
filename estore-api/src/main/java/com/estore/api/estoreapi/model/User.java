@@ -46,7 +46,7 @@ public class User implements Comparable{
     public boolean equals(Object o){
         if(o instanceof User){
             User object = (User)(o);
-            if(object.getId() == this.getId()){
+            if(object.getName().equals(this.getName())){
                 return true;
             }
         }

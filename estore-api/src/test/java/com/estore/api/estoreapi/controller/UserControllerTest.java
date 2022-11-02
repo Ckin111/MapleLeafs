@@ -1,6 +1,7 @@
 package com.estore.api.estoreapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doThrow;
@@ -43,7 +44,11 @@ public class UserControllerTest {
 
         //Analyze
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(user, response.getBody());
+        User body = response.getBody();
+        assertNotNull(body);
+        assertEquals(user.getId(), body.getId());
+        assertEquals(user.getName(), body.getName());
+        assertEquals(user.getCart(), body.getCart());
     }
 
     @Test
@@ -84,7 +89,11 @@ public class UserControllerTest {
 
         //Analyze
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals(user, response.getBody());
+        User body = response.getBody();
+        assertNotNull(body);
+        assertEquals(user.getId(), body.getId());
+        assertEquals(user.getName(), body.getName());
+        assertEquals(user.getCart(), body.getCart());
     }
 
     @Test
