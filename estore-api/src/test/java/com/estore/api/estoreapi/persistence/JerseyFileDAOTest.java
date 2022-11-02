@@ -64,16 +64,20 @@ public class JerseyFileDAOTest {
     public void testCreateJersey() throws IOException {
         //Setup Jersey to create
         Jersey jersey = new Jersey(5, "Terry", 24.32f, Size.MEDIUM, false, 32);
+        Jersey jersey2 = new Jersey(5, "Terry", 24.32f, Size.MEDIUM, true, 32);
         
         //Invoke
         Jersey result = assertDoesNotThrow(() -> jerseyFileDAO.createJersey(jersey),
             "Unexpected exception thrown");
+        Jersey result2 = assertDoesNotThrow(() -> jerseyFileDAO.createJersey(jersey2),
+            "Unexpected exception thrown");
     
         //Analyze response
         assertNotNull(result);
-        assertEquals(jerseyFileDAO.jerseys.size(), testJerseys.length+1);
+        assertNotNull(result2);
+        assertEquals(jerseyFileDAO.jerseys.size(), testJerseys.length+2);
 
-        //Analyze whether created jersey is same as what we gave
+        //Analyze whether first created jersey is same as what we gave
         Jersey actual = jerseyFileDAO.getJersey(jersey.getId());
         assertEquals(actual.getName(), jersey.getName());
         assertEquals(actual.getCost(), jersey.getCost());
@@ -81,6 +85,15 @@ public class JerseyFileDAOTest {
         assertEquals(actual.getIsHome(), jersey.getIsHome());
         assertEquals(actual.getNumber(), jersey.getNumber());
         assertEquals(actual.getSize(), jersey.getSize());
+        //Analyze whether created jersey 2 has id 6 and not 5
+        Jersey actual2 = jerseyFileDAO.getJersey(6);
+        assertNotNull(actual2);
+        assertEquals(actual2.getName(), jersey2.getName());
+        assertEquals(actual2.getCost(), jersey2.getCost());
+        assertEquals(actual2.getId(), jersey2.getId()+1);
+        assertEquals(actual2.getIsHome(), jersey2.getIsHome());
+        assertEquals(actual2.getNumber(), jersey2.getNumber());
+        assertEquals(actual2.getSize(), jersey2.getSize());
     }
 
     /**
@@ -152,10 +165,9 @@ public class JerseyFileDAOTest {
     }
 
     @Test
-    public void testDeleteJerseyNotFound() {
+    public void testDeleteJerseyNotFound() throws IOException {
         // Invoke
-        boolean result = assertDoesNotThrow(() -> jerseyFileDAO.deleteJersey(98),
-                                                "Unexpected exception thrown");
+        boolean result = jerseyFileDAO.deleteJersey(98);
 
         // Analyze
         assertEquals(result,false);
@@ -175,8 +187,6 @@ public class JerseyFileDAOTest {
     @Test
     public void testConstructorException() throws IOException {
         // Setup
-        ObjectMapper mockObjectMapper = mock(ObjectMapper.class);
-        
         doThrow(new IOException())
             .when(mockObjectMapper)
                 .readValue(new File("doesnt_matter.txt"),Jersey[].class);
