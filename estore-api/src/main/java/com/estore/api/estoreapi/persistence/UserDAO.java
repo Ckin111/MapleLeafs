@@ -13,7 +13,7 @@ public interface UserDAO {
      * @return the user that was added
      * @throws IOException
      */
-    User createUser(User user) throws IOException;
+    User createUser(String name) throws IOException;
 
     /**
      * Delete a user from the array, returning true if removed, false otherwise

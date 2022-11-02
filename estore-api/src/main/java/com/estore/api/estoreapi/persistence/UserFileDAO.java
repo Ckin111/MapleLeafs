@@ -92,15 +92,13 @@ public class UserFileDAO implements UserDAO{
 
     //creates a user and adds it to the treemap given a user object
     @Override
-    public User createUser(User user) throws IOException {
+    public User createUser(String name) throws IOException {
         synchronized(users){
-            for (User use : users.values()) {
-                if(user.sameName(use.getName())) {
-                    return null;
-                }
+            if(users.containsKey(name)) {
+                return null;
             }
-            Jersey[] emptyCart = null;
-            User newUser = new User(nextId(),user.getName(),emptyCart);
+            Jersey[] emptyCart = new Jersey[0];
+            User newUser = new User(nextId(), name,emptyCart);
             users.put(newUser.getName(), newUser);
             save();
             return newUser;

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estore.api.estoreapi.model.User;
@@ -60,12 +61,13 @@ public class UserController {
     * status CONFLICT, otherwise, status INTERNAL_SERVER_ERROR.
     */
     @PostMapping("")
-    public ResponseEntity<User> createUser (@RequestBody User user)
+    public ResponseEntity<User> createUser (@RequestParam String name)
     {
-        LOG.info("POST /users " + user);
+        LOG.info("POST /users/?name=" + name);
         
         try{
-            if (userDAO.createUser(user) != null)
+            User user = userDAO.createUser(name);
+            if (user != null)
                 return new ResponseEntity<User>(user, HttpStatus.CREATED);
             else
                 return new ResponseEntity<>(HttpStatus.CONFLICT);

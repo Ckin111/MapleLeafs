@@ -4,7 +4,7 @@ import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class User {
+public class User implements Comparable{
     private static final Logger LOG = Logger.getLogger(Jersey.class.getName());
 
     @JsonProperty("id") private int id;
@@ -58,6 +58,12 @@ public class User {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        User object = (User)o;
+        return this.getId()-object.getId();
     }
 
 }
