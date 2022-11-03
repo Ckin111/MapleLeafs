@@ -1,14 +1,15 @@
-<p>Login</p>
+<h1 class = "title">Welcome to the Toronto Maple Leafs Jersey Store!</h1>
 
-<form >
-    <input type="text" #username>
-    <button type="submit" (click)="checker(username.value)" >Login</button>
-    <!--<button href="./browse">Continue as Guest</button>-->
-</form>
 
-<p class="message">{{message}}</p>
+<form action="action_page.php" method="post">
 
-<router-outlet></router-outlet>
-
-<!-- <p class="not">FAIL!</p> -->
-
+    <div class="container">
+      <label for="uname"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" #username required>
+  
+      <button type="submit" (click)="checker(username.value)">Login</button>
+    </div>
+  
+    <div class="container" style="background-color:#f1f1f1">
+    </div>
+  </form>
