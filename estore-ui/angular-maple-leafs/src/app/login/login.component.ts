@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
   loggedIn: boolean = false;
   adminUsername: String = "admin";
   userUsername: String = "user";
+
   message: String = "Please Enter Username";
 
   checker (htmlUsername: String): boolean {
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
       this.isadmin = true;
       this.loggedIn = true;
       this.message = "Logged In";
-      this.admin()
+      this.user(htmlUsername);
       return true;
     } else if (htmlUsername==this.userUsername){
       this.isuser=true;
@@ -41,14 +42,13 @@ export class LoginComponent implements OnInit {
 
   user(username: String):void {
     // this function would redirect to browse and search
-    this.router.navigate(["user", {user: username}])
+    if(username == "admin"){
+      this.router.navigateByUrl("/admin");
+    }else{
+      this.router.navigate(["user", {user: username}])
+    }
   }
 
-  admin():void{
-    // this function would redirect to browse, search, add, remove
-    this.router.navigate(["admin"])
-
-  }
 
   ngOnInit(): void {
   }

@@ -1,7 +1,13 @@
 <div id="search-component">
     <label for="search-box">Jersey Search</label>
-    <input #searchBox id="search-box" (input)="search(searchBox.value)" />
-  
+
+    <input  #searchBox id="search-box" (input)="search(searchBox.value)" />
+    <!-- <body onload='search("")'>
+      hi
+    </body> -->
+      
+    
+    <!-- ng-include="partialViewUrl" onload="search()" -->
     <ul class="search-result">
       <li *ngFor="let jersey of jerseys$ | async" >
         <a routerLink="/view/{{jersey.id}}">
