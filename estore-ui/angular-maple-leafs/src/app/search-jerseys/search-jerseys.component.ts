@@ -23,7 +23,7 @@ export class SearchJerseysComponent implements OnInit {
    * when instantiate browse-jersey
    * @param jerseyService the service to talk to jersey API
    */
-  constructor(private jerseyService: JerseyService) {   }
+  constructor(private jerseyService: JerseyService) { }
 
   search(term: string): void {
     this.searchTerms.next(term);
@@ -38,7 +38,7 @@ export class SearchJerseysComponent implements OnInit {
       distinctUntilChanged(),
 
       // switch to new search observable each time the term changes
-      switchMap((term: string) => this.jerseyService.searchJerseys(term)),
+      switchMap((term: string) => this.jerseyService.searchJerseys(term))
     );
   }
 }
