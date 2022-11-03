@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import com.estore.api.estoreapi.model.Jersey.Size;
-
+   
 @Tag("Model-tier")
 public class JerseyTest {
     @Test
