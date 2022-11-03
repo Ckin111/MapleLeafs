@@ -38,7 +38,7 @@ export class SearchJerseysComponent implements OnInit {
       distinctUntilChanged(),
 
       // switch to new search observable each time the term changes
-      switchMap((term: string) => this.jerseyService.searchJerseys(term)),
+      switchMap((term: string) => this.jerseyService.searchJerseys(term))
     );
   }
 }

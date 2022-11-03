@@ -44,16 +44,16 @@ public class JerseyTest {
         Size expectedSize = Size.MEDIUM;
         boolean expectedIsHome = true;
         int expectedNumber = 93;
-        
-
-        // Invoke
         Jersey jersey = new Jersey(expected_id,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber);
         Jersey jersey2 = new Jersey(expected_id+1,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber);
+
+        //Invoke
+        boolean same_result = jersey.equals(jersey);
+        boolean not_same_result = jersey.equals(jersey2);
         
         //Analyze
-        assertEquals(jersey, jersey);
-        assertNotEquals(jersey, null);
-        assertNotEquals(jersey, jersey2);
+        assertEquals(true, same_result);
+        assertEquals(false, not_same_result);
     }
 
     @Test

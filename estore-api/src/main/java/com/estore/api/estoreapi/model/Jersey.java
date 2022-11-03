@@ -109,8 +109,6 @@ public class Jersey {
             Jersey object = (Jersey)(o);
             if(object.getId() == this.getId()){
                 return true;
-            }else{
-                return false;
             }
         }
         return false;

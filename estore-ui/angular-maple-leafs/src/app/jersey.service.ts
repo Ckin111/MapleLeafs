@@ -57,9 +57,10 @@ export class JerseyService {
 
 
   searchJerseys(term: string): Observable<Jersey[]> {
-    if (!term.trim()) {
+    if (term == null) {
       // if not search term, return empty hero array.
-      return of([]);
+      // return of([]);
+      return this.http.get<Jersey[]>(this.jerseysUrl);
     }
     return this.http.get<Jersey[]>(`${this.jerseysUrl}/?name=${term}`).pipe(
       tap(x => x.length ?
