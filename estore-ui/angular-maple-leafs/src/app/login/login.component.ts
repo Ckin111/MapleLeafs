@@ -15,11 +15,12 @@ export class LoginComponent implements OnInit {
   loggedIn: boolean = false;
   adminUsername: String = "admin";
   userUsername: String = "user";
-  message: String = "Please Enter Username and Password";
+
+  message: String = "Please Enter Username";
 
   checker (htmlUsername: String): boolean {
  
-    if ( htmlUsername==this.adminUsername){
+    if ( htmlUsername==this.adminUsername ){
       this.isadmin = true;
       this.loggedIn = true;
       this.message = "Logged In";

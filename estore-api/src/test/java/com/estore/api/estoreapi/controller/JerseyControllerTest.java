@@ -17,6 +17,8 @@ import com.estore.api.estoreapi.model.Jersey;
 import com.estore.api.estoreapi.model.Jersey.Size;
 import com.estore.api.estoreapi.persistence.JerseyDAO;
 
+import net.bytebuddy.implementation.InvokeDynamic;
+
 @Tag("Controller-tier")
 public class JerseyControllerTest {
     private JerseyController jerseyController;
@@ -195,6 +197,19 @@ public class JerseyControllerTest {
     }
 
     @Test
+    public void testGetJerseysFail() throws IOException {
+        //Setup
+        when(mockJerseyDAO.getJerseys()).thenReturn(null);
+
+        //Invoke
+        ResponseEntity<Jersey[]> response = jerseyController.getJerseys();
+
+        //Analyze
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(null, response.getBody());
+    }
+
+    @Test
     public void testGetJerseysHandleException() throws IOException { // getJerseys may throw IOException
         // Setup
         // When getHeroes is called on the Mock Hero DAO, throw an IOException
@@ -229,6 +244,20 @@ public class JerseyControllerTest {
         //Analyze
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(jerseys, response.getBody());
+    }
+
+    @Test
+    public void testSearchJerseysFail() throws IOException {
+        //Setup
+        String searchString = "D";
+        when(mockJerseyDAO.findJersey(searchString)).thenReturn(null);
+
+        //Invoke
+        ResponseEntity<Jersey[]> response = jerseyController.searchJerseys(searchString);
+
+        //Analyze
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        assertEquals(null, response.getBody());
     }
 
     /**
