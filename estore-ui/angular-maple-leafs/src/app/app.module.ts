@@ -13,6 +13,7 @@ import { AddJerseyComponent } from './add-jersey/add-jersey.component';
 import { SearchJerseysComponent } from './search-jerseys/search-jerseys.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { EditJerseyComponent } from './edit-jersey/edit-jersey.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     AddJerseyComponent,
     SearchJerseysComponent,
     DashboardComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
+    EditJerseyComponent
   ],
   imports: [
     BrowserModule,
