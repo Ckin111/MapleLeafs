@@ -9,7 +9,7 @@
     <!--The size dropdown menu-->
     <div>
         <label for="sizes">Size: </label>
-        <select name="sizes" id="sizes">
+        <select #sizes name="sizes" id="sizes" (change)="changeSize(sizes.value)">
             <option *ngFor="let size of sizeList" [value]
             ="size">{{size}}</option>
         </select>
@@ -22,7 +22,7 @@
     
     <div>
         <button type="button" (click)="back()">Go Back</button>
-        <button>Buy</button>
+        <button type="button" (click)="buy()">Buy</button>
         <span *ngIf="owner">
             <button>Update</button>
             <button type="button" (click)="delete()">Delete</button>

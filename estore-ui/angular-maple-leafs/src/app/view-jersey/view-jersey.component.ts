@@ -10,6 +10,7 @@ import { JerseyService } from '../jersey.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { debounceTime } from 'rxjs';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-view-jersey',
@@ -21,8 +22,11 @@ export class ViewJerseyComponent implements OnInit {
 
   sizeList: String[] = [Size[0], Size[1], Size[2], Size[3]];
   jersey: Jersey | undefined;
+  name: string = "test2"; //TODO
   owner: boolean = true; //TODO need to do login stuff
   home: boolean | undefined;
+  selectedSize: Size = Size.SMALL; //default start at small size
+  jerseys: Jersey[] = [];
 
   /**
    * When a view-jersey component is created
@@ -33,7 +37,8 @@ export class ViewJerseyComponent implements OnInit {
   constructor(private route: ActivatedRoute, 
     private jerseyService: JerseyService, 
     private location: Location,
-    private router: Router) { }
+    private router: Router,
+    private userService: UserService,) { }
 
   ngOnInit(): void {
     this.getJersey();
@@ -69,6 +74,34 @@ export class ViewJerseyComponent implements OnInit {
        }
     }
     
+  }
+
+  /**
+   * Change the size that was selected
+   * @param size 
+   */
+  changeSize(size: string) {
+    this.selectedSize = size as unknown as Size;
+    console.log("Selected Size: " + this.selectedSize);
+  }
+
+  /**
+   * buy a jersey
+   */
+  buy(): void {
+    if(this.jersey) {
+      const newJersey: Jersey = {
+        id: this.jersey.id,
+        name: this.jersey.name,
+        number: this.jersey.number,
+        cost: this.jersey.cost,
+        size: this.selectedSize,
+        home: this.jersey.home
+      }
+      this.userService.addToCart(this.name, newJersey).subscribe(jersey => {this.jerseys.push(jersey);});
+      
+    }
+
   }
 
 }

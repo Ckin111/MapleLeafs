@@ -22,8 +22,7 @@ export class UserService {
 
   addToCart(name: string, jersey: Jersey): Observable<Jersey> {
     const url = `${this.usersUrl}/${name}/cart`;
-    console.log("Added jersey: " + jersey.id + " to user: " + name);
-    return this.http.post<Jersey>(this.usersUrl, jersey, this.httpOptions).pipe(
+    return this.http.post<Jersey>(url, jersey, this.httpOptions).pipe(
       tap((newJersey: Jersey) => console.log(`added jersey to user: ${name}`))
     );
   }
