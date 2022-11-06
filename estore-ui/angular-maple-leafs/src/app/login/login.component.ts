@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -8,13 +10,20 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router){}
+  constructor(private router: Router, private userService: UserService){}
+
+  tempUser:User = {
+    id: 0,
+    username: "user",
+    cart: [],
+    name: "user",
+  }
 
   isuser: boolean = false;
   isadmin: boolean = false;
   loggedIn: boolean = false;
   adminUsername: String = "admin";
-  userUsername: String = "user";
+  userUsername: String = "test2";
 
   message: String = "Please Enter Username";
 
@@ -39,6 +48,19 @@ export class LoginComponent implements OnInit {
     }
 
   };
+
+  signup(htmlUsername: string): boolean{
+    this.tempUser.username = htmlUsername;
+    
+    if ((this.userService.addUser(this.tempUser)) == null){
+      this.message = "Username already exists";
+      return false;
+    } 
+    this.message = "Signed Up!";
+    return true;
+
+    
+  }
 
   user(username: String):void {
     // this function would redirect to browse and search
