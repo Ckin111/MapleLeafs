@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   isadmin: boolean = false;
   loggedIn: boolean = false;
   adminUsername: String = "admin";
-  userUsername: String = "user";
+  userUsername: String = "test2";
 
   message: String = "Please Enter Username";
 
