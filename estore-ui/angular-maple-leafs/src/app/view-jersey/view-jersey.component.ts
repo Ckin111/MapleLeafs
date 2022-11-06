@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { debounceTime } from 'rxjs';
 import { UserService } from '../user.service';
+import { MessagesService } from '../messages.service';
 
 @Component({
   selector: 'app-view-jersey',
@@ -27,6 +28,7 @@ export class ViewJerseyComponent implements OnInit {
   home: boolean | undefined;
   selectedSize: Size = Size.SMALL; //default start at small size
   jerseys: Jersey[] = [];
+  messages: string[] = [];
 
   /**
    * When a view-jersey component is created
@@ -38,7 +40,8 @@ export class ViewJerseyComponent implements OnInit {
     private jerseyService: JerseyService, 
     private location: Location,
     private router: Router,
-    private userService: UserService,) { }
+    private userService: UserService,
+    public messageService: MessagesService) { }
 
   ngOnInit(): void {
     this.getJersey();
@@ -99,7 +102,7 @@ export class ViewJerseyComponent implements OnInit {
         home: this.jersey.home
       }
       this.userService.addToCart(this.name, newJersey).subscribe(jersey => {this.jerseys.push(jersey);});
-      
+      this.messageService.add("Added Jersey with id " + newJersey.id + " to cart");
     }
 
   }
