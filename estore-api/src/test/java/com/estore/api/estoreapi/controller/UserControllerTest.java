@@ -262,7 +262,7 @@ public class UserControllerTest {
         when(mockUserDAO.removeJersey(username, jersey)).thenReturn(true);
 
         //invoke
-        ResponseEntity<User> response = userController.removeJerseyFromCart(username, jersey);
+        ResponseEntity<Jersey> response = userController.removeJerseyFromCart(username, jersey);
 
         //analyze
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -276,7 +276,7 @@ public class UserControllerTest {
         when(mockUserDAO.removeJersey(username, jersey)).thenReturn(false);
 
         //invoke
-        ResponseEntity<User> response = userController.removeJerseyFromCart(username, jersey);
+        ResponseEntity<Jersey> response = userController.removeJerseyFromCart(username, jersey);
 
         //analyze
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
@@ -290,7 +290,7 @@ public class UserControllerTest {
         doThrow(IOException.class).when(mockUserDAO).removeJersey(username, jersey);
 
         //invoke
-        ResponseEntity<User> response = userController.removeJerseyFromCart(username, jersey);
+        ResponseEntity<Jersey> response = userController.removeJerseyFromCart(username, jersey);
 
         //analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());

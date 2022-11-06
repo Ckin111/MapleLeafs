@@ -160,7 +160,7 @@ public class UserController {
      *  otherwise INTERNAL_SERVICE_ERROR
      */
     @DeleteMapping("/{name}/cart")
-    public ResponseEntity<User> removeJerseyFromCart(@PathVariable String name, @RequestBody Jersey jersey) {
+    public ResponseEntity<Jersey> removeJerseyFromCart(@PathVariable String name, @RequestBody Jersey jersey) {
         LOG.info("DELETE /users/" + name + "/cart " + jersey);
         try{ 
             if(userDAO.removeJersey(name, jersey)){
