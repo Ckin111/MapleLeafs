@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 
 import com.estore.api.estoreapi.model.Jersey;
 import com.estore.api.estoreapi.model.User;
+import com.estore.api.estoreapi.model.Jersey.Size;
 import com.estore.api.estoreapi.persistence.UserDAO;
 
 import net.bytebuddy.agent.VirtualMachine.ForHotSpot.Connection.Response;
@@ -158,6 +159,140 @@ public class UserControllerTest {
         ResponseEntity<User> response = userController.deleteUser(username);
 
         //Analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetCart() throws IOException {
+        //setup
+        Jersey[] testJerseys = new Jersey[3];
+        testJerseys[0] = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
+        testJerseys[1] = new Jersey(1, "Dave", 39.99f, Size.MEDIUM, true, 3);
+        testJerseys[2] = new Jersey(2, "Sidney", 50f, Size.LARGE, false, 29);
+        String username = "Test";
+        when(mockUserDAO.getCart(username)).thenReturn(testJerseys);
+
+        //invoke
+        ResponseEntity<Jersey[]> response = userController.getCart(username);
+
+        //Analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        Jersey[] result_cart = response.getBody();
+        assertNotNull(result_cart);
+        assertEquals(testJerseys.length, result_cart.length);
+        for(int i = 0; i < testJerseys.length; i++) {
+            assertEquals(testJerseys[i], result_cart[i]);
+        }
+    }
+
+    @Test
+    public void testGetCartNotFound() throws IOException {
+        //setup
+        String username = "NotFound";
+        when(mockUserDAO.getCart(username)).thenReturn(null);
+
+        //Invoke
+        ResponseEntity<Jersey[]> response = userController.getCart(username);
+
+        //analyze
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testGetCartException() throws IOException {
+        //Setup
+        String username = "exception";
+        doThrow(IOException.class).when(mockUserDAO).getCart(username);
+
+        //invoke
+        ResponseEntity<Jersey[]> response = userController.getCart(username);
+
+        //analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    public void testAddToCart() throws IOException {
+        //setup
+        String username = "Nic";
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        when(mockUserDAO.addJersey(username, jersey)).thenReturn(jersey);
+
+        //invoke
+        ResponseEntity<Jersey> response = userController.addToCart(username, jersey);
+
+        //analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(jersey, response.getBody());
+    }
+
+    @Test
+    public void testAddToCartNotFound() throws IOException {
+        //setup
+        String username = "NotFound";
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        when(mockUserDAO.addJersey(username, jersey)).thenReturn(null);
+
+        //Invoke
+        ResponseEntity<Jersey> response = userController.addToCart(username, jersey);
+
+        //analyze
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testAddToCartException() throws IOException {
+        //setup
+        String username = "Exception";
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        doThrow(IOException.class).when(mockUserDAO).addJersey(username, jersey);
+
+        //Invoke
+        ResponseEntity<Jersey> response = userController.addToCart(username, jersey);
+
+        //analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
+
+    @Test
+    public void testRemoveJerseyFromCart() throws IOException {
+        //setup
+        String username = "Exception";
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        when(mockUserDAO.removeJersey(username, jersey)).thenReturn(true);
+
+        //invoke
+        ResponseEntity<User> response = userController.removeJerseyFromCart(username, jersey);
+
+        //analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void testRemoveJerseyFromCartNotFound() throws IOException {
+        //setup
+        String username = "Exception";
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        when(mockUserDAO.removeJersey(username, jersey)).thenReturn(false);
+
+        //invoke
+        ResponseEntity<User> response = userController.removeJerseyFromCart(username, jersey);
+
+        //analyze
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testRemoveJerseyFromCartException() throws IOException {
+        //setup
+        String username = "Exception";
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        doThrow(IOException.class).when(mockUserDAO).removeJersey(username, jersey);
+
+        //invoke
+        ResponseEntity<User> response = userController.removeJerseyFromCart(username, jersey);
+
+        //analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
 }
