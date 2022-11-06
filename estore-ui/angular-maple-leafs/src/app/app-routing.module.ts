@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'browse', component: BrowseJerseyComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'add', component: AddJerseyComponent},
-  {path: 'edit/:id', component: EditJerseyComponent}
+  {path: 'edit/:id', component: EditJerseyComponent},
 ];
 
 @NgModule({

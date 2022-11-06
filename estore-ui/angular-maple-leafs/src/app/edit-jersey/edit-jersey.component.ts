@@ -27,7 +27,7 @@ export class EditJerseyComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private jerseyService: JerseyService,
-    private location: Location,
+    // private location: Location,
     private router: Router) {/* 
       const id = Number(this.route.snapshot.paramMap.get('id'));
       console.log("Editing");
@@ -55,9 +55,9 @@ export class EditJerseyComponent implements OnInit {
     this.isHome = this.jersey.home;
   }
 
-  back(): void {
-    this.location.back();
-  }
+  // back(): void {
+  //   this.location.back();
+  // }
 
   save(): void {
     this.jersey.name = this.name;
@@ -67,7 +67,7 @@ export class EditJerseyComponent implements OnInit {
     this.jersey.home = this.isHome;
 
     this.jerseyService.editJersey(this.jersey);
-    this.location.back();
+    // this.location.back();
   }
 
 }
