@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Jersey } from '../jersey';
 import { JerseyService } from '../jersey.service';
 
@@ -13,7 +13,7 @@ import {
   templateUrl: './search-jerseys.component.html',
   styleUrls: ['./search-jerseys.component.css']
 })
-export class SearchJerseysComponent implements OnInit {
+export class SearchJerseysComponent implements OnInit, AfterViewInit {
 
   jerseys$!: Observable<Jersey[]>;
   private searchTerms = new Subject<string>();
@@ -24,9 +24,13 @@ export class SearchJerseysComponent implements OnInit {
    * @param jerseyService the service to talk to jersey API
    */
   constructor(private jerseyService: JerseyService) { }
+  ngAfterViewInit(): void {
+    this.search("J");
+    console.log("I work");
+  }
 
-  search(term: string): void {
-    this.searchTerms.next(term);
+  search(term: any): void {
+    this.searchTerms.next(term.target.value);
   }
 
   ngOnInit(): void {
@@ -38,7 +42,12 @@ export class SearchJerseysComponent implements OnInit {
       distinctUntilChanged(),
 
       // switch to new search observable each time the term changes
-      switchMap((term: string) => this.jerseyService.searchJerseys(term)),
+      switchMap((term: string) => this.jerseyService.searchJerseys(term))
     );
+    
   }
+
+
+  // idk what yall did but imma say just do a getalljerseys() because this is not worth ur time
+  // if not, just add a load booelan and instead of using an async pipe just bring the jerseys in once all are downloaded
 }

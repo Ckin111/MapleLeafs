@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class User {
+public class User implements Comparable{
     private static final Logger LOG = Logger.getLogger(Jersey.class.getName());
 
     @JsonProperty("id") private int id;
@@ -30,7 +30,7 @@ public class User {
 
     /**
      * gets the user's id
-     * @return id
+     * @return int id
      */
     public int getId() {
         return id;
@@ -38,7 +38,7 @@ public class User {
 
     /**
      * gets the username
-     * @return username
+     * @return String username
      */
     public String getName() {
         return username;
@@ -93,25 +93,27 @@ public class User {
     public boolean equals(Object o){
         if(o instanceof User){
             User object = (User)(o);
-            if(object.getId() == this.getId()){
+            if(object.getName().equals(this.getName())){
                 return true;
-            }else{
-                return false;
             }
         }
         return false;
     }
 
-    /**
-     * Determines if a given string if the same as the user's name
-     * @param name the string to check
-     * @return true if it is the same, false otherwise
-     */
     public boolean sameName(String name) {
         if(this.getName().equals(name)) {
             return true;
         }
         return false;
+    }
+
+    @Override
+    /**
+     * Compares the given user object with itself based on the id
+     */
+    public int compareTo(Object o) {
+        User object = (User)o;
+        return this.getId()-object.getId();
     }
 
 }

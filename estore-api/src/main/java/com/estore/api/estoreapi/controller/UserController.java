@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estore.api.estoreapi.model.Jersey;
@@ -62,12 +63,13 @@ public class UserController {
     * status CONFLICT, otherwise, status INTERNAL_SERVER_ERROR.
     */
     @PostMapping("")
-    public ResponseEntity<User> createUser (@RequestBody User user)
+    public ResponseEntity<User> createUser (@RequestParam String name)
     {
-        LOG.info("POST /users " + user);
+        LOG.info("POST /users/?name=" + name);
         
         try{
-            if (userDAO.createUser(user) != null)
+            User user = userDAO.createUser(name);
+            if (user != null)
                 return new ResponseEntity<User>(user, HttpStatus.CREATED);
             else
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -79,18 +81,18 @@ public class UserController {
     }
 
     /**
-    * Deletes a user with the id id.
+    * Deletes a user with the given string name.
     *
-    * @param id id of the user
+    * @param name name of the user
     *
     * @return ResponseEntity with the status of OK if deleted, 
     * NOT_FOUND if not found, INTERNAL_SERVER_ERROR otherwise
     */
-    @DeleteMapping("/{id}")
-    public ResponseEntity<User> deleteUser(@PathVariable int id) {
-        LOG.info("DELETE /users/" + id);
+    @DeleteMapping("/{name}")
+    public ResponseEntity<User> deleteUser(@PathVariable String name) {
+        LOG.info("DELETE /users/" + name);
         try{ 
-            if(userDAO.deleteUser(id)){
+            if(userDAO.deleteUser(name)){
                 return new ResponseEntity<>(HttpStatus.OK);
             }
             else{

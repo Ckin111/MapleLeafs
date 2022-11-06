@@ -57,9 +57,11 @@ export class JerseyService {
 
 
   searchJerseys(term: string): Observable<Jersey[]> {
-    if (!term.trim()) {
+    if (term == null) {
       // if not search term, return empty hero array.
-      return of([]);
+      // return of([]);
+      console.log("hewwo");
+      return this.http.get<Jersey[]>(this.jerseysUrl);
     }
     return this.http.get<Jersey[]>(`${this.jerseysUrl}/?name=${term}`).pipe(
       tap(x => x.length ?
@@ -92,6 +94,7 @@ export class JerseyService {
 
   /** Log a HeroService message with the MessageService */
   private log(message: string) {
+    console.log(message);
     //this.messageService.add(`HeroService: ${message}`);
   }
 }

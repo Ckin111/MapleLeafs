@@ -11,6 +11,8 @@ import { BrowseJerseyComponent } from './browse-jersey/browse-jersey.component';
 import { FormsModule } from '@angular/forms';
 import { AddJerseyComponent } from './add-jersey/add-jersey.component';
 import { SearchJerseysComponent } from './search-jerseys/search-jerseys.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { SearchJerseysComponent } from './search-jerseys/search-jerseys.componen
     LoginComponent, 
     BrowseJerseyComponent,
     AddJerseyComponent,
-    SearchJerseysComponent
+    SearchJerseysComponent,
+    DashboardComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

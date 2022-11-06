@@ -65,8 +65,6 @@ export class ViewJerseyComponent implements OnInit {
        " " + this.jersey?.number + "?")) {
         console.log(id);
         this.jerseyService.deleteJersey(id).subscribe();
-        this.jerseyService.getJerseys();
-        this.router.navigate(['/browse']);
         window.location.reload();
        }
     }

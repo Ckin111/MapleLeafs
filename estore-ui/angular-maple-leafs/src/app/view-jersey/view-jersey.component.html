@@ -1,5 +1,5 @@
 <!--Only shows if a jersey was found-->
-<div *ngIf="jersey">
+<div *ngIf="jersey; else noJersey">
     
     <h2>{{jersey.name}}</h2>
     <h2>{{jersey.number}}</h2>
@@ -34,4 +34,12 @@
 <!--Alternative to color of jersey-->
 <ng-template #elseBlock>
     <span>Away Color</span>
+</ng-template>
+
+<!--Alternative for when there is no jersey-->
+<ng-template #noJersey>
+    <span>Jersey no longer exists</span>
+    <div>
+        <button type="button" (click)="back()">Go Back</button>
+    </div>
 </ng-template>

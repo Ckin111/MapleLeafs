@@ -14,20 +14,19 @@ export class LoginComponent implements OnInit {
   isadmin: boolean = false;
   loggedIn: boolean = false;
   adminUsername: String = "admin";
-  adminPassword: String = "admin";
   userUsername: String = "user";
-  userPassword: String = "user";
-  message: String = "Please Enter Username and Password";
 
-  checker (htmlUsername: String, htmlPassword: String ): boolean {
+  message: String = "Please Enter Username";
+
+  checker (htmlUsername: String): boolean {
  
-    if ( htmlUsername==this.adminUsername && htmlPassword==this.adminPassword){
+    if ( htmlUsername==this.adminUsername ){
       this.isadmin = true;
       this.loggedIn = true;
       this.message = "Logged In";
-      this.admin()
+      this.user(htmlUsername);
       return true;
-    } else if (htmlUsername==this.userUsername && htmlPassword==this.userPassword){
+    } else if (htmlUsername==this.userUsername){
       this.isuser=true;
       this.loggedIn = true;
       this.message = "Logged In";
@@ -35,7 +34,7 @@ export class LoginComponent implements OnInit {
       return true;
     } else {
 
-      this.message = "Incorrect Username or Password"
+      this.message = "Incorrect Username"
       return false;
     }
 
@@ -43,14 +42,13 @@ export class LoginComponent implements OnInit {
 
   user(username: String):void {
     // this function would redirect to browse and search
-    this.router.navigate(["user", {user: username}])
+    if(username == "admin"){
+      this.router.navigateByUrl("/admin");
+    }else{
+      this.router.navigate(["user", {user: username}])
+    }
   }
 
-  admin():void{
-    // this function would redirect to browse, search, add, remove
-    this.router.navigate(["admin"])
-
-  }
 
   ngOnInit(): void {
   }
