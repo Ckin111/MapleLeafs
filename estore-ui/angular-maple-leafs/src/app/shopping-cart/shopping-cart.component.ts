@@ -8,8 +8,8 @@ import { UserService } from '../user.service';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-  user: string = "test2";
-  jerseys: Jersey[] =  [];
+  user: string = "admin";
+  jerseys: Jersey[] = [];
 
   constructor(private userService: UserService) { }
 
@@ -17,13 +17,19 @@ export class ShoppingCartComponent implements OnInit {
     this.getCart();
   }
 
+  isNotEmpty(): boolean {
+    return this.jerseys.length != 0;
+  }
+
   getCart(): void {
     this.userService.getCart(this.user).subscribe(jerseys => this.jerseys = jerseys);
   }
 
   delete(jersey: Jersey): void {
-    this.jerseys = this.jerseys.filter(j => j !== jersey);
-    this.userService.removeFromCart(this.user, jersey).subscribe();
+    if(this.jerseys) {
+      this.jerseys = this.jerseys.filter(j => j !== jersey);
+      this.userService.removeFromCart(this.user, jersey).subscribe();
+    }
   }
 
 }
