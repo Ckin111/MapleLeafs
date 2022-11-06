@@ -7,7 +7,7 @@ import { BrowseJerseyComponent } from './browse-jersey/browse-jersey.component';
 import { ViewJerseyComponent } from './view-jersey/view-jersey.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EditJerseyComponent } from './edit-jersey/edit-jersey-component';
+import { EditJerseyComponent } from './edit-jersey/edit-jersey.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },

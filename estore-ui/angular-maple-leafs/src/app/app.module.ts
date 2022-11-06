@@ -28,7 +28,7 @@ import { EditJerseyComponent } from './edit-jersey/edit-jersey.component';
     SearchJerseysComponent,
     DashboardComponent,
     ShoppingCartComponent,
-    EditJerseyComponent
+    EditJerseyComponent,
   ],
   imports: [
     BrowserModule,

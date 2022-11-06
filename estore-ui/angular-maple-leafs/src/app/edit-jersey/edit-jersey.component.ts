@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Jersey } from '../jersey';
+import { JerseyService } from '../jersey.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-edit-jersey',
   templateUrl: './edit-jersey.component.html',
@@ -7,7 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditJerseyComponent implements OnInit {
     
-  jersey: Jersey | undefined;
+  jersey: Jersey = {
+    id: -1,
+    name: "",
+    cost: NaN,
+    size: NaN,
+    home: false,
+    number: NaN
+  };
   owner: boolean = true; //TODO need to do login stuff
   name: string = "";
   number: number = NaN;
@@ -16,9 +26,19 @@ export class EditJerseyComponent implements OnInit {
   isHome: boolean = false;
 
   constructor(private route: ActivatedRoute,
-    private jerseyService JerseyService,
+    private jerseyService: JerseyService,
     private location: Location,
-    private router: Router) { }
+    private router: Router) {/* 
+      const id = Number(this.route.snapshot.paramMap.get('id'));
+      console.log("Editing");
+      this.jerseyService.getJersey(id).subscribe(jersey => this.jersey = jersey);
+      this.name = this.jersey.name;
+      this.number = this.jersey.number;
+      this.cost = this.jersey.cost;
+      this.size = this.jersey.size;
+      this.isHome = this.jersey.home;*/
+
+    }
 
   ngOnInit(): void {
     this.editJersey();
@@ -32,7 +52,7 @@ export class EditJerseyComponent implements OnInit {
     this.number = this.jersey.number;
     this.cost = this.jersey.cost;
     this.size = this.jersey.size;
-    this.home = this.jersey.home;
+    this.isHome = this.jersey.home;
   }
 
   back(): void {
@@ -44,7 +64,7 @@ export class EditJerseyComponent implements OnInit {
     this.jersey.number = this.number;
     this.jersey.cost = this.cost;
     this.jersey.size = this.size;
-    this.jersey.home = this.home;
+    this.jersey.home = this.isHome;
 
     this.jerseyService.editJersey(this.jersey);
     this.location.back();
