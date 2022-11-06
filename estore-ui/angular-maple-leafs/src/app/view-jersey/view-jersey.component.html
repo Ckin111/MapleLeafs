@@ -24,7 +24,7 @@
         <button type="button" (click)="back()">Go Back</button>
         <button>Buy</button>
         <span *ngIf="owner">
-            <button>Update</button>
+            <button type="button" (click)="getEditPage()">Update</button>
             <button type="button" (click)="delete()">Delete</button>
         </span>
     </div>

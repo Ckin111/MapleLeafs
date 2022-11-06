@@ -55,6 +55,11 @@ export class ViewJerseyComponent implements OnInit {
     this.location.back();
   }
 
+  getEditPage(){
+    const id = Number(this.route.snapshot.paramMap.get('id'));
+    this.router.navigate(["edit/", {id}])
+  }
+
   /**
    * To delete the specified jersey
    */
