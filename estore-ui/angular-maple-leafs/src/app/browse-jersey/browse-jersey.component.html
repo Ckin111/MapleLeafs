@@ -5,7 +5,7 @@
 <h2>Jerseys</h2>    
 <div class="jersey-menu">
     <a *ngFor="let jersey of jerseys" routerLink="/view/{{jersey.id}}">
-        {{jersey.name}} {{jersey.number}} <br>
+        {{jersey.name}} {{jersey.number}} {{jersey.size}} <br>
     </a>
 </div>
 

@@ -1,3 +1,8 @@
-<h1>Your shopping cart</h1>
-
-
+<h2>My Cart</h2>
+<ul class="heroes">
+    <li *ngFor="let jersey of jerseys">
+      <!--<a routerLink="/view/{{jersey.id}}"></a>-->
+        <span class="badge">{{jersey.id}}</span> {{jersey.name}} {{jersey.size}}
+      <button type="button" class="delete" title="remove jersey" (click)="delete(jersey)">X</button>
+    </li>
+  </ul>
