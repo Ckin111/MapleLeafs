@@ -27,7 +27,8 @@ export class UserService {
     const url = `${this.usersUrl}/${user.username}`;
     console.log("Fetched username: " + user.username);
     return this.http.get<User>(url);
-
+  }
+  
   addToCart(name: string, jersey: Jersey): Observable<Jersey> {
     const url = `${this.usersUrl}/${name}/cart`;
     return this.http.post<Jersey>(url, jersey, this.httpOptions).pipe(
