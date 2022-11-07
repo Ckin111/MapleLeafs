@@ -15,10 +15,18 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   addUser(user: User): Observable<User> {
+    // LOG.info("POST /users/?name=" + name)
     return this.http.post<User>(this.usersUrl, user, this.httpOptions).pipe(
       tap((newUser: User) => console.log(`added user w/username=${user.username}`))
       );
   }
+
+
+  getUser(user: User): Observable<User> {
+    // LOG.info("GET /users/" + name);
+    const url = `${this.usersUrl}/${user.username}`;
+    console.log("Fetched username: " + user.username);
+    return this.http.get<User>(url);
 
   addToCart(name: string, jersey: Jersey): Observable<Jersey> {
     const url = `${this.usersUrl}/${name}/cart`;
@@ -43,6 +51,7 @@ export class UserService {
     const url = `${this.usersUrl}/${name}/cart`;
     console.log("Fetched cart from user: " + name);
     return this.http.get<Jersey[]>(url);
+
   }
 
 }
