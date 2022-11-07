@@ -13,14 +13,19 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private userService: UserService){}
 
   tempUser:User = {
-    username: ""
+    id: 0,
+    username: "user",
+    cart: [],
+    name: "user",
   }
 
   isuser: boolean = false;
   isadmin: boolean = false;
   loggedIn: boolean = false;
+
   adminUsername: string = "admin";
   userUsername: string = "user";
+
 
   message: String = "Please Enter Username";
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.estore.api.estoreapi.model.Jersey;
 import com.estore.api.estoreapi.model.User;
 import com.estore.api.estoreapi.persistence.UserDAO;
 
@@ -34,7 +35,8 @@ public class UserController {
     /**
      * Returns user whose username matches the given string name
      * @param name the username to find
-     * @return Response Entity with a user
+     * @return Response Entity with a user and status of OK if successful, if not
+     *  give status code NOT_FOUND, otherwise INTERNAL_SERVICE_ERROR
      */
     @GetMapping("/{name}")
     public ResponseEntity<User> getUser(@PathVariable String name) {
@@ -91,6 +93,77 @@ public class UserController {
         LOG.info("DELETE /users/" + name);
         try{ 
             if(userDAO.deleteUser(name)){
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Gets a users cart given a specific user
+     * @param user the user that wants to see their cart
+     * @return response entity with an array of Jerseys if successful, if not
+     *  response entity of NOT_FOUND, otherwise INTERNAL_SERVICE_ERROR
+     */
+    @GetMapping("/{name}/cart")
+    public ResponseEntity<Jersey[]> getCart(@PathVariable String name) {
+        LOG.info("GET /users/" + name + "/cart");
+        try{
+            Jersey[] cart = userDAO.getCart(name);
+            if(cart == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else {
+                return new ResponseEntity<Jersey[]>(cart, HttpStatus.OK);
+            }
+        }
+        catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Finds the user with the given name, then adds the given jersey to user's cart
+     * @param name the user to find
+     * @param jersey the jersey to add
+     * @return response entity with the jersey that was added if successful, if not,
+     *  status code of NOT_FOUND, otherwise, INTERNAL_SERVICE_ERROR
+     */
+    @PostMapping("/{name}/cart")
+    public ResponseEntity<Jersey> addToCart(@PathVariable String name, @RequestBody Jersey jersey) {
+        LOG.info(" POST /users/" + name + "/cart " + jersey);
+        try{
+            Jersey response = userDAO.addJersey(name, jersey);
+            if(response == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else {
+                return new ResponseEntity<Jersey>(response, HttpStatus.OK);
+            }
+        }
+        catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    /**
+     * Finds the user with the given name, then deletes the given jersey from the cart
+     * @param name the user to find
+     * @param jersey the jersey to remove
+     * @return response entity OK if successful, if not, status code NOT_FOUND,
+     *  otherwise INTERNAL_SERVICE_ERROR
+     */
+    @DeleteMapping("/{name}/cart")
+    public ResponseEntity<Jersey> removeJerseyFromCart(@PathVariable String name, @RequestBody Jersey jersey) {
+        LOG.info("DELETE /users/" + name + "/cart " + jersey);
+        try{ 
+            if(userDAO.removeJersey(name, jersey)){
                 return new ResponseEntity<>(HttpStatus.OK);
             }
             else{

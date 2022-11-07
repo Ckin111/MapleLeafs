@@ -97,7 +97,7 @@ public class JerseyFileDAOTest {
     }
     
     @Test
-    public void testUpdateHero() throws IOException {
+    public void testUpdateJersey() throws IOException {
         //Setup
         Jersey jersey = new Jersey(3, "Aaron", 50f, Size.MEDIUM, false, 5);
         //Invoke

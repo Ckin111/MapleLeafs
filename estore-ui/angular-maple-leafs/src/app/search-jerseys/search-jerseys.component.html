@@ -1,7 +1,7 @@
 <div id="search-component">
     <label for="search-box">Jersey Search</label>
 
-    <input  #searchBox id="search-box" (input)="search(searchBox.value)" />
+    <input  #searchBox id="search-box" (keyup)="search($event)" />
     <!-- <body onload='search("")'>
       hi
     </body> -->
@@ -10,9 +10,13 @@
     <!-- ng-include="partialViewUrl" onload="search()" -->
     <ul class="search-result">
       <li *ngFor="let jersey of jerseys$ | async" >
-        <a routerLink="/view/{{jersey.id}}">
-          {{jersey.name}}
+        <a *ngIf="jersey.home; else elseBlock" routerLink="/view/{{jersey.id}}">
+          {{jersey.name}} {{jersey.number}} Home
         </a>
+        <ng-template #elseBlock>
+          <a routerLink="/view/{{jersey.id}}">{{jersey.name}} {{jersey.number}} Away</a>
+        </ng-template>
       </li>
     </ul>
   </div>
+

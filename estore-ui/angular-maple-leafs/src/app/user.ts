@@ -1,3 +1,9 @@
+import { Jersey } from "./jersey";
+
+
 export interface User{
-    username:string,
+    id: number,
+    username: string,
+    cart: Jersey[],
+    name: string,
 }
