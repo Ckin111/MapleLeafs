@@ -49,14 +49,10 @@ export class LoginComponent implements OnInit {
   signup(htmlUsername: string): boolean{
     this.tempUser.username = htmlUsername;
     
-    if ((this.userService.addUser(this.tempUser)) == null){
-      this.message = "Username already exists";
-      return false;
-    } 
-    this.message = "Signed Up!";
-    return true;
+    (this.userService.addUser(this.tempUser)).subscribe(user => {
 
-    
+    })
+    return false;
   }
 
   user(username: String):void {
