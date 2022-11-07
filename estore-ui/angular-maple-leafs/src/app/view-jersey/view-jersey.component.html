@@ -1,15 +1,14 @@
 <!--Only shows if a jersey was found-->
 <div *ngIf="jersey; else noJersey">
     
-    <h2>{{jersey.name}}</h2>
-    <h2>{{jersey.number}}</h2>
+    <h2>{{jersey.name}}  {{jersey.number}}</h2>
     <div><span>ID: </span>{{jersey.id}}</div>
     <div><span>Cost: </span>{{jersey.cost}}</div>
 
     <!--The size dropdown menu-->
     <div>
         <label for="sizes">Size: </label>
-        <select name="sizes" id="sizes">
+        <select #sizes name="sizes" id="sizes" (change)="changeSize(sizes.value)">
             <option *ngFor="let size of sizeList" [value]
             ="size">{{size}}</option>
         </select>
@@ -19,16 +18,22 @@
         <span>Home Color</span>
     </div>
 
-    
+    <!--buttons to click-->
     <div>
         <button type="button" (click)="back()">Go Back</button>
-        <button>Buy</button>
+        <button type="button" (click)="buy()">Buy</button>
         <span *ngIf="owner">
             <button type="button" (click)="getEditPage()">Update</button>
             <button type="button" (click)="delete()">Delete</button>
         </span>
-    </div>
+    </div> <br>
 
+    <!--Service to tell when you bought stuff-->
+    <div *ngIf="messageService.messages.length">
+        <h3>Messages</h3>
+        <button type="button" class="clear" (click)="messageService.clear()">Clear messages</button>
+        <div *ngFor='let message of messageService.messages'>{{message}}</div>
+    </div>
 </div>
 
 <!--Alternative to color of jersey-->

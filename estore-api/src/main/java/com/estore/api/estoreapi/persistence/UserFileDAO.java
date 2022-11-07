@@ -118,5 +118,39 @@ public class UserFileDAO implements UserDAO{
                 return false;
         }
     }
-    
+
+    //gets the user's cart
+    @Override
+    public Jersey[] getCart(String name) throws IOException {
+        User user = getUser(name);
+        if(user != null) {
+            return user.getCart();
+        }
+        return null;
+    }
+
+    //adds a jersey to the specified user's cart
+    @Override
+    public Jersey addJersey(String name, Jersey jersey) throws IOException {
+        User user = getUser(name);
+        if(user != null) {
+            Jersey response = user.addJersey(jersey);
+            save();
+            return response;
+        }
+        return null;
+    }
+
+    //deletes a jersey from the specified user's cart
+    @Override
+    public boolean removeJersey(String name, Jersey jersey) throws IOException {
+        User user = getUser(name);
+        if(user != null) {
+            boolean wasDeleted = user.deleteJersey(jersey);
+            save();
+            return wasDeleted;
+        }
+
+        return false;
+    }
 }

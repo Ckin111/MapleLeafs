@@ -147,4 +147,103 @@ public class UserFileDAOTest {
             "IOException not thrown");
     }
 
+    @Test
+    public void testAddJersey() throws IOException {
+        //Setup
+        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
+        String username = "Nic";
+
+        //Invoke
+        Jersey result = userFileDAO.addJersey(username, jersey);
+
+        //Analyze
+        assertEquals(5, result.getId());
+        assertEquals("Matt", result.getName());
+        assertEquals(39.99f, result.getCost());
+        assertEquals(Size.SMALL, result.getSize());
+        assertEquals(false, result.getIsHome());
+        assertEquals(16, result.getNumber());
+        //Analyze cart
+        assertEquals(testJerseys.length+1, userFileDAO.getCart(username).length);
+    }
+
+    @Test
+    public void testAddJerseyUserNotFound() throws IOException {
+        //Setup
+        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
+        String username = "NotFound";
+
+        //Invoke
+        Jersey result = userFileDAO.addJersey(username, jersey);
+
+        //Analyze
+        assertNull(result);
+    }
+
+    @Test
+    public void testGetCart() throws IOException {
+        //setup
+        String username = "Nic";
+
+        //invoke
+        Jersey[] result = userFileDAO.getCart(username);
+
+        //Analyze
+        assertEquals(testJerseys.length, result.length);
+        for(int i = 0; i < testJerseys.length; i ++) {
+            assertEquals(testJerseys[i], result[i]);
+        }
+    }
+
+    @Test
+    public void testGetCartUserNotFound() throws IOException {
+        //Setup
+        String username = "NotFound";
+
+        //Invoke
+        Jersey[] result = userFileDAO.getCart(username);
+
+        //analyze
+        assertNull(result);
+    }
+
+    @Test
+    public void testRemoveJersey() throws IOException {
+        //Setup
+        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
+        String username = "Nic";
+
+        //Invoke
+        boolean result = userFileDAO.removeJersey(username, jersey);
+
+        //analyze
+        assertTrue(result);
+        assertEquals(testJerseys.length-1, userFileDAO.getCart(username).length);
+    }
+
+    @Test 
+    public void testRemoveJerseyUserNotFound() throws IOException {
+         //Setup
+         Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
+         String username = "NotFound";
+ 
+         //Invoke
+         boolean result = userFileDAO.removeJersey(username, jersey);
+ 
+         //analyze
+         assertFalse(result);
+    }
+
+    @Test 
+    public void testRemoveJerseyNotFound() throws IOException {
+         //Setup
+         Jersey jersey = new Jersey(9, "Matt", 39.99f, Size.SMALL, false, 16);
+         String username = "Nic";
+ 
+         //Invoke
+         boolean result = userFileDAO.removeJersey(username, jersey);
+ 
+         //analyze
+         assertFalse(result);
+    }
 }

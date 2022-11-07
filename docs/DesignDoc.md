@@ -25,14 +25,17 @@ Furthermore, users that visit the site are able to browse through the jerseys av
 for jerseys, and lastly add items to their shopping cart and buy the items in that cart. 
 
 ### Purpose
-> _Provide a very brief statement about the project and the most
-> important user group and user goals._
+This website has an admin which is able to modify the stock of jerseys that are for sale by adding jerseys, removing jerseys, and editing existing jerseys. 
+The website also has users which have a username and a shopping cart which is persistent after logout. Users are able to add and remove items from their shopping cart. 
 
 ### Glossary and Acronyms
 > _Provide a table of terms and acronyms._
 
 | Term | Definition |
 |------|------------|
+| Admin | Website owner with special privlidges related to the inventory of jerseys. |
+| User | A customer that interacts with the website which logs into the website and has a username and shopping cart. |
+| Jersey | The type of product that is being sold at the E-Store |
 | SPA | Single Page |
 
 
@@ -40,18 +43,39 @@ for jerseys, and lastly add items to their shopping cart and buy the items in th
 
 This section describes the features of the application.
 
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
+The application allows for the admin and user to log in and for new users to register for their account. 
+It allows for the admin to preform the CRUD operations on a stock of jerseys to which the users will able to browse and view and add to their shopping cart. 
+It allows for the user to add and delete items from their shopping cart and 'buy' the items once they are ready. 
+The website also allows quick access of every product via a search bar. 
 
 ### Definition of MVP
-> _Provide a simple description of the Minimum Viable Product._
+The admin and users must be able to login with the users also able to register new accounts
+The admin must be able to preform CRUD operations on the stock of jerseys which is persistently stored.
+The user must be able to add, delete, and checkout their shopping cart which also must be persistently stored. 
+The website must allow quick and easy access to the products with a postive user experince. 
 
-### MVP Features
-> _Provide a list of top-level Epics and/or Stories of the MVP._
+### MVP Features and the names of their stories
+Login Admin and its users
+Register new users
+Admin Add jerseys
+Admin Delete jerseys
+Admin Update jerseys
+User Add to cart
+User Delete from cart
+User Checkout cart
+Search jerseys and view
+
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
+Login Admin and its users
+Register new users
+Admin Add jerseys
+Admin Delete jerseys
+Admin Update jerseys
+User Add to cart
+User Delete from cart
+User Checkout cart
+Search jerseys and view
 
 
 ## Application Domain
@@ -101,7 +125,10 @@ Verbs:
 
 ## Architecture and Design
 
-This section describes the application architecture.
+Using Spring boot, the backend has persistent storage and a consistent model of objects using the controller, model, and persistence setup. 
+Jerseys and Users have their respective controller, model, and persistence files which allow for operations and storage through JSON files. 
+The frontend is built using angular and through the jersey.service.ts and user.service.ts files are able to access the backend data and functions
+in order to deliver a UI that can support persistent storage. 
 
 ### Summary
 
@@ -123,8 +150,10 @@ Both the ViewModel and Model are built using Java and Spring Framework. Details 
 This section describes the web interface flow; this is how the user views and interacts
 with the e-store application.
 
-> _Provide a summary of the application's user interface.  Describe, from
-> the user's perspective, the flow of the pages in the web application._
+The user and admin have almost identical flows through the application. The user is only different than that of the admin by the fact that they are unable to see the CRUD operation buttons when viewing a jersey
+Both land on a login page when visiting the site. 
+Upon login after registration if neccessary, they are directed to a page that displays the stock of jerseys that can be filtered using the search bar, a shopping cart icon, and the username of whoever is currently logged in. 
+From here they are able to view jerseys and preform their authorized actions upon them. 
 
 
 ### View Tier

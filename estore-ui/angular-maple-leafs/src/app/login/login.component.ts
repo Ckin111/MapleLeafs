@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Router, RouterModule } from '@angular/router';
+import { User } from '../user';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -8,37 +10,78 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor(private router: Router){}
+  constructor(private router: Router, private userService: UserService){}
+
+  tempUser:User = {
+    id: 0,
+    username: "user",
+    cart: [],
+    name: "user",
+  }
 
   isuser: boolean = false;
   isadmin: boolean = false;
   loggedIn: boolean = false;
-  adminUsername: String = "admin";
-  userUsername: String = "user";
+
+  adminUsername: string = "admin";
+  userUsername: string = "user";
+
 
   message: String = "Please Enter Username";
 
-  checker (htmlUsername: String): boolean {
+  checker (htmlUsername: string): boolean {
  
+    // if ( htmlUsername==this.adminUsername ){
+    //   this.isadmin = true;
+    //   this.loggedIn = true;
+    //   this.message = "Logged In";
+    //   this.user(htmlUsername);
+    //   return true;
+    // } else if (htmlUsername==this.userUsername){
+    //   this.isuser=true;
+    //   this.loggedIn = true;
+    //   this.message = "Logged In";
+    //   this.user(this.userUsername)
+    //   return true;
+    // } else {
+
+    //   this.message = "Incorrect Username"
+    //   return false;
+    // }
+    // this.tempUser.username = htmlUsername;
+    // if(this.userService.getUser(this.tempUser) != null){
+
+    // }
+
     if ( htmlUsername==this.adminUsername ){
       this.isadmin = true;
       this.loggedIn = true;
       this.message = "Logged In";
       this.user(htmlUsername);
       return true;
-    } else if (htmlUsername==this.userUsername){
-      this.isuser=true;
-      this.loggedIn = true;
-      this.message = "Logged In";
-      this.user(this.userUsername)
-      return true;
     } else {
-
-      this.message = "Incorrect Username"
+      this.tempUser.username = htmlUsername;
+      this.userService.getUser(this.tempUser).subscribe(user1 => {
+        this.message = "Logging In";
+        this.user(htmlUsername);
+        return true;
+      });
+      this.message = "Incorrect Username";
       return false;
     }
 
   };
+
+  signup(htmlUsername: string): boolean{
+    this.tempUser.username = htmlUsername;
+    
+    (this.userService.addUser(this.tempUser)).subscribe(user => {
+        this.message = "Signed Up";
+        return true;
+    })
+    this.message = "Select Another Username";
+    return false;
+  }
 
   user(username: String):void {
     // this function would redirect to browse and search
