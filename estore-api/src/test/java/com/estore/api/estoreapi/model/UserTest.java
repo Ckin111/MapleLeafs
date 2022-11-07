@@ -20,12 +20,12 @@ public class UserTest {
      * Test the constructor of User Java Class along with the get methods
      */
 
-    @Test
-    public void testCtor() {
+    @BeforeEach
+    public void setup() {
         //Setup
         int expected_id = 1;
         String expected_username = "SuperSally45";
-        Jersey[] expected_cart = new Jersey[5];
+        expected_cart = new Jersey[5];
 
         expected_cart[0] = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
         expected_cart[1] = new Jersey(1, "Dave", 39.99f, Size.MEDIUM, true, 3);
