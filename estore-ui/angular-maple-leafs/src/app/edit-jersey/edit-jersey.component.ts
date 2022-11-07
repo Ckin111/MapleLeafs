@@ -9,7 +9,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./edit-jersey.component.css']
 })
 export class EditJerseyComponent implements OnInit {
-    
+  jerseys: Jersey[] = [];
+
   jersey: Jersey = {
     id: -1,
     name: "",
@@ -27,7 +28,7 @@ export class EditJerseyComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private jerseyService: JerseyService,
-    // private location: Location,
+    private location: Location,
     private router: Router) {/* 
       const id = Number(this.route.snapshot.paramMap.get('id'));
       console.log("Editing");
@@ -55,9 +56,9 @@ export class EditJerseyComponent implements OnInit {
     this.isHome = this.jersey.home;
   }
 
-  // back(): void {
-  //   this.location.back();
-  // }
+  back(): void {
+    this.location.back();
+  }
 
   save(): void {
     this.jersey.name = this.name;
@@ -66,8 +67,8 @@ export class EditJerseyComponent implements OnInit {
     this.jersey.size = this.size;
     this.jersey.home = this.isHome;
 
-    this.jerseyService.editJersey(this.jersey);
-    // this.location.back();
+    this.jerseyService.editJersey(this.jersey).subscribe(jersey => {this.jerseys.push(jersey);});
+    this.location.back();
   }
 
 }
