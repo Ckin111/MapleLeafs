@@ -20,4 +20,11 @@ export class UserService {
       );
   }
 
+  getUser(user: User): Observable<User> {
+    // LOG.info("GET /users/" + name);
+    const url = `${this.usersUrl}/${user.username}`;
+    console.log("Fetched username: " + user.username);
+    return this.http.get<User>(url);
+  }
+
 }

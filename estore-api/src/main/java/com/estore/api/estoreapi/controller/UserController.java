@@ -38,7 +38,7 @@ public class UserController {
      */
     @GetMapping("/{name}")
     public ResponseEntity<User> getUser(@PathVariable String name) {
-        LOG.info("GET /jerseys/" + name);
+        LOG.info("GET /users/" + name);
         try {
             User user = userDAO.getUser(name);
             if (user != null)
