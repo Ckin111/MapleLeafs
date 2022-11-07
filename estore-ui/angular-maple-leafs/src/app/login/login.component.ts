@@ -43,6 +43,10 @@ export class LoginComponent implements OnInit {
     //   this.message = "Incorrect Username"
     //   return false;
     // }
+    // this.tempUser.username = htmlUsername;
+    // if(this.userService.getUser(this.tempUser) != null){
+
+    // }
 
     if ( htmlUsername==this.adminUsername ){
       this.isadmin = true;
@@ -52,8 +56,9 @@ export class LoginComponent implements OnInit {
       return true;
     } else {
       this.tempUser.username = htmlUsername;
-      this.userService.getUser(this.tempUser).subscribe(user => {
+      this.userService.getUser(this.tempUser).subscribe(user1 => {
         this.message = "Logging In";
+        this.user(htmlUsername);
         return true;
       });
       this.message = "Incorrect Username";
