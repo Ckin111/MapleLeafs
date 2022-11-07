@@ -7,7 +7,9 @@ import { BrowseJerseyComponent } from './browse-jersey/browse-jersey.component';
 import { ViewJerseyComponent } from './view-jersey/view-jersey.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { EditJerseyComponent } from './edit-jersey/edit-jersey.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
@@ -18,6 +20,7 @@ const routes: Routes = [
   {path: 'browse', component: BrowseJerseyComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'add', component: AddJerseyComponent},
+  {path: 'edit/:id', component: EditJerseyComponent},
   {path: 'cart', component: ShoppingCartComponent}
 ];
 

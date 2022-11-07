@@ -12,20 +12,27 @@ import com.estore.api.estoreapi.model.Jersey.Size;
 
 @Tag("Model-Tier")
 public class UserTest {
+
     Jersey[] expected_cart;
+
 
     /**
      * Test the constructor of User Java Class along with the get methods
      */
-    @BeforeEach
-    public void setup() {
+
+    @Test
+    public void testCtor() {
         //Setup
-        expected_cart = new Jersey[5];
+        int expected_id = 1;
+        String expected_username = "SuperSally45";
+        Jersey[] expected_cart = new Jersey[5];
+
         expected_cart[0] = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
         expected_cart[1] = new Jersey(1, "Dave", 39.99f, Size.MEDIUM, true, 3);
         expected_cart[2] = new Jersey(2, "Sidney", 50f, Size.LARGE, false, 29);
         expected_cart[3] = new Jersey(3, "Aaron", 50f, Size.XL, false, 5);
         expected_cart[4] = new Jersey(4, "Derek", 39.99f, Size.SMALL, true, 6);
+
 
     }
 
@@ -34,6 +41,7 @@ public class UserTest {
         //Setup
         int expected_id = 1;
         String expected_username = "SuperSally";
+
 
         //Invoke
         User user = new User(expected_id, expected_username, expected_cart);
@@ -53,6 +61,9 @@ public class UserTest {
         //Setup
         int expected_id = 1;
         String expected_username = "Ming";
+
+        Jersey[] expected_cart = null;
+
         User user1 = new User(expected_id, expected_username, expected_cart);
         User user2 = new User(expected_id, expected_username + " ", expected_cart);
 
@@ -75,12 +86,16 @@ public class UserTest {
         //Setup
         int expected_id = 1;
         String expected_username = "Ming";
+
+        Jersey[] expected_cart = null;
+
         User user = new User(expected_id, expected_username, expected_cart);
 
         //Invoke/Analyze
         assertTrue(user.sameName(expected_username));
         assertFalse(user.sameName("Test"));
     }
+
 
     /**
      * Test compareTo method. Should subtract given user's id from the user's id
@@ -161,5 +176,6 @@ public class UserTest {
         assertFalse(result);
         assertEquals(expected_cart.length, user.getCart().length);
     }
+
     
 }

@@ -1,0 +1,15 @@
+<p>edit-jersey works!</p>
+
+<div>
+    Enter player name: <input type="text" [(ngModel)]="name"/>
+    Enter player number: <input type="number" [(ngModel)]="number"/>
+    Enter jersey cost: <input type="number" [(ngModel)]="cost"/>
+    Is player home? <input type="checkbox" [(ngModel)]="isHome"/>
+</div>
+
+<div>
+    <!-- <button type="button" (click)="back()">Go Back</button> -->
+    <span *ngIf="owner">
+        <button type="button" (click)="save()">Save Changes</button>
+    </span>
+</div>

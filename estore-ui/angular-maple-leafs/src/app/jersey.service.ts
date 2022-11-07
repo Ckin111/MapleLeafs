@@ -56,6 +56,12 @@ export class JerseyService {
   }
 
 
+  editJersey(jersey: Jersey): Observable<Jersey> {
+      return this.http.put<Jersey>(this.jerseysUrl, jersey, this.httpOptions).pipe(
+        tap((newJersey: Jersey) => console.log(`edited jersey w/id=${newJersey.id}`))
+        );
+  }
+
   searchJerseys(term: string): Observable<Jersey[]> {
     if (term == null) {
       // if not search term, return empty hero array.
