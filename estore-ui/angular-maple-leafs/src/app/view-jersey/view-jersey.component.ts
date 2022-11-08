@@ -107,7 +107,7 @@ export class ViewJerseyComponent implements OnInit {
         size: this.selectedSize,
         home: this.jersey.home
       }
-      this.userService.addToCart(this.name, newJersey).subscribe(jersey => {this.jerseys.push(jersey);});
+      this.userService.addToCart(this.username, newJersey).subscribe(jersey => {this.jerseys.push(jersey);});
       this.messageService.add("Added Jersey with id " + newJersey.id + " to cart");
     }
 
