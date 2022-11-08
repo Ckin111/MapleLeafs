@@ -1,1 +1,65 @@
-[{"id":1,"username":"admin","cart":[],"name":"admin"},{"id":6,"username":"dom","cart":[],"name":"dom"},{"id":7,"username":"domenicccccc","cart":[],"name":"domenicccccc"},{"id":4,"username":"hello","cart":[],"name":"hello"},{"id":3,"username":"poop","cart":[],"name":"poop"},{"id":5,"username":"poop1","cart":[],"name":"poop1"},{"id":9,"username":"smith","cart":[],"name":"smith"},{"id":2,"username":"test2","cart":[{"id":0,"name":"Erik Kallgren","cost":40.0,"size":"SMALL","home":false,"number":50},{"id":1,"name":"Erik Kallgren","cost":60.0,"size":"SMALL","home":false,"number":50},{"id":2,"name":"Erik Kallgren","cost":60.0,"size":"MEDIUM","home":false,"number":50},{"id":3,"name":"Erik Kallgren","cost":60.0,"size":"MEDIUM","home":false,"number":50},{"id":4,"name":"John Tavares","cost":59.99,"size":"SMALL","home":false,"number":91},{"id":5,"name":"Auston Matthews","cost":70.0,"size":"MEDIUM","home":true,"number":34},{"id":6,"name":"Mitchell Marner","cost":40.0,"size":"SMALL","home":true,"number":16},{"id":7,"name":"Morgan Rielly","cost":40.0,"size":"SMALL","home":true,"number":44},{"id":8,"name":"Morgan Rielly","cost":40.0,"size":"SMALL","home":true,"number":44},{"id":9,"name":"Morgan Rielly","cost":40.0,"size":"SMALL","home":true,"number":44},{"id":10,"name":"Morgan Rielly","cost":40.0,"size":"SMALL","home":true,"number":44},{"id":11,"name":"Morgan Rielly","cost":40.0,"size":"SMALL","home":true,"number":44},{"id":12,"name":"Morgan Rielly","cost":40.0,"size":"SMALL","home":true,"number":44}],"name":"test2"},{"id":8,"username":"user","cart":[{"id":0,"name":"Morgan Rielly","cost":40.0,"size":"SMALL","home":true,"number":44},{"id":1,"name":"Auston Matthews","cost":70.0,"size":"XL","home":true,"number":34},{"id":2,"name":"John Tavares","cost":59.99,"size":"SMALL","home":false,"number":91},{"id":3,"name":"John Tavares","cost":59.99,"size":"SMALL","home":false,"number":91},{"id":4,"name":"John Tavares","cost":59.99,"size":"SMALL","home":false,"number":91}],"name":"user"}]
+[
+    {
+        "id": 1,
+        "username": "admin",
+        "cart": [],
+        "name": "admin"
+    },
+    {
+        "id": 6,
+        "username": "dom",
+        "cart": [],
+        "name": "dom"
+    },
+    {
+        "id": 7,
+        "username": "domenicccccc",
+        "cart": [],
+        "name": "domenicccccc"
+    },
+    {
+        "id": 4,
+        "username": "hello",
+        "cart": [],
+        "name": "hello"
+    },
+    {
+        "id": 3,
+        "username": "poop",
+        "cart": [],
+        "name": "poop"
+    },
+    {
+        "id": 5,
+        "username": "poop1",
+        "cart": [],
+        "name": "poop1"
+    },
+    {
+        "id": 9,
+        "username": "smith",
+        "cart": [],
+        "name": "smith"
+    },
+    {
+        "id": 2,
+        "username": "test2",
+        "cart": [
+            {
+                "id": 0,
+                "name": "Erik Kallgren",
+                "cost": 40.0,
+                "size": "SMALL",
+                "home": false,
+                "number": 50
+            }
+        ],
+        "name": "test2"
+    },
+    {
+        "id": 8,
+        "username": "user",
+        "cart": [],
+        "name": "user"
+    }
+]
