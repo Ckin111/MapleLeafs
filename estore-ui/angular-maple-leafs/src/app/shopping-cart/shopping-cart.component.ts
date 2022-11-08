@@ -38,7 +38,8 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   checkout(): void {
-    // 
+    this.userService.clearCart(this.username).subscribe();
+    window.location.reload();
   }
 
   back(): void {
