@@ -295,4 +295,43 @@ public class UserControllerTest {
         //analyze
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
     }
+
+    @Test
+    public void testClearCart() throws IOException {
+        //setup
+        String username = "Exception";
+        when(mockUserDAO.clearCart(username)).thenReturn(true);
+
+        //invoke
+        ResponseEntity<Jersey> response = userController.clearCart(username);
+
+        //analyze
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
+    @Test
+    public void testClearCartFailed() throws IOException {
+        //setup
+        String username = "Exception";
+        when(mockUserDAO.clearCart(username)).thenReturn(false);
+
+        //invoke
+        ResponseEntity<Jersey> response = userController.clearCart(username);
+
+        //analyze
+        assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
+
+    @Test
+    public void testClearCartException() throws IOException {
+        //setup
+        String username = "Exception";
+        doThrow(IOException.class).when(mockUserDAO).clearCart(username);
+
+        //invoke
+        ResponseEntity<Jersey> response = userController.clearCart(username);
+
+        //analyze
+        assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, response.getStatusCode());
+    }
 }

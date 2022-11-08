@@ -246,4 +246,29 @@ public class UserFileDAOTest {
          //analyze
          assertFalse(result);
     }
+
+    @Test
+    public void testClearCart() throws IOException {
+        //Setup
+        String username = "Nic";
+
+        //Invoke
+        boolean result = userFileDAO.clearCart(username);
+
+        //analyze
+        assertTrue(result);
+        assertEquals(0, userFileDAO.getCart(username).length);
+    }
+
+    @Test
+    public void testClearCartNotFound() throws IOException {
+        //Setup
+        String username = "NotFound";
+
+        //Invoke
+        boolean result = userFileDAO.clearCart(username);
+
+        //Analyze
+        assertFalse(result);
+    }
 }

@@ -177,5 +177,16 @@ public class UserTest {
         assertEquals(expected_cart.length, user.getCart().length);
     }
 
+    @Test
+    public void clearCart() {
+        //Setup
+        User user = new User(0, "Test", expected_cart);
+
+        //invoke
+        user.clearCart();
+
+        //Analyze
+        assertEquals(0, user.getCart().length);
+    }
     
 }
