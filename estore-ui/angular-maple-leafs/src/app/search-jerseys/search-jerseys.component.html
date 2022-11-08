@@ -10,11 +10,11 @@
     <!-- ng-include="partialViewUrl" onload="search()" -->
     <ul class="search-result">
       <li *ngFor="let jersey of jerseys$ | async" >
-        <a *ngIf="jersey.home; else elseBlock" routerLink="/view/{{jersey.id}}">
+        <a *ngIf="jersey.home; else elseBlock" routerLink="/view/{{jersey.id}}/{{username}}">
           {{jersey.name}} {{jersey.number}} Home
         </a>
         <ng-template #elseBlock>
-          <a routerLink="/view/{{jersey.id}}">{{jersey.name}} {{jersey.number}} Away</a>
+          <a routerLink="/view/{{jersey.id}}/{{username}}">{{jersey.name}} {{jersey.number}} Away</a>
         </ng-template>
       </li>
     </ul>

@@ -13,15 +13,15 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
-  {path: 'view/:id', component: ViewJerseyComponent},
+  {path: 'view/:id/:user', component: ViewJerseyComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'user', component: UserComponent},
+  {path: 'user/:username', component: UserComponent},
   {path: 'browse', component: BrowseJerseyComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'add', component: AddJerseyComponent},
   {path: 'edit/:id', component: EditJerseyComponent},
-  {path: 'cart', component: ShoppingCartComponent}
+  {path: 'cart/:Name', component: ShoppingCartComponent}
 ];
 
 @NgModule({

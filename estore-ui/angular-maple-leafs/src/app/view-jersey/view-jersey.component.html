@@ -21,11 +21,13 @@
     <!--buttons to click-->
     <div>
         <button type="button" (click)="back()">Go Back</button>
-        <button type="button" (click)="buy()">Buy</button>
-        <span *ngIf="owner">
+        <span *ngIf="isAdmin(); else user">
             <button type="button" (click)="getEditPage()">Update</button>
             <button type="button" (click)="delete()">Delete</button>
         </span>
+        <ng-template #user>
+            <button type="button" (click)="buy()">Buy</button>
+        </ng-template>
     </div> <br>
 
     <!--Service to tell when you bought stuff-->

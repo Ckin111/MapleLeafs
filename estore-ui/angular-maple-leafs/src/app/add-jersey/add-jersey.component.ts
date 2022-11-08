@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Jersey } from '../jersey';
 import { JerseyService } from '../jersey.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-jersey',
@@ -31,7 +32,7 @@ export class AddJerseyComponent implements OnInit {
     size: 0,
     home: false
   }
-  constructor(private jerseyService: JerseyService) { }
+  constructor(private jerseyService: JerseyService, private location: Location) { }
 
   ngOnInit(): void {
   }
@@ -44,6 +45,7 @@ export class AddJerseyComponent implements OnInit {
     this.jersey.home = this.isHome;
 
     this.jerseyService.addJersey(this.jersey).subscribe(jersey => {this.jerseys.push(jersey);});
+    this.location.back();
   }
 
 }

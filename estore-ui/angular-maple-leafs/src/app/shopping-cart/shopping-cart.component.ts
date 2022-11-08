@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Jersey } from '../jersey';
 import { UserService } from '../user.service';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -8,12 +10,14 @@ import { UserService } from '../user.service';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-  user: string = "admin";
+  username: string = "";
   jerseys: Jersey[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private location: Location,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.username = String(this.route.snapshot.paramMap.get('Name'));
     this.getCart();
   }
 
@@ -22,14 +26,19 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   getCart(): void {
-    this.userService.getCart(this.user).subscribe(jerseys => this.jerseys = jerseys);
+    console.log("Username: "+this.username);
+    this.userService.getCart(this.username).subscribe(jerseys => this.jerseys = jerseys);
   }
 
   delete(jersey: Jersey): void {
     if(this.jerseys) {
       this.jerseys = this.jerseys.filter(j => j !== jersey);
-      this.userService.removeFromCart(this.user, jersey).subscribe();
+      this.userService.removeFromCart(this.username, jersey).subscribe();
     }
+  }
+
+  back(): void {
+    this.location.back();
   }
 
 }

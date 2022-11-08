@@ -29,6 +29,7 @@ export class ViewJerseyComponent implements OnInit {
   selectedSize: Size = Size.SMALL; //default start at small size
   jerseys: Jersey[] = [];
   messages: string[] = [];
+  username: string = "";
 
   /**
    * When a view-jersey component is created
@@ -110,6 +111,14 @@ export class ViewJerseyComponent implements OnInit {
       this.messageService.add("Added Jersey with id " + newJersey.id + " to cart");
     }
 
+  }
+
+  isAdmin(): boolean {
+    this.username = String(this.route.snapshot.paramMap.get('user'));
+    if(this.username == "admin") {
+      return true;
+    }
+    return false;
   }
 
 }

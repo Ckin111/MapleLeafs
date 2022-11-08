@@ -1,4 +1,17 @@
-<p>edit-jersey works!</p>
+<h2>Update Jersey</h2>
+<h3>Original</h3>
+<div>
+    <div><span>Name: </span>{{jersey.name}}</div>
+    <div><span>Number: </span>{{jersey.number}}</div>
+    <div><span>ID: </span>{{jersey.id}}</div>
+    <div><span>Cost: </span>{{jersey.cost}}</div>
+    <div *ngIf="jersey.home; else elseBlock">
+        <span>Home Color</span>
+    </div>
+    <ng-template #elseBlock>
+        <span>Away Color</span>
+    </ng-template>
+</div><br>
 
 <div>
     Enter player name: <input type="text" [(ngModel)]="name"/>

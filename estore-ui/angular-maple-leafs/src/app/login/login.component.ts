@@ -85,11 +85,7 @@ export class LoginComponent implements OnInit {
 
   user(username: String):void {
     // this function would redirect to browse and search
-    if(username == "admin"){
-      this.router.navigateByUrl("/admin");
-    }else{
-      this.router.navigate(["user", {user: username}])
-    }
+    this.router.navigateByUrl("/user/"+ username);
   }
 
 
