@@ -182,7 +182,7 @@ public class UserController {
      * @return response entity OK if successful, if not, status code NOT_FOUND,
      *  otherwise INTERNAL_SERVICE_ERROR
      */
-    @DeleteMapping("/{name}/cart")
+    @DeleteMapping("/{name}/cart/clear")
     public ResponseEntity<Jersey> clearCart(@PathVariable String name) {
         LOG.info("DELETE /users/" + name + "/cart");
         try{ 
