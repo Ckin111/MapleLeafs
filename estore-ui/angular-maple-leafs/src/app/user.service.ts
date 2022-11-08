@@ -16,7 +16,8 @@ export class UserService {
 
   addUser(user: User): Observable<User> {
     // LOG.info("POST /users/?name=" + name)
-    return this.http.post<User>(this.usersUrl, user, this.httpOptions).pipe(
+    const url = `${this.usersUrl}/?name=${user.username}`;
+    return this.http.post<User>(url, user, this.httpOptions).pipe(
       tap((newUser: User) => console.log(`added user w/username=${user.username}`))
       );
   }

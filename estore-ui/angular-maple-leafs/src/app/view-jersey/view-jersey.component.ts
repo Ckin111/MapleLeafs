@@ -66,7 +66,7 @@ export class ViewJerseyComponent implements OnInit {
 
   getEditPage(){
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.router.navigateByUrl("edit/" + id)
+    this.router.navigateByUrl("edit/" + id);
   }
 
   /**
