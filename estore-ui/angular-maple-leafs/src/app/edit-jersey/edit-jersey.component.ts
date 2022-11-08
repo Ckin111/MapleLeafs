@@ -68,7 +68,8 @@ export class EditJerseyComponent implements OnInit {
     this.jersey.home = this.isHome;
 
     this.jerseyService.editJersey(this.jersey).subscribe(jersey => {this.jerseys.push(jersey);});
-    this.router.navigateByUrl("view/" + this.jersey.id);
+    // this.router.navigateByUrl("view/" + this.jersey.id);
+    this.back();
   }
 
 }
