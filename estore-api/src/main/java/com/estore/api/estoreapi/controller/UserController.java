@@ -175,4 +175,27 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * Clears the cart of a specified username
+     * @param name the user's username
+     * @return response entity OK if successful, if not, status code NOT_FOUND,
+     *  otherwise INTERNAL_SERVICE_ERROR
+     */
+    @DeleteMapping("/{name}/cart/clear")
+    public ResponseEntity<Jersey> clearCart(@PathVariable String name) {
+        LOG.info("DELETE /users/" + name + "/cart");
+        try{ 
+            if(userDAO.clearCart(name)){
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

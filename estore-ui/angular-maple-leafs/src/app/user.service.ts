@@ -56,4 +56,11 @@ export class UserService {
 
   }
 
+  clearCart(name: string): Observable<Jersey> {
+    const url = `${this.usersUrl}/${name}/cart/clear`;
+    console.log("Cleared cart for user: " + name);
+    return this.http.delete<Jersey>(url);
+
+  }
+
 }

@@ -153,4 +153,16 @@ public class UserFileDAO implements UserDAO{
 
         return false;
     }
+
+    //clears a specified users cart
+    @Override
+    public boolean clearCart(String name) throws IOException {
+        User user = getUser(name);
+        if(user != null) {
+            user.clearCart();
+            save();
+            return true;
+        }
+        return false;
+    }
 }
