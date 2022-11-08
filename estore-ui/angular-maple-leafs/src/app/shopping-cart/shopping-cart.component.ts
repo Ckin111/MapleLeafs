@@ -37,6 +37,10 @@ export class ShoppingCartComponent implements OnInit {
     }
   }
 
+  checkout(): void {
+    // 
+  }
+
   back(): void {
     this.location.back();
   }
