@@ -84,6 +84,14 @@ public class User implements Comparable{
         return wasDeleted;
     }
 
+    /**
+     * Removes all jerseys in a user's shopping cart
+     */
+    public void clearCart() {
+        variableCart.clear();
+        cart = new Jersey[0];
+    }
+
     @Override
     /**
      * Determines whether a User is equal to another User
