@@ -1,11 +1,11 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Jersey } from '../jersey';
 import { JerseyService } from '../jersey.service';
 
-import { Observable, pipe, Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import {
-   debounceTime, delay, distinctUntilChanged, switchMap
+   delay
  } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
