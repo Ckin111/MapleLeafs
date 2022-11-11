@@ -2,10 +2,10 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Jersey } from '../jersey';
 import { JerseyService } from '../jersey.service';
 
-import { Observable, Subject } from 'rxjs';
+import { Observable, pipe, Subject } from 'rxjs';
 
 import {
-   debounceTime, distinctUntilChanged, switchMap
+   debounceTime, delay, distinctUntilChanged, switchMap
  } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './search-jerseys.component.html',
   styleUrls: ['./search-jerseys.component.css']
 })
-export class SearchJerseysComponent implements OnInit, AfterViewInit {
+export class SearchJerseysComponent implements OnInit {
 
   jerseys$!: Observable<Jersey[]>;
   private searchTerms = new Subject<string>();
@@ -26,30 +26,25 @@ export class SearchJerseysComponent implements OnInit, AfterViewInit {
    * @param jerseyService the service to talk to jersey API
    */
   constructor(private jerseyService: JerseyService, private route: ActivatedRoute) { }
-  ngAfterViewInit(): void {
-    this.search("J");
-  }
 
+  /**
+   * Made the searchbar an keyup event instead of oninit
+   * @param term 
+   */
   search(term: any): void {
-    this.searchTerms.next(term.target.value);
+    this.jerseys$ = this.jerseyService.searchJerseys(term.target.value).pipe(delay(100));
   }
 
+  /**
+   * Had to change to first get all jerseys to fix the not loading oninit
+   */
   ngOnInit(): void {
-    this.jerseys$ = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
-      debounceTime(300),
-
-      // ignore new term if same as previous term
-      distinctUntilChanged(),
-
-      // switch to new search observable each time the term changes
-      switchMap((term: string) => this.jerseyService.searchJerseys(term))
-    );
+    this.getJerseys();
     this.username = String(this.route.snapshot.paramMap.get('username'));
   }
 
+  getJerseys(): void {
+    this.jerseys$ = this.jerseyService.getJerseys();
+  }
 
-
-  // idk what yall did but imma say just do a getalljerseys() because this is not worth ur time
-  // if not, just add a load booelan and instead of using an async pipe just bring the jerseys in once all are downloaded
 }
