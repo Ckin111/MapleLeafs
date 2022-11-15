@@ -31,6 +31,7 @@ The website also has users which have a username and a shopping cart which is pe
 | User | A customer that interacts with the website which logs into the website and has a username and shopping cart. |
 | Jersey | The type of product that is being sold at the E-Store |
 | SPA | Single Page |
+| DAO | Data access object |
 
 
 ## Requirements
@@ -151,24 +152,23 @@ From here they are able to view jerseys and preform their authorized actions upo
 
 Note: app-components admin and browse-jersey are not used in the web-app
 The components in the tier that are used include login, user, dashboard, search-jerseys, add-jersey, view-jersey, shopping-cart, and edit-jersey. 
+
 Login is where the user is directed to when they first enter the website. It has a username and login screen with basic authentication. When the user is authenticated, then the app routes to the user component, which routes to the dashboard component. The dashboard component consists of the search-jerseys component, an add jersey button, a shopping cart button, and logout button. These buttons route to the respective component names. The search-jerseys component all jerseys that fit the filtered name, with spaces returning all jerseys. Each jersey name displayed, routes to that specific jerseys view-jersey page.
-The view jersey page consists of the buttons: Back, Add to Cart, Update, and Delete. Update routes to edit-jersey component, then back to view-jersey.
-The shopping cart component consists of the buttons, Back and Buy.
+
+The view jersey page consists of the buttons: Back, Add to Cart, Update, and Delete. Update routes to edit-jersey component, then back to view-jersey. The shopping cart component consists of the buttons, Back and Buy.
 The diagrams below show a high-end diagram of user and admin interaction in the store.
-
-![User Interaction Sequnce Diagram](user-interaction-sequence-diagram.png)
-
-![Admin Interaction Sequence Diagram](admin-sequence-diagram.png)
 
 
 ### ViewModel Tier
 
-> _Provide a summary of this tier of your architecture. This
-> section will follow the same instructions that are given for the View
-> Tier above._
+This tier involves the interaction between the client and the server. The user will first interact with the website, which is the client. This results in the client giving a call to the API server, which returns a response entity. Based on the response entity the client will update the website view accordingly.
 
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class diagrams) with some details such as critical attributes and methods._
+The client is composed of the angular components that represent each individual html page as well as the user and jersey service. The user and jersey service are what call the API. The API server is composed of the UserController and the JerseyController. The user parts deal with logging in the user and updating the shopping cart of the specified user. The jersey parts deal with updating the inventory.
+Below are two sequence diagrams that show how the admin and user interact with the server and client. The user sequence diagram does not include logging in, searching jerseys, and viewing jerseys because it is the same as what is shown in the admin sequence diagram.
+
+![User Interaction Sequence Diagram](user-interaction-sequence-diagram.png) 
+
+![Admin Interaction Sequence Diagram](admin-interaction-sequence-diagram.png)
 
 
 ### Model Tier
@@ -198,7 +198,7 @@ The diagrams below show a high-end diagram of user and admin interaction in the 
 Testing was done using JaCoCo test coverage and JUnit tests. No testing was done on the UI component besides people going through the website. 
 
 ### Acceptance Testing
-
+Acceptance criteria was made in the form GIVEN some precondition WHEN I do some action THEN I expect some result.
 15 user stories have passed all their acceptance criteria tests. 3 user stories each have one test failing. These include, search jerseys, edit jerseys, and checkout. Search jerseys requires the user to input a space in the search bar before all jerseys are displayed. Edit jerseys does not have the form autofilled, so the admin could accidentally fill out the form wrong by not filling in the previous data on the form, causing a blank jersey to be created. Checkout does not display the correct total cost of the jerseys.
 2 user stories have not been tested because they are still on the sprint backlog.
 
