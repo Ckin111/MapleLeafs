@@ -29,17 +29,7 @@ export class EditJerseyComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private jerseyService: JerseyService,
     private location: Location,
-    private router: Router) {/* 
-      const id = Number(this.route.snapshot.paramMap.get('id'));
-      console.log("Editing");
-      this.jerseyService.getJersey(id).subscribe(jersey => this.jersey = jersey);
-      this.name = this.jersey.name;
-      this.number = this.jersey.number;
-      this.cost = this.jersey.cost;
-      this.size = this.jersey.size;
-      this.isHome = this.jersey.home;*/
-
-    }
+    private router: Router) {}
 
   ngOnInit(): void {
     this.editJersey();

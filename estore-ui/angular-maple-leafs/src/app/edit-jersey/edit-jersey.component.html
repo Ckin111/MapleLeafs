@@ -1,23 +1,10 @@
 <h2>Update Jersey</h2>
-<h3>Original</h3>
-<div>
-    <div><span>Name: </span>{{jersey.name}}</div>
-    <div><span>Number: </span>{{jersey.number}}</div>
-    <div><span>ID: </span>{{jersey.id}}</div>
-    <div><span>Cost: </span>{{jersey.cost}}</div>
-    <div *ngIf="jersey.home; else elseBlock">
-        <span>Home Color</span>
-    </div>
-    <ng-template #elseBlock>
-        <span>Away Color</span>
-    </ng-template>
-</div><br>
 
 <div>
-    Enter player name: <input type="text" [(ngModel)]="name"/>
-    Enter player number: <input type="number" [(ngModel)]="number"/>
-    Enter jersey cost: <input type="number" [(ngModel)]="cost"/>
-    Is player home? <input type="checkbox" [(ngModel)]="isHome"/>
+    <div><span>Name:   <input type="text" value="{{jersey.name}}" [(ngModel)]="name"/></span></div>
+    <div><span>Number: <input type="number" value="{{jersey.number}}" [(ngModel)]="number"/></span></div>
+    <div><span>Cost:   <input type="number" value="{{jersey.cost}}" [(ngModel)]="cost"/></span></div>
+    <div><span>Is player home? <input type="checkbox"  checked="{{jersey.home}}" [(ngModel)]="isHome"/></span></div>
 </div>
 
 <div>
