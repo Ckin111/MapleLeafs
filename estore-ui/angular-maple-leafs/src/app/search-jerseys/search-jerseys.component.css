@@ -1,0 +1,32 @@
+div {
+    padding: 20px;
+
+    border: 10px;
+}
+a {
+    color: black;
+}
+#search-component {
+    text-align: center;
+    padding-top: 0;
+}
+.search-result {
+    display: flex;
+    flex-wrap: wrap;
+}
+.jerseys{
+    border-style: ridge;
+    width: 120px;
+    margin: auto;
+}
+.search-label{
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+.search-box{
+    padding-top: 0;
+}
+label{
+    color: #0415aa;
+    font-size: larger;
+}

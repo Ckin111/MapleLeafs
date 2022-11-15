@@ -1,9 +1,9 @@
 <h2>Enter Jersey Attributes Below!</h2>
 <div>
-    Enter player name: <input type="text" [(ngModel)]="name"/>
-    Enter player number: <input type="number" [(ngModel)]="number"/>
-    Enter jersey cost: <input type="number" [(ngModel)]="cost"/>
+    <p>Enter player name: <input type="text" [(ngModel)]="name"/></p>
+    <p>Enter player number: <input type="number" [(ngModel)]="number"/></p>
+    <p>Enter jersey cost: <input type="number" [(ngModel)]="cost"/></p>
     <!--Enter jersey size: <select ng-model="size"><option ng-repeat="val in sizes" value="{{sizes.val}}">{{sizes.val}}</option></select>-->
-    Is player home? <input type="checkbox" [(ngModel)]="isHome"/>
+    <p>Is player home? <input type="checkbox" [(ngModel)]="isHome"/></p>
     <button (click)="addJersey()"> Create! </button>
 </div>

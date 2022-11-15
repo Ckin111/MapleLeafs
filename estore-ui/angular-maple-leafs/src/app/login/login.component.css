@@ -28,10 +28,13 @@ form {
     opacity: 0.8;
   }
   
-  
   /* Add padding to containers */
   .container {
     padding: 16px;
+  }
+  
+  .message{
+    text-align: center;
   }
 
   .title{
