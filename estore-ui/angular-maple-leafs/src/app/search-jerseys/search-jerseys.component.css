@@ -1,6 +1,5 @@
 div {
     padding: 20px;
-
     border: 10px;
 }
 a {
@@ -13,9 +12,11 @@ a {
 .search-result {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-start;
 }
 .jerseys{
     border-style: ridge;
+    border-radius: 15px;
     width: 120px;
     margin: auto;
 }
