@@ -2,20 +2,20 @@
 
 <div *ngIf="isNotEmpty(); else noJersey">
   <h2>{{username}}'s Cart</h2>
-  <ul class="heroes">
-      <li *ngFor="let jersey of jerseys">
+  <div class="heroes">
+      <div class="jersey" *ngFor="let jersey of jerseys">
         <!--<a routerLink="/view/{{jersey.id}}"></a>-->
         <span *ngIf="jersey.home; else elseBlock">
-          <span class="badge">{{jersey.id}}.</span> {{jersey.name}} Home {{jersey.size}} 
+          <span class="badge">{{jersey.number}} -</span> {{jersey.name}} - Home - {{jersey.size}} - 
           <span class="cost">${{jersey.cost}}</span>
         </span>
         <ng-template #elseBlock>
-          <span class="badge">{{jersey.id}}.</span> {{jersey.name}} Away {{jersey.size}} 
+          <span class="badge">{{jersey.number}} - </span> {{jersey.name}} - Away - {{jersey.size}} -
           <span class="cost">${{jersey.cost}} </span>
         </ng-template>
         <button type="button" class="delete" title="remove jersey" (click)="delete(jersey)">X</button>
-      </li>
-    </ul>
+      </div>
+    </div>
   </div>
 
   <ng-template #noJersey>
