@@ -24,6 +24,7 @@ a {
 .search-label{
     border-bottom: 0;
     padding-bottom: 0;
+    margin-bottom: 5px;
 }
 .search-box{
     padding-top: 0;
@@ -31,4 +32,13 @@ a {
 label{
     color: #0415aa;
     font-size: larger;
+}
+input{
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 2px solid #ccc;
+    border-radius: 9px;
+    box-sizing: border-box;
+
 }
