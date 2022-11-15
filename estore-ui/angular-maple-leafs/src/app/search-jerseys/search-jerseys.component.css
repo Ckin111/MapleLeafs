@@ -19,6 +19,7 @@ a {
     border-radius: 15px;
     width: 120px;
     margin: auto;
+    margin-bottom: 10px;
 }
 .search-label{
     border-bottom: 0;
