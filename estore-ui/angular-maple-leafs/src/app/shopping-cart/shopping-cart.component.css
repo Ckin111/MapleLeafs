@@ -26,6 +26,10 @@ button:hover {
     text-align: center;
 }
 
+h2{
+    color: #0415aa;
+}
+
 div{
     max-width: 500px;
     margin: auto;

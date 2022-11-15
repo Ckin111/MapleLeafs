@@ -9,10 +9,10 @@
   <div class="search-result">
     <div class="jerseys" *ngFor="let jersey of jerseys$ | async" >
       <a *ngIf="jersey.home; else elseBlock" routerLink="/view/{{jersey.id}}/{{username}}">
-        {{jersey.name}} {{jersey.number}} Home
+        {{jersey.name}} <br> {{jersey.number}} <br> Home
       </a>
       <ng-template #elseBlock>
-        <a routerLink="/view/{{jersey.id}}/{{username}}">{{jersey.name}} {{jersey.number}} Away</a>
+        <a routerLink="/view/{{jersey.id}}/{{username}}"> {{jersey.name}} <br> {{jersey.number}} <br> Away </a>
       </ng-template>
     </div>
   </div>
