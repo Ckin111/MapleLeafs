@@ -26,33 +26,9 @@ export class LoginComponent implements OnInit {
   adminUsername: string = "admin";
   userUsername: string = "user";
 
-
   message: String = "Please Enter Username";
 
   checker (htmlUsername: string): boolean {
- 
-    // if ( htmlUsername==this.adminUsername ){
-    //   this.isadmin = true;
-    //   this.loggedIn = true;
-    //   this.message = "Logged In";
-    //   this.user(htmlUsername);
-    //   return true;
-    // } else if (htmlUsername==this.userUsername){
-    //   this.isuser=true;
-    //   this.loggedIn = true;
-    //   this.message = "Logged In";
-    //   this.user(this.userUsername)
-    //   return true;
-    // } else {
-
-    //   this.message = "Incorrect Username"
-    //   return false;
-    // }
-    // this.tempUser.username = htmlUsername;
-    // if(this.userService.getUser(this.tempUser) != null){
-
-    // }
-
     if ( htmlUsername==this.adminUsername ){
       this.isadmin = true;
       this.loggedIn = true;
@@ -84,10 +60,8 @@ export class LoginComponent implements OnInit {
   }
 
   user(username: String):void {
-    // this function would redirect to browse and search
     this.router.navigateByUrl("/user/"+ username);
   }
-
 
   ngOnInit(): void {
   }
