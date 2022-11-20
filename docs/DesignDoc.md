@@ -16,8 +16,7 @@ geometry: margin=1in
 This project is a full stack application including a persistent storage, backend, and user interface. 
 The goal of this application is to host a jersey store for the Toronto Maple Leafs. 
 As an online store, the admin is able to manage the site by adding and removing jerseys, editing existing jerseys, and other site features. 
-Furthermore, users that visit the site are able to browse through the jerseys available for sale, view specific jersey's attributes like cost, search 
-for jerseys, and lastly add items to their shopping cart and buy the items in that cart. 
+Furthermore, users that visit the site are able to browse through the jerseys available for sale, view specific jersey's attributes like cost, search for jerseys, and lastly add items to their shopping cart and buy the items in that cart. 
 
 ### Purpose
 This website has an admin which is able to modify the stock of jerseys that are for sale by adding jerseys, removing jerseys, and editing existing jerseys. 
@@ -41,10 +40,10 @@ This section describes the features of the application.
 The application allows for the admin and user to log in and for new users to register for their account. 
 It allows for the admin to preform the CRUD operations on a stock of jerseys to which the users will able to browse and view and add to their shopping cart. 
 It allows for the user to add and delete items from their shopping cart and 'buy' the items once they are ready. 
-The website also allows quick access of every product via a search bar. 
+The website also allows quick access to every product via a search bar. 
 
 ### Definition of MVP
-The admin and users must be able to login with the users also able to register new accounts
+The admin and users must be able to login. New users are able to register new accounts.
 The admin must be able to preform CRUD operations on the stock of jerseys which is persistently stored.
 The user must be able to add, delete, and checkout their shopping cart which also must be persistently stored. 
 The website must allow quick and easy access to the products with a postive user experince. 
@@ -109,8 +108,8 @@ Nouns:
 
 Verbs:
   Adding (Jerseys to store inventory and shopping cart)
-  Editing (Jerseys to store inventory and shopping cart)
-  Deleting (Jerseys to store inventory and shopping cart)
+  Editing (Jerseys to store inventory)
+  Deleting (Jerseys from store inventory and shopping cart)
   Searching for jerseys
   Browsing the site/jerseys
   Checkout the shopping cart
@@ -122,8 +121,7 @@ Verbs:
 
 Using Spring boot, the backend has persistent storage and a consistent model of objects using the controller, model, and persistence setup. 
 Jerseys and Users have their respective controller, model, and persistence files which allow for operations and storage through JSON files. 
-The frontend is built using angular and through the jersey.service.ts and user.service.ts files are able to access the backend data and functions
-in order to deliver a UI that can support persistent storage. 
+The frontend is built using angular and through the jersey.service.ts and user.service.ts files are able to access the backend data and use the data to deliver a UI that can support persistent storage. 
 
 ### Summary
 
@@ -142,21 +140,23 @@ Both the ViewModel and Model are built using Java and Spring Framework. Details 
 
 ### Overview of User Interface
 
-The user and admin have almost identical flows through the application. The user is only different than that of the admin by the fact that they are unable to see the CRUD operation buttons when viewing a jersey
-Both land on a login page when visiting the site. 
-Upon login after registration if neccessary, they are directed to a page that displays the stock of jerseys that can be filtered using the search bar, a shopping cart icon, and the username of whoever is currently logged in. 
-From here they are able to view jerseys and preform their authorized actions upon them. 
+The user and admin have almost identical flows through the application. The user is only different than that of the admin by the fact that they are unable to see the CRUD operation buttons when viewing a jersey and that they have a shopping car.
+Any person first lands on a login page when visiting the site. 
+Upon login, after registration if neccessary, a user is directed to a page that displays the stock of jerseys that can be filtered using the search bar, a shopping cart icon, a logout icon, and the username of whoever is currently logged in. From here they are able to view jerseys and add them to their cart. They are also able to view their shopping cart and remove items from cart, or buy all the items in the cart.
+
+As stated before, admin has an almost identical website experience as a user. The difference is that on the browsing jersey page, there is no shopping cart. Instead, there is a create jersey button. Furthermore, when viewing an individual jersey, they can edit or delete it. They cannot buy an individual jersey because they don't have a shopping cart.
 
 
 ### View Tier
 
-Note: app-components admin and browse-jersey are not used in the web-app
-The components in the tier that are used include login, user, dashboard, search-jerseys, add-jersey, view-jersey, shopping-cart, and edit-jersey. 
+Note: The app-components admin and browse-jersey are not used in the web-app. The components in the tier that are used include login, user, dashboard, search-jerseys, add-jersey, view-jersey, shopping-cart, and edit-jersey. 
 
 Login is where the user is directed to when they first enter the website. It has a username and login screen with basic authentication. When the user is authenticated, then the app routes to the user component, which routes to the dashboard component. The dashboard component consists of the search-jerseys component, an add jersey button, a shopping cart button, and logout button. These buttons route to the respective component names. The search-jerseys component all jerseys that fit the filtered name, with spaces returning all jerseys. Each jersey name displayed, routes to that specific jerseys view-jersey page.
 
 The view jersey page consists of the buttons: Back, Add to Cart, Update, and Delete. Update routes to edit-jersey component, then back to view-jersey. The shopping cart component consists of the buttons, Back and Buy.
-The diagrams below show a high-end diagram of user and admin interaction in the store.
+The diagrams below show the high-end diagram of the view tier routing just described
+
+![View Tier](View_Tier.png)
 
 
 ### ViewModel Tier
