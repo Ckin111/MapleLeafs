@@ -198,4 +198,31 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * Gets a users cart total cost given a specific user
+     * @param user the user that wants to see their cart's cost
+     * @return response entity with a float number if successful, if not
+     *  response entity of NOT_FOUND, otherwise INTERNAL_SERVICE_ERROR
+     */
+    @GetMapping("/{name}/cart/cost")
+    public ResponseEntity<Float> getTotalCost(@PathVariable String name) {
+        LOG.info("GET /users/" + name + "/cart");
+        try{
+            Jersey[] cart = userDAO.getCart(name);
+            if(cart == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            else {
+                float total = 0;
+                for(int i = 0; i < cart.length; i++) {
+                    total += cart[i].getCost();
+                }
+                return new ResponseEntity<Float>(total, HttpStatus.OK);
+            }
+        }
+        catch(IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

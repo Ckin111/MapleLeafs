@@ -63,4 +63,11 @@ export class UserService {
 
   }
 
+  getTotal(name: string): Observable<GLfloat> {
+    const url = `${this.usersUrl}/${name}/cart/cost`;
+    console.log("Fetched cart total cost from user: " + name);
+    return this.http.get<GLfloat>(url);
+
+  }
+
 }

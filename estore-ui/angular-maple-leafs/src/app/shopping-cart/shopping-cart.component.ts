@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ShoppingCartComponent implements OnInit {
   username: string = "";
   jerseys: Jersey[] = [];
+  total: number = 0;
 
   constructor(private userService: UserService, private location: Location,
     private route: ActivatedRoute) { }
@@ -19,6 +20,7 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit(): void {
     this.username = String(this.route.snapshot.paramMap.get('Name'));
     this.getCart();
+    this.getCost();
   }
 
   isNotEmpty(): boolean {
@@ -30,11 +32,16 @@ export class ShoppingCartComponent implements OnInit {
     this.userService.getCart(this.username).subscribe(jerseys => this.jerseys = jerseys);
   }
 
+  getCost(): void {
+    this.userService.getTotal(this.username).subscribe(cost => this.total = cost);
+  }
+
   delete(jersey: Jersey): void {
     if(this.jerseys) {
       this.jerseys = this.jerseys.filter(j => j !== jersey);
       this.userService.removeFromCart(this.username, jersey).subscribe();
     }
+    this.total -= jersey.cost;
   }
 
   checkout(): void {
