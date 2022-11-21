@@ -5,6 +5,10 @@
     border-bottom: 2px solid #f1f1f1;
 }
 
+.bad{
+    color:red;
+}
+
 div{
     text-align: center;
 }

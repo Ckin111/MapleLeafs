@@ -31,5 +31,9 @@
         <input id="discount" type="number" placeholder="Enter jersey discount %" [(ngModel)]="discount"/>
     </div>
 
+    <span class="bad" *ngIf="badData">
+        Discount number must be between 0 and 100<br>
+    </span>
+
     <button (click)="addJersey()"> Create! </button>
 </div>
