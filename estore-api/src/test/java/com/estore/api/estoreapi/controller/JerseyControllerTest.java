@@ -1,6 +1,8 @@
 package com.estore.api.estoreapi.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -28,7 +30,7 @@ public class JerseyControllerTest {
     @Test
     public void testGetJersey() throws IOException {  // getJersey may throw IOException
         // Setup
-        Jersey jersey = new Jersey(7, "Dom", 32.58f, Size.MEDIUM, true, 93);
+        Jersey jersey = new Jersey(7, "Dom", 32.58f, Size.MEDIUM, true, 93, 10);
         // When the same id is passed in, our mock Jersey DAO will return the Jersey object
         when(mockJerseyDAO.getJersey(jersey.getId())).thenReturn(jersey);
 
@@ -88,7 +90,7 @@ public class JerseyControllerTest {
     @Test
     public void testCreateJersey() throws IOException {
         //setup
-        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23, 10);
         when(mockJerseyDAO.createJersey(jersey)).thenReturn(jersey);
         
         //Invoke
@@ -107,7 +109,7 @@ public class JerseyControllerTest {
     @Test
     public void testCreateJerseyFailed() throws IOException {
         //Setup
-        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23, 20);
         when(mockJerseyDAO.createJersey(jersey)).thenReturn(null);
 
         //Invoke
@@ -125,7 +127,7 @@ public class JerseyControllerTest {
     @Test
     public void testCreateJerseyHandleException() throws IOException {
         //Setup
-        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23, 20);
         doThrow(new IOException()).when(mockJerseyDAO).createJersey(jersey);
 
         //Invoke
@@ -138,23 +140,24 @@ public class JerseyControllerTest {
     @Test
     public void testUpdateJersey() throws IOException { 
         // Setup
-        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
-        
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23, 20);
         when(mockJerseyDAO.updateJersey(jersey)).thenReturn(jersey);
         ResponseEntity<Jersey> response = jerseyController.updateJersey(jersey);
-        jersey = new Jersey(7, "Claire", 32.58f, Size.LARGE, false, 43);
+        
         // Invoke
         response = jerseyController.updateJersey(jersey);
 
         // Analyze
         assertEquals(HttpStatus.OK,response.getStatusCode());
-        assertEquals(jersey,response.getBody());
+        assertEquals(jersey, response.getBody());
+        assertEquals(7, response.getBody().getId());
+        assertTrue(jersey.isSameContent(response.getBody()));
     }
 
     @Test
     public void testUpdateJerseyFailed() throws IOException { // updateJersey may throw IOException
         // Setup
-        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23, 20);
         // when updateJersey is called, return true simulating successful
         // update and save
         when(mockJerseyDAO.updateJersey(jersey)).thenReturn(null);
@@ -169,7 +172,7 @@ public class JerseyControllerTest {
     @Test
     public void testUpdateJerseyHandleException() throws IOException { // updateJersey may throw IOException
         // Setup
-        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
+        Jersey jersey = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23, 20);
         // When updateJersey is called on the Mock Jersey DAO, throw an IOException
         doThrow(new IOException()).when(mockJerseyDAO).updateJersey(jersey);
 
@@ -183,8 +186,8 @@ public class JerseyControllerTest {
     public void testGetJerseys() throws IOException { // getJerseys may throw IOException
         // Setup
         Jersey[] jerseys = new Jersey[2];
-        jerseys[0] = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23);
-        jerseys[1] = new Jersey(5, "Dom", 32.58f, Size.MEDIUM, true, 23);
+        jerseys[0] = new Jersey(7, "Ming", 32.58f, Size.LARGE, false, 23, 20);
+        jerseys[1] = new Jersey(5, "Dom", 32.58f, Size.MEDIUM, true, 23, 0);
         // When getHeroes is called return the heroes created above
         when(mockJerseyDAO.getJerseys()).thenReturn(jerseys);
 
@@ -234,8 +237,8 @@ public class JerseyControllerTest {
         //Setup
         String searchString = "D";
         Jersey[] jerseys = new Jersey[2];
-        jerseys[0] = new Jersey(0, "Dave", 39.99f, Size.MEDIUM, true, 3);
-        jerseys[1] = new Jersey(1, "Derek", 39.99f, Size.SMALL, true, 6);
+        jerseys[0] = new Jersey(0, "Dave", 39.99f, Size.MEDIUM, true, 3, 10);
+        jerseys[1] = new Jersey(1, "Derek", 39.99f, Size.SMALL, true, 6, 0);
         when(mockJerseyDAO.findJersey(searchString)).thenReturn(jerseys);
 
         //Invoke

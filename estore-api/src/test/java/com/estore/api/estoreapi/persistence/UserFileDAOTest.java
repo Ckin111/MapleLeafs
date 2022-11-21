@@ -39,11 +39,11 @@ public class UserFileDAOTest {
         mockObjectMapper = mock(ObjectMapper.class);
         //jerseys
         testJerseys = new Jersey[5];
-        testJerseys[0] = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
-        testJerseys[1] = new Jersey(1, "Dave", 39.99f, Size.MEDIUM, true, 3);
-        testJerseys[2] = new Jersey(2, "Sidney", 50f, Size.LARGE, false, 29);
-        testJerseys[3] = new Jersey(3, "Aaron", 50f, Size.XL, false, 5);
-        testJerseys[4] = new Jersey(4, "Derek", 39.99f, Size.SMALL, true, 6);
+        testJerseys[0] = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16, 0);
+        testJerseys[1] = new Jersey(1, "Dave", 39.99f, Size.MEDIUM, true, 3, 0);
+        testJerseys[2] = new Jersey(2, "Sidney", 50f, Size.LARGE, false, 29, 10);
+        testJerseys[3] = new Jersey(3, "Aaron", 50f, Size.XL, false, 5, 15);
+        testJerseys[4] = new Jersey(4, "Derek", 39.99f, Size.SMALL, true, 6, 0);
         //making user list
         testUsers = new User[5];
         testUsers[0] = new User(0, "Nic", testJerseys);
@@ -150,7 +150,7 @@ public class UserFileDAOTest {
     @Test
     public void testAddJersey() throws IOException {
         //Setup
-        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
+        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16, 0);
         String username = "Nic";
 
         //Invoke
@@ -170,7 +170,7 @@ public class UserFileDAOTest {
     @Test
     public void testAddJerseyUserNotFound() throws IOException {
         //Setup
-        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
+        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16, 0);
         String username = "NotFound";
 
         //Invoke
@@ -210,7 +210,7 @@ public class UserFileDAOTest {
     @Test
     public void testRemoveJersey() throws IOException {
         //Setup
-        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
+        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16, 0);
         String username = "Nic";
 
         //Invoke
@@ -224,7 +224,7 @@ public class UserFileDAOTest {
     @Test 
     public void testRemoveJerseyUserNotFound() throws IOException {
          //Setup
-         Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
+         Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16, 0);
          String username = "NotFound";
  
          //Invoke
@@ -237,7 +237,7 @@ public class UserFileDAOTest {
     @Test 
     public void testRemoveJerseyNotFound() throws IOException {
          //Setup
-         Jersey jersey = new Jersey(9, "Matt", 39.99f, Size.SMALL, false, 16);
+         Jersey jersey = new Jersey(9, "Matt", 39.99f, Size.SMALL, false, 16, 0);
          String username = "Nic";
  
          //Invoke

@@ -59,7 +59,8 @@ public class User implements Comparable{
      */
     public Jersey addJersey(Jersey jersey) {
         Jersey addedJersey = new Jersey(nextCartId, jersey.getName(),
-            jersey.getCost(), jersey.getSize(), jersey.getIsHome(), jersey.getNumber());
+            jersey.getCost(), jersey.getSize(), jersey.getIsHome(), jersey.getNumber(),
+            jersey.getDiscount());
         boolean wasAdded = variableCart.add(addedJersey);
         if(wasAdded) {
             cart = new Jersey[variableCart.size()];

@@ -27,6 +27,7 @@ public class Jersey {
     @JsonProperty("size") private Size size;
     @JsonProperty("home") private boolean isHome;
     @JsonProperty("number") private int number;
+    @JsonProperty("discount") private int discount;
 
     /**
      * Create a jersey with a given id, name, cost, size, isHome, number
@@ -36,18 +37,20 @@ public class Jersey {
      * @param size the size of the jersey
      * @param isHome if jersey is in colors isHome or Away
      * @param number player number on the jersey
+     * @param discount the current jersey discount, 0 if there is none
      * 
      * @literal @JsonProperty is used to deserialize and serialize JSON objects
      *  to java objects in mapping the fields
      */
     public Jersey(@JsonProperty("id") int id, @JsonProperty("name") String name, @JsonProperty("cost") float cost, @JsonProperty("size") Size size,
-    @JsonProperty("home") boolean isHome, @JsonProperty("number") int number) {
+    @JsonProperty("home") boolean isHome, @JsonProperty("number") int number, @JsonProperty("discount") int discount) {
         this.id = id;
         this.name = name;
         this.cost = cost;
         this.size = size;
         this.isHome = isHome;
         this.number = number;
+        this.discount = discount;
     }
 
     /**
@@ -97,6 +100,14 @@ public class Jersey {
     public int getNumber(){
         return number;
     }
+
+    /**
+     * gets the current discount of the jersey in percentage, 0 if there is none
+     * @return discount
+     */
+    public int getDiscount() {
+        return discount;
+    }
     
     @Override
     /**
@@ -124,7 +135,8 @@ public class Jersey {
         if(o instanceof Jersey) {
             Jersey jer = (Jersey)(o);
             if (jer.getName().equals(this.getName()) && (jer.getIsHome() == (this.getIsHome()))
-                && (jer.getCost() == (this.getCost())) && (jer.getNumber() == (this.getNumber()))) {
+                && (jer.getCost() == (this.getCost())) && (jer.getNumber() == (this.getNumber()))
+                && (jer.getDiscount() == (this.getDiscount()))) {
                 return true;
             }
         }

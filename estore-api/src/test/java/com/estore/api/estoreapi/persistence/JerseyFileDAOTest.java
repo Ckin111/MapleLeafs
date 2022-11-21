@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -42,11 +43,11 @@ public class JerseyFileDAOTest {
     public void setupJerseyFileDAO() throws IOException {
         mockObjectMapper = mock(ObjectMapper.class);
         testJerseys = new Jersey[5];
-        testJerseys[0] = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
-        testJerseys[1] = new Jersey(1, "Dave", 39.99f, Size.MEDIUM, true, 3);
-        testJerseys[2] = new Jersey(2, "Sidney", 50f, Size.LARGE, false, 29);
-        testJerseys[3] = new Jersey(3, "Aaron", 50f, Size.XL, false, 5);
-        testJerseys[4] = new Jersey(4, "Derek", 39.99f, Size.SMALL, true, 6);
+        testJerseys[0] = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16, 0);
+        testJerseys[1] = new Jersey(1, "Dave", 39.99f, Size.MEDIUM, true, 3, 0);
+        testJerseys[2] = new Jersey(2, "Sidney", 50f, Size.LARGE, false, 29, 10);
+        testJerseys[3] = new Jersey(3, "Aaron", 50f, Size.XL, false, 5, 15);
+        testJerseys[4] = new Jersey(4, "Derek", 39.99f, Size.SMALL, true, 6, 0);
 
         //When the object mapper reads from a file, the mock object mapper will
         // return jersey array above
@@ -63,14 +64,12 @@ public class JerseyFileDAOTest {
     @Test
     public void testCreateJersey() throws IOException {
         //Setup Jersey to create
-        Jersey jersey = new Jersey(5, "Terry", 24.32f, Size.MEDIUM, false, 32);
-        Jersey jersey2 = new Jersey(5, "Terry", 24.32f, Size.MEDIUM, true, 32);
+        Jersey jersey = new Jersey(5, "Terry", 24.32f, Size.MEDIUM, false, 32, 13);
+        Jersey jersey2 = new Jersey(5, "Terry", 24.32f, Size.MEDIUM, true, 32, 13);
         
         //Invoke
-        Jersey result = assertDoesNotThrow(() -> jerseyFileDAO.createJersey(jersey),
-            "Unexpected exception thrown");
-        Jersey result2 = assertDoesNotThrow(() -> jerseyFileDAO.createJersey(jersey2),
-            "Unexpected exception thrown");
+        Jersey result = jerseyFileDAO.createJersey(jersey);
+        Jersey result2 = jerseyFileDAO.createJersey(jersey2);
     
         //Analyze response
         assertNotNull(result);
@@ -85,6 +84,7 @@ public class JerseyFileDAOTest {
         assertEquals(actual.getIsHome(), jersey.getIsHome());
         assertEquals(actual.getNumber(), jersey.getNumber());
         assertEquals(actual.getSize(), jersey.getSize());
+        assertEquals(actual.getDiscount(), jersey.getDiscount());
         //Analyze whether created jersey 2 has id 6 and not 5
         Jersey actual2 = jerseyFileDAO.getJersey(6);
         assertNotNull(actual2);
@@ -94,19 +94,21 @@ public class JerseyFileDAOTest {
         assertEquals(actual2.getIsHome(), jersey2.getIsHome());
         assertEquals(actual2.getNumber(), jersey2.getNumber());
         assertEquals(actual2.getSize(), jersey2.getSize());
+        assertEquals(actual2.getDiscount(), jersey2.getDiscount());
     }
     
     @Test
     public void testUpdateJersey() throws IOException {
         //Setup
-        Jersey jersey = new Jersey(3, "Aaron", 50f, Size.MEDIUM, false, 5);
+        Jersey jersey = new Jersey(3, "Aaron", 50f, Size.MEDIUM, false, 5, 15);
         //Invoke
-        Jersey result = assertDoesNotThrow(() -> jerseyFileDAO.updateJersey(jersey), "Unexpected exception thrown");
+        Jersey result = jerseyFileDAO.updateJersey(jersey);
 
         //Analyze
         assertNotNull(result);
         Jersey actual = jerseyFileDAO.getJersey(jersey.getId());
         assertEquals(actual,jersey);
+        assertTrue(jersey.isSameContent(actual));
     }
     /**
      * Test to determine whether JerseyFileDAO will return null if
@@ -116,7 +118,7 @@ public class JerseyFileDAOTest {
     @Test
     public void testCreateJerseyConflict() throws IOException {
         //Setup Jersey to create
-        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
+        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16, 0);
         
         //Invoke
         Jersey result = jerseyFileDAO.createJersey(jersey);
@@ -198,7 +200,7 @@ public class JerseyFileDAOTest {
     @Test
     public void testUpdateJerseyNotFound() {
         //Setup
-        Jersey jersey = new Jersey(995, "Terry", 24.32f, Size.MEDIUM, false, 32);
+        Jersey jersey = new Jersey(995, "Terry", 24.32f, Size.MEDIUM, false, 32, 0);
 
         //Invoke
         Jersey result = assertDoesNotThrow(() -> jerseyFileDAO.updateJersey(jersey), "Unexpected exception thrown");
@@ -213,7 +215,7 @@ public class JerseyFileDAOTest {
         doThrow(new IOException())
             .when(mockObjectMapper)
                 .writeValue(any(File.class), any(Jersey[].class));
-        Jersey jersey = new Jersey(0, null, 0, null, false, 0);
+        Jersey jersey = new Jersey(0, null, 0, null, false, 0, 0);
         assertThrows(IOException.class, () -> jerseyFileDAO.createJersey(jersey), 
                                             "IOException not thrown");
     }
