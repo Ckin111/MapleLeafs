@@ -15,11 +15,11 @@ geometry: margin=1in
 
 This project is a full stack application including a persistent storage, backend, and user interface. 
 The goal of this application is to host a jersey store for the Toronto Maple Leafs. 
-As an online store, the admin is able to manage the site by adding and removing jerseys, editing existing jerseys, and other site features. 
-Furthermore, users that visit the site are able to browse through the jerseys available for sale, view specific jersey's attributes like cost, search for jerseys, and lastly add items to their shopping cart and buy the items in that cart. 
+General features of the application include logging in and out, browsing the available jerseys for sale, and viewing individual jersey pages with all the jersey's attributes. 
+There are two different accounts: admin and user. An admin is able to manage the site by adding and removing jerseys and editing existing jerseys. Users are able to add and remove items from their shopping cart and buy all the items in the cart.
 
 ### Purpose
-This website has an admin which is able to modify the stock of jerseys that are for sale by adding jerseys, removing jerseys, and editing existing jerseys. 
+This website has an admin that is able to modify the stock of jerseys that are for sale by adding jerseys, removing jerseys, and editing existing jerseys. 
 The website also has users which have a username and a shopping cart which is persistent after logout. Users are able to add and remove items from their shopping cart. 
 
 ### Glossary and Acronyms
@@ -27,7 +27,7 @@ The website also has users which have a username and a shopping cart which is pe
 | Term | Definition |
 |------|------------|
 | Admin | Website owner with special privlidges related to the inventory of jerseys. |
-| User | A customer that interacts with the website which logs into the website and has a username and shopping cart. |
+| User | A customer that interacts with the website and has a username and shopping cart. |
 | Jersey | The type of product that is being sold at the E-Store |
 | SPA | Single Page |
 | DAO | Data access object |
@@ -38,8 +38,8 @@ The website also has users which have a username and a shopping cart which is pe
 This section describes the features of the application.
 
 The application allows for the admin and user to log in and for new users to register for their account. 
-It allows for the admin to preform the CRUD operations on a stock of jerseys to which the users will able to browse and view and add to their shopping cart. 
-It allows for the user to add and delete items from their shopping cart and 'buy' the items once they are ready. 
+It allows for the admin to preform the CRUD operations on a stock of jerseys to which the users will be able to browse, view, and add to their shopping cart. 
+It allows for the user to add and delete items from their shopping cart and 'buy' the items once they are ready. Furthermore, if a user has a full shopping cart and logs out, their cart will be saved.
 The website also allows quick access to every product via a search bar. 
 
 ### Definition of MVP
@@ -49,27 +49,13 @@ The user must be able to add, delete, and checkout their shopping cart which als
 The website must allow quick and easy access to the products with a postive user experince. 
 
 ### MVP Features and the names of their stories
-Login Admin and its users
-Register new users
-Admin Add jerseys
-Admin Delete jerseys
-Admin Update jerseys
-User Add to cart
-User Delete from cart
-User Checkout cart
-Search jerseys and view
+Admin management
+Buyer interacting with store
+Jerseys in the store
 
 
 ### Roadmap of Enhancements
-Login Admin and its users
-Register new users
-Admin Add jerseys
-Admin Delete jerseys
-Admin Update jerseys
-User Add to cart
-User Delete from cart
-User Checkout cart
-Search jerseys and view
+> _Provide a list of top-level features in the order you plan to consider them._
 
 
 ## Application Domain
@@ -83,10 +69,11 @@ This is a Noun/Verb analysis relating to our domain model which is now represent
 
 Nouns: 
   Jerseys
-    Number
     Name
-    Home/away
+    Number
     Cost
+    Home/Away
+    Sales/Discounts
     Size
       XS
       Small 
@@ -96,25 +83,26 @@ Nouns:
 
   Store
 
+  Account
+    Username
+    ID
+    
+  Admin
   User
-    Admin
-    Customer
 
   Shopping Carts
-    Number of items
     Total cost
 
   Sales/discounts
 
 Verbs:
-  Adding (Jerseys to store inventory and shopping cart)
-  Editing (Jerseys to store inventory)
-  Deleting (Jerseys from store inventory and shopping cart)
-  Searching for jerseys
-  Browsing the site/jerseys
-  Checkout the shopping cart
-
-
+  Managed by
+  Are managed by
+  Interacts with
+  Checks out with
+  Is shown in
+  Is an attribute of
+  Stored in
 
 
 ## Architecture and Design
@@ -166,9 +154,13 @@ This tier involves the interaction between the client and the server. The user w
 The client is composed of the angular components that represent each individual html page as well as the user and jersey service. The user and jersey service are what call the API. The API server is composed of the UserController and the JerseyController. The user parts deal with logging in the user and updating the shopping cart of the specified user. The jersey parts deal with updating the inventory.
 Below are two sequence diagrams that show how the admin and user interact with the server and client. The user sequence diagram does not include logging in, searching jerseys, and viewing jerseys because it is the same as what is shown in the admin sequence diagram.
 
+<div style="page-break-after: always;"></div>
+
 ![User Interaction Sequence Diagram](user-interaction-sequence-diagram.png) 
+<div style="page-break-after: always;"></div>
 
 ![Admin Interaction Sequence Diagram](admin-interaction-sequence-diagram.png)
+<div style="page-break-after: always;"></div>
 
 
 ### Model Tier
