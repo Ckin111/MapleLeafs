@@ -27,11 +27,11 @@ public class UserTest {
         String expected_username = "SuperSally45";
         expected_cart = new Jersey[5];
 
-        expected_cart[0] = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
-        expected_cart[1] = new Jersey(1, "Dave", 39.99f, Size.MEDIUM, true, 3);
-        expected_cart[2] = new Jersey(2, "Sidney", 50f, Size.LARGE, false, 29);
-        expected_cart[3] = new Jersey(3, "Aaron", 50f, Size.XL, false, 5);
-        expected_cart[4] = new Jersey(4, "Derek", 39.99f, Size.SMALL, true, 6);
+        expected_cart[0] = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16, 0);
+        expected_cart[1] = new Jersey(1, "Dave", 39.99f, Size.MEDIUM, true, 3, 0);
+        expected_cart[2] = new Jersey(2, "Sidney", 50f, Size.LARGE, false, 29, 10);
+        expected_cart[3] = new Jersey(3, "Aaron", 50f, Size.XL, false, 5, 15);
+        expected_cart[4] = new Jersey(4, "Derek", 39.99f, Size.SMALL, true, 6, 0);
 
 
     }
@@ -124,7 +124,7 @@ public class UserTest {
     public void testAddJersey() {
         //Setup
         User user = new User(0, "Testing", expected_cart);
-        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16);
+        Jersey jersey = new Jersey(0, "Matt", 39.99f, Size.SMALL, false, 16, 10);
 
         //Invoke
         Jersey result = user.addJersey(jersey);
@@ -136,6 +136,7 @@ public class UserTest {
         assertEquals(Size.SMALL, result.getSize());
         assertEquals(false, result.getIsHome());
         assertEquals(16, result.getNumber());
+        assertEquals(10, result.getDiscount());
         //analyze cart 
         assertEquals(expected_cart.length+1, user.getCart().length);
     }
@@ -147,7 +148,7 @@ public class UserTest {
     public void testDeleteJersey() {
         //Setup
         User user = new User(0, "Testing", expected_cart);
-        Jersey deletedJersey = new Jersey(2, "Sidney", 50f, Size.LARGE, false, 29);
+        Jersey deletedJersey = new Jersey(2, "Sidney", 50f, Size.LARGE, false, 29, 10);
 
         //invoke
         boolean result = user.deleteJersey(deletedJersey);
@@ -167,7 +168,7 @@ public class UserTest {
     public void testDeleteJerseyNotFound() {
         //Setup
         User user = new User(0, "Testing", expected_cart);
-        Jersey deletedJersey = new Jersey(9, "Si", 50f, Size.LARGE, false, 29);
+        Jersey deletedJersey = new Jersey(9, "Si", 50f, Size.LARGE, false, 29, 10);
 
         //invoke
         boolean result = user.deleteJersey(deletedJersey);

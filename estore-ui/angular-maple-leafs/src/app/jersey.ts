@@ -14,4 +14,5 @@ export interface Jersey {
     size: Size,
     home: boolean,
     number: number,
+    discount: number,
 }

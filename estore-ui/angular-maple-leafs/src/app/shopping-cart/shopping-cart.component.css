@@ -14,6 +14,10 @@ button {
     margin: 10px;
 }
 
+.discount{
+    color: red;
+}
+
 button:hover {
     opacity: 0.8;
 }

@@ -2,7 +2,9 @@
 <h1 class = "title">Toronto Maple Leafs Jersey Store</h1>
 
 <div *ngIf="jersey; else noJersey">
-    
+    <div *ngIf="jersey.discount!=0">
+        <h2 class="discount">Discount: {{jersey.discount}}% off</h2>
+    </div>
     <h2>{{jersey.name}} {{jersey.number}}</h2>
     <div><span> <b>ID: </b> </span>{{jersey.id}}</div>
     <div><span> <b>Cost:</b>  $</span>{{jersey.cost}}</div>
@@ -28,7 +30,7 @@
             <button type="button" (click)="delete()">Delete</button>
         </span>
         <ng-template #user>
-            <button type="button" (click)="buy()">Add to cart</button>
+            <button type="button" (click)="addToCart()">Add to cart</button>
         </ng-template>
     </div> <br>
 

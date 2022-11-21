@@ -22,10 +22,11 @@ public class JerseyTest {
         Size expectedSize = Size.MEDIUM;
         boolean expectedIsHome = true;
         int expectedNumber = 93;
+        int expectedDiscount = 10;
         
 
         // Invoke
-        Jersey jersey = new Jersey(expected_id,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber);
+        Jersey jersey = new Jersey(expected_id,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber, expectedDiscount);
 
         // Analyze
         assertEquals(expected_id,jersey.getId());
@@ -34,6 +35,7 @@ public class JerseyTest {
         assertEquals(expectedSize,jersey.getSize());
         assertEquals(expectedIsHome,jersey.getIsHome());
         assertEquals(expectedNumber,jersey.getNumber());
+        assertEquals(expectedDiscount, jersey.getDiscount());
     }
 
     @Test
@@ -45,8 +47,9 @@ public class JerseyTest {
         Size expectedSize = Size.MEDIUM;
         boolean expectedIsHome = true;
         int expectedNumber = 93;
-        Jersey jersey = new Jersey(expected_id,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber);
-        Jersey jersey2 = new Jersey(expected_id+1,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber);
+        int expectedDiscount = 10;
+        Jersey jersey = new Jersey(expected_id,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber, expectedDiscount);
+        Jersey jersey2 = new Jersey(expected_id+1,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber, expectedDiscount);
 
         //Invoke
         boolean same_result = jersey.equals(jersey);
@@ -66,14 +69,16 @@ public class JerseyTest {
         Size expectedSize = Size.MEDIUM;
         boolean expectedIsHome = true;
         int expectedNumber = 93;
+        int expectedDiscount = 10;
         
 
         // Invoke
-        Jersey jersey = new Jersey(expected_id,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber);
-        Jersey jersey2 = new Jersey(expected_id,expected_name,expectedCost+.75f,expectedSize,expectedIsHome,expectedNumber);
-        Jersey jersey3 = new Jersey(expected_id,expected_name+"m",expectedCost,expectedSize,expectedIsHome,expectedNumber);
-        Jersey jersey4 = new Jersey(expected_id,expected_name,expectedCost,expectedSize,!expectedIsHome,expectedNumber);
-        Jersey jersey5 = new Jersey(expected_id,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber+5);
+        Jersey jersey = new Jersey(expected_id,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber, expectedDiscount);
+        Jersey jersey2 = new Jersey(expected_id,expected_name,expectedCost+.75f,expectedSize,expectedIsHome,expectedNumber, expectedDiscount);
+        Jersey jersey3 = new Jersey(expected_id,expected_name+"m",expectedCost,expectedSize,expectedIsHome,expectedNumber, expectedDiscount);
+        Jersey jersey4 = new Jersey(expected_id,expected_name,expectedCost,expectedSize,!expectedIsHome,expectedNumber, expectedDiscount);
+        Jersey jersey5 = new Jersey(expected_id,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber+5, expectedDiscount);
+        Jersey jersey6 = new Jersey(expected_id,expected_name,expectedCost,expectedSize,expectedIsHome,expectedNumber, expectedDiscount+5);
         
         //Analyze
         assertTrue(jersey.isSameContent(jersey));
@@ -82,5 +87,6 @@ public class JerseyTest {
         assertFalse(jersey.isSameContent(jersey3));
         assertFalse(jersey.isSameContent(jersey4));
         assertFalse(jersey.isSameContent(jersey5));
+        assertFalse(jersey.isSameContent(jersey6));
     }
 }

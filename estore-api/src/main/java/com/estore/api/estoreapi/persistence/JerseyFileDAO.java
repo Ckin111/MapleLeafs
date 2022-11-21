@@ -105,7 +105,8 @@ public class JerseyFileDAO implements JerseyDAO {
                     return null;
                 }
             }
-            Jersey newJersey = new Jersey(nextId(),jersey.getName(),jersey.getCost(),jersey.getSize(),jersey.getIsHome(),jersey.getNumber());
+            Jersey newJersey = new Jersey(nextId(),jersey.getName(),jersey.getCost(),
+                jersey.getSize(),jersey.getIsHome(),jersey.getNumber(), jersey.getDiscount());
             jerseys.put(newJersey.getId(), newJersey);
             save();
             return newJersey;

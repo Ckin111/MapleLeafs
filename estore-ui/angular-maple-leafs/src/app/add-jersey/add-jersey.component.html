@@ -23,5 +23,17 @@
     </div>
 
     <p> <b>Is player home?   </b><input type="checkbox" [(ngModel)]="isHome"/></p>
+
+    <div>
+        <div>
+            <label for="discount"><b>Jersey discount </b></label>
+        </div>
+        <input id="discount" type="number" placeholder="Enter jersey discount %" [(ngModel)]="discount"/>
+    </div>
+
+    <span class="bad" *ngIf="badData">
+        Discount number must be between 0 and 100<br>
+    </span>
+
     <button (click)="addJersey()"> Create! </button>
 </div>
