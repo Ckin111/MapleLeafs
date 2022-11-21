@@ -8,6 +8,9 @@
         <span *ngIf="jersey.home; else elseBlock">
           <span class="badge">{{jersey.number}} -</span> {{jersey.name}} - Home - {{jersey.size}} - 
           <span class="cost">${{jersey.cost}}</span>
+          <span class="discount" *ngIf="jersey.discount!=0">
+            Discount: {{jersey.discount}}% off
+          </span>
         </span>
         <ng-template #elseBlock>
           <span class="badge">{{jersey.number}} - </span> {{jersey.name}} - Away - {{jersey.size}} -
