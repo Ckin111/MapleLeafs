@@ -16,6 +16,7 @@ export class AddJerseyComponent implements OnInit {
   cost: number = NaN;
   size: number = 0;
   isHome: boolean = false;
+  discount: number = NaN;
 
   sizes = [
     {siz: "Small", val: 0},
@@ -30,7 +31,8 @@ export class AddJerseyComponent implements OnInit {
     number: 0,
     cost: 0,
     size: 0,
-    home: false
+    home: false,
+    discount: 0
   }
   constructor(private jerseyService: JerseyService, private location: Location) { }
 
@@ -43,6 +45,7 @@ export class AddJerseyComponent implements OnInit {
     this.jersey.cost = this.cost;
     this.jersey.size = this.size;
     this.jersey.home = this.isHome;
+    this.jersey.discount = this.discount;
 
     this.jerseyService.addJersey(this.jersey).subscribe(jersey => {this.jerseys.push(jersey);});
     this.location.back();

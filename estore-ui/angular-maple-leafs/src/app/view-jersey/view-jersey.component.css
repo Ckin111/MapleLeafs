@@ -13,6 +13,10 @@ h2{
     color: #0415aa;
 }
 
+.discount{
+    color: red;
+}
+
 button {
     background-color: #0415aa;
     color: white;

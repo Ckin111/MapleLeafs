@@ -25,6 +25,10 @@ a {
     margin: auto;
     margin-bottom: 10px;
 }
+
+.discount{
+    color: red;
+}
 .search-label{
     border-bottom: 0;
     padding-bottom: 0;

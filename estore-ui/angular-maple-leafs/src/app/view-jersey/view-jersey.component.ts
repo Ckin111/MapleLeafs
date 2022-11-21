@@ -26,6 +26,7 @@ export class ViewJerseyComponent implements OnInit {
   name: string = "test2"; //TODO
   owner: boolean = true; //TODO need to do login stuff
   home: boolean | undefined;
+  discount: number = 0;
   selectedSize: Size = Size.SMALL; //default start at small size
   jerseys: Jersey[] = [];
   messages: string[] = [];
@@ -95,9 +96,9 @@ export class ViewJerseyComponent implements OnInit {
   }
 
   /**
-   * buy a jersey
+   * add jersey to cart
    */
-  buy(): void {
+  addToCart(): void {
     if(this.jersey) {
       const newJersey: Jersey = {
         id: this.jersey.id,
@@ -105,7 +106,8 @@ export class ViewJerseyComponent implements OnInit {
         number: this.jersey.number,
         cost: this.jersey.cost,
         size: this.selectedSize,
-        home: this.jersey.home
+        home: this.jersey.home,
+        discount: this.jersey.discount
       }
       this.userService.addToCart(this.username, newJersey).subscribe(jersey => {this.jerseys.push(jersey);});
       this.messageService.add("Added Jersey with id " + newJersey.id + " to cart");

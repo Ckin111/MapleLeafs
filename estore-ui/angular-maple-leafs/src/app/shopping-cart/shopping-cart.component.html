@@ -12,6 +12,9 @@
         <ng-template #elseBlock>
           <span class="badge">{{jersey.number}} - </span> {{jersey.name}} - Away - {{jersey.size}} -
           <span class="cost">${{jersey.cost}} </span>
+          <span class="discount" *ngIf="jersey.discount!=0">
+            Discount: {{jersey.discount}}% off
+          </span>
         </ng-template>
         <button type="button" class="delete" title="remove jersey" (click)="delete(jersey)">X</button>
       </div>

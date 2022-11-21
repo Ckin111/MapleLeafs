@@ -10,14 +10,15 @@ import { Location } from '@angular/common';
 })
 export class EditJerseyComponent implements OnInit {
   jerseys: Jersey[] = [];
-
+  badData: boolean = false;
   jersey: Jersey = {
     id: -1,
     name: "",
     cost: NaN,
     size: NaN,
     home: false,
-    number: NaN
+    number: NaN,
+    discount: NaN
   };
   owner: boolean = true; //TODO need to do login stuff
 
@@ -41,9 +42,14 @@ export class EditJerseyComponent implements OnInit {
   }
 
   save(): void {
-    this.jerseyService.editJersey(this.jersey).subscribe(jersey => {this.jerseys.push(jersey);});
-    // this.router.navigateByUrl("view/" + this.jersey.id);
-    this.back();
+    if(this.jersey.discount<0 || this.jersey.discount>100) {
+      this.badData = true;
+    }
+    else{
+      this.jerseyService.editJersey(this.jersey).subscribe(jersey => {this.jerseys.push(jersey);});
+      this.back();
+    }
+    
   }
 
 }

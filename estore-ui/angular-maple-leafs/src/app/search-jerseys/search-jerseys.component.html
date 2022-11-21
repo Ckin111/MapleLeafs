@@ -10,9 +10,17 @@
     <div class="jerseys" *ngFor="let jersey of jerseys$ | async" >
       <a *ngIf="jersey.home; else elseBlock" routerLink="/view/{{jersey.id}}/{{username}}">
         {{jersey.name}} <br> {{jersey.number}} <br> Home
+        <span class="discount" *ngIf="jersey.discount!=0">
+          <br>Discount: {{jersey.discount}}% off
+        </span>
       </a>
       <ng-template #elseBlock>
-        <a routerLink="/view/{{jersey.id}}/{{username}}"> {{jersey.name}} <br> {{jersey.number}} <br> Away </a>
+        <a routerLink="/view/{{jersey.id}}/{{username}}"> 
+          {{jersey.name}} <br> {{jersey.number}} <br> Away
+          <span class="discount" *ngIf="jersey.discount!=0">
+            <br>Discount: {{jersey.discount}}% off
+          </span>
+        </a>
       </ng-template>
     </div>
   </div>
