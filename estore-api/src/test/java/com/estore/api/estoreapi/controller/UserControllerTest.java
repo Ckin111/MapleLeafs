@@ -228,7 +228,7 @@ public class UserControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         float actual = response.getBody();
         assertNotNull(actual);
-        assertEquals(130, actual);
+        assertEquals(125, actual);
     }
 
     @Test

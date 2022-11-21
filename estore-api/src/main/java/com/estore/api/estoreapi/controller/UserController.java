@@ -216,7 +216,14 @@ public class UserController {
             else {
                 float total = 0;
                 for(int i = 0; i < cart.length; i++) {
-                    total += cart[i].getCost();
+                    Jersey jersey = cart[i];
+                    if(jersey.getDiscount() == 0) {
+                        total += jersey.getCost();
+                    }
+                    else {
+                        total += jersey.getCost() - jersey.getCost()*jersey.getDiscount()/100;
+                    }
+                    
                 }
                 return new ResponseEntity<Float>(total, HttpStatus.OK);
             }
