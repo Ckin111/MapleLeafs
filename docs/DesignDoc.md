@@ -35,12 +35,15 @@ The website also has users which have a username and a shopping cart which is pe
 
 ## Requirements
 
-This section describes the features of the application.
+Requirements consisted of giving admin the ability to modify the inventory, allowing users to modify their shopping cart, and providing general viewing and browsing of the the jersey products in the store.
 
-The application allows for the admin and user to log in and for new users to register for their account. 
-It allows for the admin to preform the CRUD operations on a stock of jerseys to which the users will be able to browse, view, and add to their shopping cart. 
-It allows for the user to add and delete items from their shopping cart and 'buy' the items once they are ready. Furthermore, if a user has a full shopping cart and logs out, their cart will be saved.
-The website also allows quick access to every product via a search bar. 
+<br><br><br>
+
+| Epic | Stories |
+|------|------------|
+| Admin Management | <ul><li>Login</li><li>Browse Products</li><li>Search Products</li><li>Edit Jerseys in Store</li><li>Add Jerseys to Store</li><li>Delete Jerseys From Store</li></ul> |
+| User Interacting with Store | <ul><li>Login</li><li>Browse Products</li> <li>Search Products</li><li>Buyer Add/Remove from Cart</li><li>Buyer Save to Cart</li></ul> |
+| Jersey in Store | <ul><li>View Jersey</li><li>Browse Products</li><li>Search Products</li><li>User: Jerseys Shown in Cart</li></ul> |
 
 ### Definition of MVP
 The admin and users must be able to login. New users are able to register new accounts.
@@ -49,9 +52,9 @@ The user must be able to add, delete, and checkout their shopping cart which als
 The website must allow quick and easy access to the products with a postive user experince. 
 
 ### MVP Features and the names of their stories
-Admin management
-Buyer interacting with store
-Jerseys in the store
+Admin management - allowing the admin to modify the inventory<br>
+User interacting with store - allowing users to modify their shopping cart, as well as saving the shopping cart after logout<br>
+Jerseys in the store - allowing any account to browse, search, and view jersey products
 
 
 ### Roadmap of Enhancements
@@ -60,56 +63,30 @@ Jerseys in the store
 
 ## Application Domain
 
-This section describes the application domain.
+In the domain, it shows that the website has two different types of accounts that can interact with it: admin and user. There is only one admin. The admin manages the store and the jerseys. In contrast, there are many users who interact with the store by storing jerseys in their individual shopping cart. The user can check out with the shopping cart in order to buy the stored jersey items.
 
 ![Domain Model](Domain_Analysis.png)
 
 
 This is a Noun/Verb analysis relating to our domain model which is now represented in code through various classes. 
 
-Nouns: 
-  Jerseys
-    Name
-    Number
-    Cost
-    Home/Away
-    Sales/Discounts
-    Size
-      XS
-      Small 
-      Medium
-      Large
-      XL
-
-  Store
-
-  Account
-    Username
-    ID
-    
-  Admin
-  User
-
-  Shopping Carts
-    Total cost
-
-  Sales/discounts
+| Noun | Attributes |
+|------|------------|
+| Jerseys | <ul><li>Name</li><li>Number</li><li>Cost</li><li>Home/Away</li><li>Sales/Discounts/</li><li>Size: Small, Medium, Large, XL</li> |
+| Store | |
+| Account | <ul><li>Username</li><li>ID</li></ul>|
+| Admin | |
+| User | |
+| Shopping Cart | <ul><li>Total Cost</li></ul> |
 
 Verbs:
-  Managed by
-  Are managed by
-  Interacts with
-  Checks out with
-  Is shown in
-  Is an attribute of
-  Stored in
+  <ul><li>Managed by</li><li>Are managed by</li><li>Interacts with</li><li>Checks out with</li><li>Is shown in</li><li>Is an attribute of</li><li>Stored in</li>
 
 
 ## Architecture and Design
+The backend uses SpringBoot to build an API using a model-controller-DAOfile setup. The model holds the blueprint for an object, the DAOfile persistently stores and modifies data objects in a JSON file, and the controller allows outside clients to perform actions on the data. Jerseys and Users are both managed using this model-controller-DAOfile build. 
 
-Using Spring boot, the backend has persistent storage and a consistent model of objects using the controller, model, and persistence setup. 
-Jerseys and Users have their respective controller, model, and persistence files which allow for operations and storage through JSON files. 
-The frontend is built using angular and through the jersey.service.ts and user.service.ts files are able to access the backend data and use the data to deliver a UI that can support persistent storage. 
+The frontend is built using angular. The jersey.service.ts and user.service.ts files are able to access the backend data and share the data to other files in the project. These parts are built using typescript. The typescript can then be used in the html to connect the backend data to the UI. CSS is added to the html to add aesthetics. 
 
 ### Summary
 
@@ -191,8 +168,7 @@ Testing was done using JaCoCo test coverage and JUnit tests. No testing was done
 
 ### Acceptance Testing
 Acceptance criteria was made in the form GIVEN some precondition WHEN I do some action THEN I expect some result.
-15 user stories have passed all their acceptance criteria tests. 3 user stories each have one test failing. These include, search jerseys, edit jerseys, and checkout. Search jerseys requires the user to input a space in the search bar before all jerseys are displayed. Edit jerseys does not have the form autofilled, so the admin could accidentally fill out the form wrong by not filling in the previous data on the form, causing a blank jersey to be created. Checkout does not display the correct total cost of the jerseys.
-2 user stories have not been tested because they are still on the sprint backlog.
+21 user stories have passed all their acceptance criteria tests. There are no stories that have failed tests, nor are there aany more stories on the product backlog.
 
 ### Unit Testing and Code Coverage
 
