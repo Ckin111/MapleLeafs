@@ -157,6 +157,19 @@ Below are two sequence diagrams that show how the admin and user interact with t
 > addressed with design changes, and describe those suggested design
 > improvements._
 
+Some design improvements that we would make as a team in the future would be to revaluate what methods and classes actually need to be public in order to funtion. This is highlighted in our report through 'code smells' as a majority of these alerts are in the test classes and are stating that the public status is most likely not needed. Other things that the analysis helped uncover is that we could use built in formatting to construct certian arguements in the controller classes. In a design improvement standpoint then, we will evaluate whether our code is protecting its data properly. 
+
+![Sprint4Sonar1](Sprint4Sonar1.png)
+
+One bug that was uncovered was an error in a test where there was an assert statement comparing a primitive value to null. This essentially makes the test useless as the assert statement will always be false as they are comparing two incompatible types. So in the future for design improvements we will give more attention to proofreading tests. 
+
+![Sprint4Sonar2](Sprint4Sonar2.png)
+
+The remaining two bugs are related to overriding the hashcode function of our two model objects User and Jersey. This insight gives us an idea of something to implement in the future. 
+
+![Sprint4Sonar3](Sprint4Sonar3.png)
+
+
 > _With the results from the Static Code Analysis exercise, 
 > discuss the resulting issues/metrics measurements along with your analysis
 > and recommendations for further improvements. Where relevant, include 
