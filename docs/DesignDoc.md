@@ -58,7 +58,9 @@ Jerseys in the store - allowing any account to browse, search, and view jersey p
 
 
 ### Roadmap of Enhancements
-Changing 10% feature to be able to apply throughout the store
+<ol><li>Allow can view all users and delete accounts</li>
+<li>Users can delete their account</li>
+<li>Changing 10% feature to be able to apply throughout the store</li></ol>
 
 
 ## Application Domain
@@ -140,12 +142,15 @@ Below are two sequence diagrams that show how the admin and user interact with t
 
 ### Model Tier
 
-> _Provide a summary of this tier of your architecture. This
-> section will follow the same instructions that are given for the View
-> Tier above._
+The model tier consists of the object classes User and Jersey, as well as the persistence DAO classes. The object classes are definitions for user and jersey objects. The DAOs use these definition classes in order to create a JSON file backend that stores these types of objects. Below is a UML diagram of these classes, along with an arrow legend.
 
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class diagrams) with some details such as critical attributes and methods._
+![UML_Legend](UML_Legend.gif)
+
+![UML_Diagram](UML_MapleLeafs.png)
+
+The user equals method will show that users are equal if they have the same username. The user compareTo method compares the IDs of a user. The jersey equals methods will show that jerseys are equal if they have the same ID. This method is meant to be used in checking inventory. However, it cannot be used to check if jersey conflicts occur when adding a new jersey. The isSameContent method takes care of this by comparing all jersey attributes except the size and id. The size is left out because the backend store has an unlimited amount of all jerseys so we can assume that all sizes are included in the backend. Size only matters when a user picks the size of a jersey and adds it to the cart.
+
+Note that some of the methods in the UserFileDAO are not actually called upon in the website. This includes deleteUser and both getUsersArray methods. This is because the site does not allow users to be deleted nor does it ever display all the users. Future improvements to the website could be to add utilization of these methods in the website. For example, we could allow the Admin to look at all the users and delete some if needed. We could also allow users to delete their account if they no longer wish to have one.
 
 ### Design Principles
 The three design principles that are mainly focused on are single responsibility, information expert, and dependency injection.
@@ -176,9 +181,11 @@ The remaining two bugs are related to overriding the hashcode function of our tw
 
 ![Sprint4Sonar3](Sprint4Sonar3.png)
 
-All in all, our design is far from perfect and would most likely benefit from a couple small changes here and there as highlighted above and in the design principle section. There are also some high level design choices we made that we will also review to see if improvements can be made. One such high level design choice is our way of implementing users and their shopping carts. If it became increasingly difficult to manage added features or save the shopping cart in its current state as an attribute of the user then we would probably consider making the shopping cart its own separate class and separate persistence database/file. Of course, this would be very time consuming and the benefits to change it in this way may not be worth it or really exist at all. So more analysis is needed in order to determine if such a change is necessary. 
+All in all, our design is far from perfect and would most likely benefit from a couple small changes here and there as highlighted above and in the design principle section and model tier section. The main points to focus on are cleaning up the code that is unused and changing our code to adhere to the design principles we are following.
 
-In addition, our most recent feature discounts may also have room to improve. Currently, the admin can apply a discount by going to the jersey's update page and changing the discount percentage. However, this may not be the best implementation as it requires the admin to go to each individual jersey to apply the discount. So if the admin was setting up a large clearance sale for instance, they would be frustrated with having to do all the jerseys separately. To remediate this, we could create a separate page for the admin to put in a percentage discount and then click to apply that discount to the appropriate jerseys. This page could even have the search bar to make finding the jerseys that the admin wants to discount easier to find. 
+There are also some high level design choices we made that we will also review to see if improvements can be made. One such high level design choice is our way of implementing users and their shopping carts. If it became increasingly difficult to manage added features or save the shopping cart in its current state as an attribute of the user then we would probably consider making the shopping cart its own separate class and separate persistence database/file. Of course, this would be very time consuming and the benefits to change it in this way may not be worth it or really exist at all. So more analysis is needed in order to determine if such a change is necessary. 
+
+In addition, our most recent feature, discounts, may also have room to improve. Currently, the admin can apply a discount by going to the jersey's update page and changing the discount percentage. However, this may not be the best implementation as it requires the admin to go to each individual jersey to apply the discount. So if the admin was setting up a large clearance sale for instance, they would be frustrated with having to do all the jerseys separately. To remediate this, we could create a separate page for the admin to put in a percentage discount and then click to apply that discount to the appropriate jerseys. This page could even have the search bar to make finding the jerseys that the admin wants to discount easier to find. 
 
 ## Testing
 
