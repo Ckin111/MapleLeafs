@@ -58,7 +58,7 @@ Jerseys in the store - allowing any account to browse, search, and view jersey p
 
 
 ### Roadmap of Enhancements
-<ol><li>Allow can view all users and delete accounts</li>
+<ol><li>Admin can view all users and delete accounts</li>
 <li>Users can delete their account</li>
 <li>Changing 10% feature to be able to apply throughout the store</li></ol>
 
