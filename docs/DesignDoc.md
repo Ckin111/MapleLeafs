@@ -58,7 +58,7 @@ Jerseys in the store - allowing any account to browse, search, and view jersey p
 
 
 ### Roadmap of Enhancements
-<ol><li>Admin can view all users and delete accounts</li>
+<ol><li>Add images to accompany jerseys</li><li>Admin can view all users and delete accounts</li>
 <li>Users can delete their account</li>
 <li>Changing 10% feature to be able to apply throughout the store</li></ol>
 
@@ -186,6 +186,8 @@ All in all, our design is far from perfect and would most likely benefit from a 
 There are also some high level design choices we made that we will also review to see if improvements can be made. One such high level design choice is our way of implementing users and their shopping carts. If it became increasingly difficult to manage added features or save the shopping cart in its current state as an attribute of the user then we would probably consider making the shopping cart its own separate class and separate persistence database/file. Of course, this would be very time consuming and the benefits to change it in this way may not be worth it or really exist at all. So more analysis is needed in order to determine if such a change is necessary. 
 
 In addition, our most recent feature, discounts, may also have room to improve. Currently, the admin can apply a discount by going to the jersey's update page and changing the discount percentage. However, this may not be the best implementation as it requires the admin to go to each individual jersey to apply the discount. So if the admin was setting up a large clearance sale for instance, they would be frustrated with having to do all the jerseys separately. To remediate this, we could create a separate page for the admin to put in a percentage discount and then click to apply that discount to the appropriate jerseys. This page could even have the search bar to make finding the jerseys that the admin wants to discount easier to find. 
+
+Another improvement that can be made is adding pictures to the jerseys. This will allow for a better user interface. It will also allow users to see the product they are buying instead of reading a description. It will also make it easier for the admin to know what they are trying to sell.
 
 ## Testing
 
