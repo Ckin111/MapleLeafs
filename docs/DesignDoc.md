@@ -161,6 +161,8 @@ Some design improvements that we would make as a team in the future would be to 
 
 ![Sprint4Sonar1](Sprint4Sonar1.png)
 
+![Sprint4Sonar4](Sprint4Sonar4.png)
+
 One bug that was uncovered was an error in a test where there was an assert statement comparing a primitive value to null. This essentially makes the test useless as the assert statement will always be false as they are comparing two incompatible types. So in the future for design improvements we will give more attention to proofreading tests. 
 
 ![Sprint4Sonar2](Sprint4Sonar2.png)
@@ -169,6 +171,9 @@ The remaining two bugs are related to overriding the hashcode function of our tw
 
 ![Sprint4Sonar3](Sprint4Sonar3.png)
 
+All in all, our design is far from perfect and would most likely benefit from a couple small changes here and there as highlighted above. There are also some high level design choices we made that we will also review to see if improvements can be made. One such high level design choice is our way of implementing users and their shopping carts. If it became increasingly difficult to manage added features or save the shopping cart in its current state as an attribute of the user then we would probably consider making the shopping cart its own separate class and separate persistence database/file. Of course, this would be very time consuming and the benefits to change it in this way may not be worth it or really exist at all. So more analysis is in order to determine if such a change is necessary. 
+
+An addition to our most recent feature of discounts also may have room to improve. Currently, the admin can apply a discount by going to the jersey's update page and changing the discount percentage. However, this may not be the best implementation as it requires the admin to go to each individual jersey to apply the discount. So if the admin was setting up a large clearance sale for instance, they would be frustrated with having to do all the jerseys separately. To remediate this, we could create a separate page for the admin to put in a percentage discount and then click to apply that discount to the appropriate jerseys. This page could even have the search bar to make finding the jerseys that the admin wants to discount easier to find. 
 
 > _With the results from the Static Code Analysis exercise, 
 > discuss the resulting issues/metrics measurements along with your analysis
