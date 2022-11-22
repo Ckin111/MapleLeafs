@@ -58,7 +58,7 @@ Jerseys in the store - allowing any account to browse, search, and view jersey p
 
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
+Changing 10% feature to be able to apply throughout the store
 
 
 ## Application Domain
@@ -84,7 +84,7 @@ Verbs:
 
 
 ## Architecture and Design
-The backend uses SpringBoot to build an API using a model-controller-DAOfile setup. The model holds the blueprint for an object, the DAOfile persistently stores and modifies data objects in a JSON file, and the controller allows outside clients to perform actions on the data. Jerseys and Users are both managed using this model-controller-DAOfile build. 
+The backend uses SpringBoot to build an API using a model-controller-DAOfile setup. The model holds the blueprint for an object, the DAOfile persistently stores and modifies data objects in a JSON file, and the controller allows outside clients to perform actions on the data. Jerseys and Users are both managed using this model-controller-DAOfile build. Furthermore, the backend prioritizes the use of the design principles single responsibility, information expert, and dependency injection.
 
 The frontend is built using angular. The jersey.service.ts and user.service.ts files are able to access the backend data and share the data to other files in the project. These parts are built using typescript. The typescript can then be used in the html to connect the backend data to the UI. CSS is added to the html to add aesthetics. 
 
@@ -95,13 +95,11 @@ The following Tiers/Layers model shows a high-level view of the webapp's archite
 ![The Tiers & Layers of the Architecture](architecture-tiers-and-layers.png)
 
 The e-store web application, is built using the Model–View–ViewModel (MVVM) architecture pattern. 
-
 The Model stores the application data objects including any functionality to provide persistance. 
-
 The View is the client-side SPA built with Angular utilizing HTML, CSS and TypeScript. The ViewModel provides RESTful APIs to the client (View) as well as any logic required to manipulate the data objects from the Model.
+Both the ViewModel and Model are built using Java and Spring Framework. Details of the components within these tiers are supplied in the sections below.
 
-Both the ViewModel and Model are built using Java and Spring Framework. Details of the components within these tiers are supplied below.
-
+Model and the backend part of View-Model tier follow the design principles: single responsibility, information expert, and dependency injection. Single responsibility is shown through each specialized class having a specialized job. Information expert is shown through each class having control over the data that they access. Dependency injection is shown through using interfaces for DAO.
 
 ### Overview of User Interface
 
@@ -149,13 +147,20 @@ Below are two sequence diagrams that show how the admin and user interact with t
 > _At appropriate places as part of this narrative provide one or more
 > static models (UML class diagrams) with some details such as critical attributes and methods._
 
-### Static Code Analysis/Design Improvements
+### Design Principles
+The three design principles that are mainly focused on are single responsibility, information expert, and dependency injection.
 
-> _Discuss design improvements that you would make if the project were
-> to continue. These improvement should be based on your direct
-> analysis of where there are problems in the code base which could be
-> addressed with design changes, and describe those suggested design
-> improvements._
+Single responsibility is where each class should have a single, tightly focused responsibility. This applies to all classes in the backend. There are three classes that deal with jerseys and another three classes that deal with users. Each group of three classes is divided into the model, the persistence, and the controller. This allows each class to have a very specific role (model, persistence, or controller) for a specific object (jersey or user).
+
+Information expert is the principle where behavior follows the data. This is shown in both the fileDAO classes and the user class. The user class holds a cart. Instead of having an outside force manually update the cart for the user, the user class instead has methods that implement cart changes and returns corresponding information. The jersey DAO manages its list of jersey and user DAO manages its list of users. Any changes to a user's cart is done by calling the user class's methods.
+
+Dependency injection is done to provide looser coupling between dependent entities. This allows more flexibility in the code. Instead of having only one specific low-level module that is owned in a class, the class takes an injection (parameter) of a module that is needed. This injection could be a different implementation of the same type of module. This is displayed in the DAO interfaces, where it is known that any type of DAO will have those specific methods, but their implementation can be entirely different. For example, if we changed the JerseyFileDAO into a database. The databaseDAO methods would do the same thing but in a different way from the the JerseyFileDAO.
+
+Although the above principles are followed well, there is one class that does not completely follow the principle information expert. In doing so, it also violates some other design principles not discussed, such as law of demeter. The problem resides within the getTotalCost method in UserController. This method should actually be implemented in the user model class, since total cost is a calculation using the data in the user's cart. However, due to rushed time, this principle was ignored. In the future, the total cost behavior should be moved to the user class.
+
+Other parts where the design principle fails are in the frontend. Due to frontend being a language that is not object-oriented, most design principles that were considered for the backend are ignored in the frontend. However, it should be noted that one issue that is checked in the frontend is not checked in the backend. This is the issue of creating a bound for the discount of a jersey. In the backend, the user could input a discount of -10 or 110, which doesn't make sense in the context and would also give a wrong totalCost. This is taken care of in the frontend, but this violates the design principle information expert. In the future we should change this to work in the backend.
+
+### Static Code Analysis/Design Improvements
 
 Some design improvements that we would make as a team in the future would be to revaluate what methods and classes actually need to be public in order to funtion. This is highlighted in our report through 'code smells' as a majority of these alerts are in the test classes and are stating that the public status is most likely not needed. Other things that the analysis helped uncover is that we could use built in formatting to construct certian arguements in the controller classes. In a design improvement standpoint then, we will evaluate whether our code is protecting its data properly. 
 
@@ -171,18 +176,13 @@ The remaining two bugs are related to overriding the hashcode function of our tw
 
 ![Sprint4Sonar3](Sprint4Sonar3.png)
 
-All in all, our design is far from perfect and would most likely benefit from a couple small changes here and there as highlighted above. There are also some high level design choices we made that we will also review to see if improvements can be made. One such high level design choice is our way of implementing users and their shopping carts. If it became increasingly difficult to manage added features or save the shopping cart in its current state as an attribute of the user then we would probably consider making the shopping cart its own separate class and separate persistence database/file. Of course, this would be very time consuming and the benefits to change it in this way may not be worth it or really exist at all. So more analysis is in order to determine if such a change is necessary. 
+All in all, our design is far from perfect and would most likely benefit from a couple small changes here and there as highlighted above and in the design principle section. There are also some high level design choices we made that we will also review to see if improvements can be made. One such high level design choice is our way of implementing users and their shopping carts. If it became increasingly difficult to manage added features or save the shopping cart in its current state as an attribute of the user then we would probably consider making the shopping cart its own separate class and separate persistence database/file. Of course, this would be very time consuming and the benefits to change it in this way may not be worth it or really exist at all. So more analysis is needed in order to determine if such a change is necessary. 
 
-An addition to our most recent feature of discounts also may have room to improve. Currently, the admin can apply a discount by going to the jersey's update page and changing the discount percentage. However, this may not be the best implementation as it requires the admin to go to each individual jersey to apply the discount. So if the admin was setting up a large clearance sale for instance, they would be frustrated with having to do all the jerseys separately. To remediate this, we could create a separate page for the admin to put in a percentage discount and then click to apply that discount to the appropriate jerseys. This page could even have the search bar to make finding the jerseys that the admin wants to discount easier to find. 
-
-> _With the results from the Static Code Analysis exercise, 
-> discuss the resulting issues/metrics measurements along with your analysis
-> and recommendations for further improvements. Where relevant, include 
-> screenshots from the tool and/or corresponding source code that was flagged._
+In addition, our most recent feature discounts may also have room to improve. Currently, the admin can apply a discount by going to the jersey's update page and changing the discount percentage. However, this may not be the best implementation as it requires the admin to go to each individual jersey to apply the discount. So if the admin was setting up a large clearance sale for instance, they would be frustrated with having to do all the jerseys separately. To remediate this, we could create a separate page for the admin to put in a percentage discount and then click to apply that discount to the appropriate jerseys. This page could even have the search bar to make finding the jerseys that the admin wants to discount easier to find. 
 
 ## Testing
 
-Testing was done using JaCoCo test coverage and JUnit tests. No testing was done on the UI component besides people going through the website. 
+Testing was done on the backend by using JUnit tests and test coverage was done using JaCoCo. Tests were made to follow the different branches that were made for each method. Only public methods were tested. If private methods were tested, they were done so indirectly. No testing was done on the UI component besides people going through the website. Acceptance testing was mainly determined to pass by going through the website or entering curl commands.
 
 ### Acceptance Testing
 Acceptance criteria was made in the form GIVEN some precondition WHEN I do some action THEN I expect some result.
